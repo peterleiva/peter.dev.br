@@ -1,0 +1,17 @@
+{
+	"extends": ["eslint:recommended", "prettier"],
+	"overrides": [
+		{
+			"files": ["**/*.{ts,tsx}"],
+			"parser": "@typescript-eslint/parser",
+			"plugins": ["@typescript-eslint"],
+			"extends": ["plugin:@typescript-eslint/recommended"]
+		},
+		{
+			"files": "**/__tests__/**",
+			"env": {
+				"jest": true
+			}
+		}
+	]
+}
