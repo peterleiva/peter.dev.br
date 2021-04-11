@@ -1,7 +1,7 @@
 {
 	"extends": "../tsconfig.base.json",
 	"compilerOptions": {
-		"jsx": "preserve",
+		"module": "esnext",
 		"baseUrl": ".",
 		"paths": {
 			"*": ["src/*"],
@@ -9,6 +9,7 @@
 			"pages/*": ["src/pages/*"]
 		},
 		"lib": ["dom", "dom.iterable", "esnext"],
+		"jsx": "preserve",
 		"allowJs": true,
 		"noEmit": true,
 		"moduleResolution": "node",
