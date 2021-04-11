@@ -12,6 +12,16 @@
 			"env": {
 				"jest": true
 			}
+		},
+		{
+			"files": ["./*.js", "./packages/*.js", "./packages/*/*.js"],
+			"env": {
+				"node": true
+			},
+			"extends": ["plugin:node/recommended"],
+			"parserOptions": {
+				"ecmaVersion": 2020
+			}
 		}
 	]
 }
