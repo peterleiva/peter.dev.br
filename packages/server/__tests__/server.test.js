@@ -1,3 +1,3 @@
-describe("server", () => {
-	it("needs tests");
+describe('server', () => {
+  it('needs tests');
 });
