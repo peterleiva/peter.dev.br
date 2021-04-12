@@ -1,0 +1,7 @@
+node_modules
+dist
+coverage
+.next
+package-lock.json
+tsconfig.*json
+package.json

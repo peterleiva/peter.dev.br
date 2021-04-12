@@ -8,7 +8,7 @@
     "packages/*"
   ],
   "scripts": {
-    "lint": "eslint --ignore-path .gitignore \".\"",
+    "lint": "eslint \".\"",
     "prettier": "prettier \".\"",
     "format:check": "npm run prettier -- --check",
     "format": "npm run prettier -- --write",
@@ -33,6 +33,7 @@
     "eslint-config-airbnb-typescript": "^12.3.1",
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-jest": "^24.3.5",
+    "eslint-plugin-json": "^2.1.2",
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-react": "^7.23.2",
