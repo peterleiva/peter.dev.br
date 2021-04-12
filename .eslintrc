@@ -2,26 +2,17 @@
 	"extends": ["eslint:recommended", "prettier"],
 	"overrides": [
 		{
-			"files": ["**/*.{ts,tsx}"],
-			"parser": "@typescript-eslint/parser",
-			"plugins": ["@typescript-eslint"],
-			"extends": ["plugin:@typescript-eslint/recommended"]
-		},
-		{
 			"files": "**/__tests__/**",
-			"env": {
-				"jest": true
-			}
+			"extends": "./eslint/jest"
 		},
 		{
-			"files": ["./*.js", "./packages/*.js", "./packages/*/*.js"],
-			"env": {
-				"node": true
-			},
-			"extends": ["plugin:node/recommended"],
-			"parserOptions": {
-				"ecmaVersion": 2020
-			}
+			"files": [
+				"./*.js",
+				"./packages/*.js",
+				"./packages/*/*.js",
+				"./eslint/**/*.js"
+			],
+			"extends": "./eslint/node"
 		}
 	]
 }

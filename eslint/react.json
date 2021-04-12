@@ -1,0 +1,29 @@
+{
+	"env": {
+		"browser": true,
+		"es2021": true
+	},
+	"plugins": ["jsx-a11y"],
+	"parserOptions": {
+		"ecmaFeatures": "jsx"
+	},
+
+	"extends": [
+		"plugin:react/recommended",
+		"plugin:react-hooks/recommended",
+		"plugin:jsx-a11y/recommended"
+	],
+
+	"settings": {
+		"react": {
+			"createClass": "createReactClass",
+			"pragma": "React",
+			"fragment": "Fragment",
+			"version": "detect",
+			"linkComponents": [
+				"Hyperlink",
+				{ "name": "Link", "linkAttribute": "href" }
+			]
+		}
+	}
+}

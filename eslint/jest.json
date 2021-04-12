@@ -1,0 +1,14 @@
+{
+	"extends": ["plugin:jest/recommended"],
+
+	"env": {
+		"jest/globals": true
+	},
+	"plugins": ["jest"],
+
+	"settings": {
+		"jest": {
+			"version": "detect"
+		}
+	}
+}

@@ -1,0 +1,10 @@
+{
+	"env": {
+		"node": true,
+		"es2020": true
+	},
+	"extends": ["plugin:node/recommended"],
+	"parserOptions": {
+		"ecmaVersion": 2020
+	}
+}
