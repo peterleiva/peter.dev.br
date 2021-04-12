@@ -13,6 +13,10 @@
 				"./eslint/**/*.js"
 			],
 			"extends": "./eslint/node"
+		},
+		{
+			"files": "**/*.json",
+			"extends": "plugin:json/recommended"
 		}
 	]
 }
