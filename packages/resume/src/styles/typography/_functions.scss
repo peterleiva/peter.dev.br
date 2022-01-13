@@ -1,5 +1,5 @@
-@use "modularscale" as scale;
 @use "sass:math";
+@use "modularscale" as scale;
 
 @function baseline($scale: 1) {
 	$lines: math.floor($scale);

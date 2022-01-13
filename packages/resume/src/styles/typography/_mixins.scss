@@ -3,15 +3,15 @@
 
 @mixin setup() {
 	body {
-		@include type-scale();
+		@include scale();
 	}
 }
 
-@mixin type-scale($scale: 0) {
-	@include type-setting(scale.ms($scale));
+@mixin scale($multiplier: 0) {
+	@include setting(scale.ms($multiplier));
 }
 
-@mixin type-setting($font-size) {
+@mixin setting($font-size) {
 	font-size: $font-size;
 	line-height: baseline(required-lines($font-size));
 }

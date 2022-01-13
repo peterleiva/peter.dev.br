@@ -5,10 +5,10 @@
 @include setup();
 
 :root {
-	--space-line-1: baseline(1);
-	--space-line-2: baseline(2);
-	--space-line-3: baseline(3);
-	--space-line-4: baseline(4);
+	--space: #{baseline(1)};
+	--space-md: #{baseline(2)};
+	--space-lg: #{baseline(3)};
+	--space-xl: #{baseline(4)};
 }
 
 @font-face {
@@ -18,16 +18,20 @@
 
 body {
 	font-family: Josefin Sans, OpenSans, sans-serif;
+	font-weight: 340;
 }
 
 h1 {
-	@include type-scale(4);
+	@include scale(4);
+	font-weight: 100;
 }
 
 h2 {
-	@include type-setting(18px);
+	@include setting(18px);
+	font-weight: 500;
 }
 
 h3 {
-	@include type-setting(17px);
+	@include setting(17px);
+	font-weight: 400;
 }
