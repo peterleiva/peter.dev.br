@@ -9,6 +9,11 @@
 	--space-md: #{baseline(2)};
 	--space-lg: #{baseline(3)};
 	--space-xl: #{baseline(4)};
+
+	--weight-light: 100;
+	--weight-regular: 340;
+	--weight-bold: 400;
+	--weight-bolder: 500;
 }
 
 @font-face {
@@ -18,20 +23,23 @@
 
 body {
 	font-family: Josefin Sans, OpenSans, sans-serif;
-	font-weight: 340;
+	font-weight: var(--weight-regular);
 }
 
-h1 {
+h1,
+.h1 {
 	@include scale(4);
-	font-weight: 100;
+	font-weight: var(--weight-light);
 }
 
-h2 {
+h2,
+.h2 {
 	@include setting(18px);
-	font-weight: 500;
+	font-weight: var(--weight-bolder);
 }
 
-h3 {
+h3,
+.h3 {
 	@include setting(17px);
-	font-weight: 400;
+	font-weight: var(--weight-bold);
 }
