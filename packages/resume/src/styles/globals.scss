@@ -1,35 +1,11 @@
-html,
-body {
-	padding: 0;
-	margin: 0;
-	font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-		Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-
-	font-size: var(--base-fontsize);
-	line-height: var(--base-line-height);
-}
-
-body,
-html,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p {
-	margin: 0;
-	padding: 0;
-}
+@use "typography";
+@use "modern-css-reset";
 
 * {
 	box-sizing: border-box;
 }
 
 :root {
-	--base-fontsize: 14px;
-	--base-line-height: 1.71;
-
 	--space-default: 1rem;
 
 	--color-link: rgb(134, 139, 141);
