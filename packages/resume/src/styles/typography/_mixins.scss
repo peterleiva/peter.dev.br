@@ -1,0 +1,17 @@
+@use "modularscale" as scale;
+@use "functions" as *;
+
+@mixin setup() {
+	body {
+		@include type-scale();
+	}
+}
+
+@mixin type-scale($scale: 0) {
+	@include type-setting(scale.ms($scale));
+}
+
+@mixin type-setting($font-size) {
+	font-size: $font-size;
+	line-height: baseline(required-lines($font-size));
+}

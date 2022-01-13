@@ -1,0 +1,33 @@
+@use "sass:math";
+@use "mixins" as *;
+@use "functions" as *;
+
+@include setup();
+
+:root {
+	--space-line-1: baseline(1);
+	--space-line-2: baseline(2);
+	--space-line-3: baseline(3);
+	--space-line-4: baseline(4);
+}
+
+@font-face {
+	font-family: Josefin Sans;
+	src: url(/JosefinSans-wght.tff) format(truetype);
+}
+
+body {
+	font-family: Josefin Sans, OpenSans, sans-serif;
+}
+
+h1 {
+	@include type-scale(4);
+}
+
+h2 {
+	@include type-setting(18px);
+}
+
+h3 {
+	@include type-setting(17px);
+}

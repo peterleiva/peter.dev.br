@@ -1,0 +1,16 @@
+@use "modularscale" as scale;
+@use "sass:math";
+
+@function baseline($scale: 1) {
+	$lines: math.floor($scale);
+
+	@if $lines < 1 {
+		@error "scale argument must be positive: Given #{$scales} - #{$lines}";
+	}
+
+	@return $scale * scale.ms(1);
+}
+
+@function required-lines($font-size) {
+	@return math.ceil(math.div($font-size, baseline()));
+}
