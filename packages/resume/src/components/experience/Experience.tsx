@@ -18,8 +18,8 @@ export default function Experience({
   return (
     <div>
       <header>
-        <h1>{name(company)}</h1>
-        <h2>{position}</h2>
+        <h3>{name(company)}</h3>
+        <p>{position}</p>
         <div>
           <Activity time={start} /> - <Activity time={end} />
         </div>

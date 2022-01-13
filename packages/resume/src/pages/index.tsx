@@ -43,7 +43,7 @@ const Home: NextPage<HomeProps> = ({ skills, jobs, educations, trainings }) => {
       <header>
         <section>
           <h1>Peter</h1>
-          <h2>Desenvolvedor Full-Stack Javascript</h2>
+          <h2>Javascript Full-Stack Developer</h2>
         </section>
         <nav>
           <ul>
@@ -56,18 +56,27 @@ const Home: NextPage<HomeProps> = ({ skills, jobs, educations, trainings }) => {
       <main className={styles.main}>
         <Section title="Perfil">
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi
-            voluptas eaque sunt non vero hic, deserunt atque facere eligendi
-            magnam fuga dolorem blanditiis veritatis saepe totam unde, quaerat
-            eos suscipit!
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+            vehicula ut orci convallis bibendum. Vestibulum quis mauris non mi
+            consequat lobortis. Duis gravida urna urna, vitae blandit massa
+            congue quis. Sed eleifend sem sed nisl pharetra feugiat. Vestibulum
+            vel lorem ac orci pretium viverra vitae quis eros. Nam at eros dui.
+            Sed molestie sed sapien id sagittis. Ut aliquam porta risus et
+            euismod. Etiam libero purus, lobortis in sagittis a, molestie id
+            nisi. Ut dapibus dictum magna elementum dictum. Donec at odio
+            convallis, pretium dui in, scelerisque velit. Quisque mollis euismod
+            tortor sed fermentum. Fusce mattis, eros a maximus condimentum, orci
+            neque euismod lacus, vel dictum nisl enim mollis risus. Nunc
+            fringilla condimentum erat, eget imperdiet nunc sodales vel. In non
+            cursus augue. Phasellus velit massa, sodales ac orci vitae, lobortis
+            hendrerit urna. Sed ornare metus in eros dapibus, vel ultricies
+            mauris consequat. Duis ac purus sit amet est egestas vehicula. Nunc
+            ipsum justo, semper quis dapibus a, consequat et nibh. Vestibulum ac
+            malesuada arcu. Curabitur porta, diam eget efficitur auctor, ipsum
+            diam interdum lorem, et aliquam ligula libero vitae risus. Proin
+            accumsan tincidunt sapien, a faucibus nunc vehicula in. Interdum et
+            malesuada fames ac ante ipsum primis in faucibus.
           </p>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo,
-            officia! Atque cupiditate assumenda rerum ipsa tempora! Est dolores
-            itaque nemo neque odio quaerat ad. Porro adipisci pariatur ipsa
-            atque iste?
-          </p>
-
           <address>
             <ol>
               <li>

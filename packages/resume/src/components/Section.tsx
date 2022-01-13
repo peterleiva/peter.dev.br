@@ -8,10 +8,14 @@ export type SectionProps = {
 export default function Section({ title, children }: SectionProps) {
   return (
     <section>
-      <h1>{title}</h1>
+      <h2>{title}</h2>
       <div>{children}</div>
 
-      <style jsx>{``}</style>
+      <style jsx>{`
+        section {
+          margin-block: var(--space-xl);
+        }
+      `}</style>
     </section>
   );
 }
