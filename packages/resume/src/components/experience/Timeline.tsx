@@ -1,0 +1,16 @@
+import type { Job } from 'types';
+import Experience from './Experience';
+
+type TimelineProps = {
+  jobs: Job[];
+};
+
+export default function Timeline({ jobs }: TimelineProps) {
+  return (
+    <div>
+      {jobs.map(job => (
+        <Experience key={job.company.name} {...job} />
+      ))}
+    </div>
+  );
+}
