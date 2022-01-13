@@ -9,13 +9,11 @@ Each log entry can be in the following kind: **Added**[^1], **Changed**[^2], **D
 
 ### Added
 
-#### resume
-
 - Scaffold of home page
 - Get data from static props
 - Render experience period date
 
-[unreleased]: https://github.com/pherval/peter.dev.br/compare/v0.1.0...HEAD
+[unreleased]: https://github.com/pherval/peter.dev.br/compare/resume@v0.1.0...resume@HEAD
 [0.1.0]: https://github.com/pherval/peter.dev.br/releases/tag/v0.1.0
 
 [^1]: `Added` for new features.
