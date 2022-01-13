@@ -1,0 +1,20 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		},
+		{
+			"path": "../packages/blog"
+		},
+		{
+			"path": "../packages/client"
+		},
+		{
+			"path": "../packages/server"
+		},
+		{
+			"path": "../packages/resume"
+		}
+	],
+	"settings": {}
+}
