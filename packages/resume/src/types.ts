@@ -27,9 +27,9 @@ export type Skill = {
 };
 
 export type Education = {
+  institution: string;
   title: string;
   status: string;
-  location: string;
 };
 
 export type Course = {
@@ -39,6 +39,6 @@ export type Course = {
 };
 
 export type Training = {
-  location: string;
+  institution: string;
   courses: Course[];
 };

@@ -26,7 +26,7 @@ type HomeProps = {
   skills: Skill[];
   jobs: JobProps[];
   educations: Education[];
-  trainings: (Pick<Training, 'location'> & {
+  trainings: (Pick<Training, 'institution'> & {
     courses: (Pick<Course, 'title'> & { started?: string; ended: string })[];
   })[];
 };
@@ -81,7 +81,7 @@ const Home: NextPage<HomeProps> = ({ skills, jobs, educations, trainings }) => {
           <Timeline jobs={experience(jobs)} />
         </Section>
         <Section title="Education">
-          {educations.map(({ title, status, location }) => (
+          {educations.map(({ title, status, institution: location }) => (
             <div key={title}>
               <h2>
                 {title}, {status}
@@ -91,7 +91,7 @@ const Home: NextPage<HomeProps> = ({ skills, jobs, educations, trainings }) => {
           ))}
         </Section>
         <Section title="Courses e Training">
-          {trainings.map(({ courses, location }) => (
+          {trainings.map(({ courses, institution: location }) => (
             <div key={location}>
               <h3>{location}</h3>
               <ul>
@@ -138,12 +138,12 @@ export const getStaticProps: GetStaticProps<HomeProps> = async () => {
         {
           title: "Bachelor's Degree in Computer Science",
           status: 'Ongoing',
-          location: 'Universidade Federal Fluminense ',
+          institution: 'Universidade Federal Fluminense ',
         },
       ],
       trainings: [
         {
-          location: 'MongoDB University',
+          institution: 'MongoDB University',
           courses: [
             {
               title: 'Data Modeling',
