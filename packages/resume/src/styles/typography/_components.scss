@@ -5,6 +5,8 @@
 @include setup();
 
 :root {
+	--space-xs: calc(#{baseline(1)} / 4);
+	--space-sm: calc(#{baseline(1)} / 2);
 	--space: #{baseline(1)};
 	--space-md: #{baseline(2)};
 	--space-lg: #{baseline(3)};
@@ -34,7 +36,7 @@ h1,
 
 h2,
 .h2 {
-	@include setting(18px);
+	@include setting(22px);
 	font-weight: var(--weight-bolder);
 }
 
