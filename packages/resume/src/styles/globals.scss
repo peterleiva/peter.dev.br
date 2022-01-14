@@ -6,8 +6,6 @@
 }
 
 :root {
-	--space-default: 1rem;
-
 	--color-link: rgb(134, 139, 141);
 
 	--color-success: rgb(101, 205, 182);
@@ -20,10 +18,14 @@
 	--color-gray-90: rgb(216, 216, 216);
 	--color-gray-79: rgb(231, 231, 231);
 	--color-gray-20: rgb(67, 67, 67);
+	--color-white: rgb(255, 255, 255);
+	--color-black: rgb(0, 0, 0);
 
 	--color-primary-1: #191919;
 	--color-primary-2: #121212;
 	--color-secondary: #9fa0ff;
+
+	--border-radius: 2px;
 }
 
 a {
