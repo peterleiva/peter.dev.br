@@ -1,10 +1,10 @@
 import Head from 'next/head';
 import type { GetStaticProps, NextPage } from 'next';
 import type { Course, Education, Job, Skill, Training } from 'types';
-import { Section, Skills, Timeline } from 'components';
+import { Section, Skills, Timeline, Header } from 'components';
 import { DateTime } from 'luxon';
 import { map, evolve } from 'ramda';
-import styles from '../styles/Home.module.css';
+import styles from '../styles/Home.module.scss';
 
 type Activity = {
   start: string;
@@ -37,24 +37,12 @@ const Home: NextPage<HomeProps> = ({ skills, jobs, educations, trainings }) => {
       <Head>
         <title>Peter&apos;s Résumé</title>
         <meta name="description" content="Peter's Résumé" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         {/* <link rel="icon" href="/favicon.ico" /> */}
       </Head>
-
-      <header>
-        <section>
-          <h1>Peter</h1>
-          <h2>Javascript Full-Stack Developer</h2>
-        </section>
-        <nav>
-          <ul>
-            <li>Download</li>
-            <li>Contact Me</li>
-            <li>Print</li>
-          </ul>
-        </nav>
-      </header>
+      <Header />
       <main className={styles.main}>
-        <Section title="Perfil">
+        <Section title="Profile" fill>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
             vehicula ut orci convallis bibendum. Vestibulum quis mauris non mi
@@ -89,10 +77,10 @@ const Home: NextPage<HomeProps> = ({ skills, jobs, educations, trainings }) => {
             <br />
           </address>
         </Section>
-        <Section title="Experiência">
+        <Section title="Experience">
           <Timeline jobs={experience(jobs)} />
         </Section>
-        <Section title="Educação">
+        <Section title="Education">
           {educations.map(({ title, status, location }) => (
             <div key={title}>
               <h2>
@@ -102,7 +90,7 @@ const Home: NextPage<HomeProps> = ({ skills, jobs, educations, trainings }) => {
             </div>
           ))}
         </Section>
-        <Section title="Cursos e Treinamento">
+        <Section title="Courses e Training">
           {trainings.map(({ courses, location }) => (
             <div key={location}>
               <h3>{location}</h3>
@@ -114,7 +102,7 @@ const Home: NextPage<HomeProps> = ({ skills, jobs, educations, trainings }) => {
             </div>
           ))}
         </Section>
-        <Section title="Habilidades">
+        <Section title="Skills">
           <Skills skills={skills} />
         </Section>
       </main>
