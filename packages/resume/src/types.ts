@@ -18,7 +18,7 @@ export type Job = {
   techs: Skill[];
 };
 
-export type Tag = string[];
+export type Tag = string;
 
 export type Skill = {
   name: string;
