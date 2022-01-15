@@ -13,6 +13,7 @@ export interface Education {
 
 const educationSchema = new Schema<Education>({
   title: {
+    type: String,
     required: true,
     unique: true,
     minlength: 3,

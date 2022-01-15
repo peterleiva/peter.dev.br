@@ -13,6 +13,7 @@ export type SkillDocument = HydratedDocument<Skill>;
 
 const skillSchema = new Schema<Skill>({
   name: {
+    type: String,
     required: true,
     unique: true,
     minlength: 2,
@@ -22,6 +23,7 @@ const skillSchema = new Schema<Skill>({
   tags: [
     new Schema<Tag>({
       name: {
+        type: String,
         required: true,
         unique: true,
         minlength: 2,
