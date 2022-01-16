@@ -1,5 +1,4 @@
 import { model, ObjectId, Schema, Types } from 'mongoose';
-import Skill from './skill';
 
 export interface Job {
   position: string;
@@ -50,7 +49,7 @@ const JobSchema = new Schema<Job>({
     end: Date,
   },
 
-  techs: [{ type: Types.ObjectId, ref: Skill }],
+  techs: [{ type: Types.ObjectId, ref: 'Skill' }],
 });
 
 export default model('Job', JobSchema);

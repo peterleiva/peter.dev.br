@@ -25,7 +25,6 @@ const skillSchema = new Schema<Skill>({
       name: {
         type: String,
         required: true,
-        unique: true,
         minlength: 2,
       },
     }),
