@@ -1,9 +1,19 @@
 import Head from 'next/head';
 import type { GetStaticProps, NextPage } from 'next';
-import type { Course, Education, Job, Skill, Training } from 'types';
+import type { Job, Skill } from 'types';
 import { Section, Skills, Timeline, Header } from 'components';
 import { DateTime } from 'luxon';
-import { map, evolve } from 'ramda';
+import { map, evolve, pick, isNil, ifElse } from 'ramda';
+import {
+  EducationReturn,
+  getSkills,
+  getCourses,
+  getResume,
+  getEducations,
+  getJobs,
+} from 'lib';
+import { connect, disconnect } from 'lib/database';
+import { Contact } from 'models/resume';
 import styles from '../styles/Home.module.scss';
 
 type Activity = {
@@ -21,17 +31,32 @@ const experience = map(
 );
 
 type JobProps = Omit<Job, 'activity'> & { activity: Activity };
-
-type HomeProps = {
-  skills: Skill[];
-  jobs: JobProps[];
-  educations: Education[];
-  trainings: (Pick<Training, 'institution'> & {
-    courses: (Pick<Course, 'title'> & { started?: string; ended: string })[];
-  })[];
+type CoursesProps = {
+  institution: string;
+  courses: {
+    title: string;
+    description?: string;
+    started: string;
+    ended?: string;
+  }[];
 };
 
-const Home: NextPage<HomeProps> = ({ skills, jobs, educations, trainings }) => {
+type HomeProps = {
+  bio?: string;
+  contacts: Contact[];
+  skills: Skill[];
+  jobs: JobProps[];
+  educations: EducationReturn[];
+  courses: CoursesProps[];
+};
+
+const Home: NextPage<HomeProps> = ({
+  bio,
+  skills,
+  jobs,
+  educations,
+  courses,
+}) => {
   return (
     <div className={styles.container}>
       <Head>
@@ -43,28 +68,7 @@ const Home: NextPage<HomeProps> = ({ skills, jobs, educations, trainings }) => {
       <Header />
       <main className={styles.main}>
         <Section title="Profile" fill>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-            vehicula ut orci convallis bibendum. Vestibulum quis mauris non mi
-            consequat lobortis. Duis gravida urna urna, vitae blandit massa
-            congue quis. Sed eleifend sem sed nisl pharetra feugiat. Vestibulum
-            vel lorem ac orci pretium viverra vitae quis eros. Nam at eros dui.
-            Sed molestie sed sapien id sagittis. Ut aliquam porta risus et
-            euismod. Etiam libero purus, lobortis in sagittis a, molestie id
-            nisi. Ut dapibus dictum magna elementum dictum. Donec at odio
-            convallis, pretium dui in, scelerisque velit. Quisque mollis euismod
-            tortor sed fermentum. Fusce mattis, eros a maximus condimentum, orci
-            neque euismod lacus, vel dictum nisl enim mollis risus. Nunc
-            fringilla condimentum erat, eget imperdiet nunc sodales vel. In non
-            cursus augue. Phasellus velit massa, sodales ac orci vitae, lobortis
-            hendrerit urna. Sed ornare metus in eros dapibus, vel ultricies
-            mauris consequat. Duis ac purus sit amet est egestas vehicula. Nunc
-            ipsum justo, semper quis dapibus a, consequat et nibh. Vestibulum ac
-            malesuada arcu. Curabitur porta, diam eget efficitur auctor, ipsum
-            diam interdum lorem, et aliquam ligula libero vitae risus. Proin
-            accumsan tincidunt sapien, a faucibus nunc vehicula in. Interdum et
-            malesuada fames ac ante ipsum primis in faucibus.
-          </p>
+          <p>{bio}</p>
           <address>
             <ol>
               <li>
@@ -81,19 +85,17 @@ const Home: NextPage<HomeProps> = ({ skills, jobs, educations, trainings }) => {
           <Timeline jobs={experience(jobs)} />
         </Section>
         <Section title="Education">
-          {educations.map(({ title, status, institution: location }) => (
+          {educations.map(({ title, institution: { name: location } }) => (
             <div key={title}>
-              <h2>
-                {title}, {status}
-              </h2>
+              <h2>{title}</h2>
               <p>{location}</p>
             </div>
           ))}
         </Section>
-        <Section title="Courses e Training">
-          {trainings.map(({ courses, institution: location }) => (
-            <div key={location}>
-              <h3>{location}</h3>
+        <Section title="Courses & Training">
+          {courses.map(({ courses, institution }) => (
+            <div key={institution}>
+              <h3>{institution}</h3>
               <ul>
                 {courses.map(({ title }) => (
                   <li key={title}>{title}</li>
@@ -112,46 +114,51 @@ const Home: NextPage<HomeProps> = ({ skills, jobs, educations, trainings }) => {
 
 export default Home;
 
+const toISO = (date: DateTime) => date.toISO();
+
 export const getStaticProps: GetStaticProps<HomeProps> = async () => {
+  const db = await connect();
+
+  const resume = await getResume();
+
+  if (!resume) {
+    return {
+      notFound: true,
+    };
+  }
+
+  const [skills, educations, jobs, courses] = await Promise.all([
+    getSkills(resume),
+    getEducations(resume),
+    getJobs(resume),
+    getCourses(resume),
+  ]);
+
+  const { bio, contacts } = evolve({
+    contacts: map<Contact, Pick<Contact, 'link' | 'name' | 'username'>>(
+      pick(['link', 'name', 'username'])
+    ),
+  })(resume);
+
+  await disconnect(db);
+
+  const optionalDate = ifElse(isNil, () => undefined, toISO);
+
   return {
     props: {
-      jobs: [
-        {
-          company: {
-            name: 'Superintendência de Tecnologia da Informação - UFF',
-            alias: 'STI UFF',
-          },
-          position: 'Software Developer - Internship',
-          description:
-            'Worked mainly on back-end development with Ruby on Rails. Acted directly on the maintenance of the University’s wide range of systems involved in whole stack. Using Redmine as a direct communication point to the users to fix bugs and develop new features.',
+      bio,
+      contacts,
+      jobs: map(
+        evolve({
           activity: {
-            start: DateTime.now().minus({ years: 2 }).toISO(),
+            start: toISO,
+            end: optionalDate,
           },
-          techs: [],
-        },
-      ],
-      skills: [
-        { name: 'javascript', tags: [] },
-        { name: 'Rust', tags: [] },
-      ],
-      educations: [
-        {
-          title: "Bachelor's Degree in Computer Science",
-          status: 'Ongoing',
-          institution: 'Universidade Federal Fluminense ',
-        },
-      ],
-      trainings: [
-        {
-          institution: 'MongoDB University',
-          courses: [
-            {
-              title: 'Data Modeling',
-              ended: DateTime.now().minus({ years: 1 }).toISO(),
-            },
-          ],
-        },
-      ],
+        })
+      )(jobs),
+      skills,
+      educations,
+      courses,
     },
     revalidate: 60 * 60 * 24, // invalidate cache after 1 day
   };
