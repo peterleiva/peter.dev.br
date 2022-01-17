@@ -1,4 +1,4 @@
-import { HydratedDocument, model, Schema } from 'mongoose';
+import { HydratedDocument, models, model, Schema } from 'mongoose';
 
 export interface Tag {
   name: string;
@@ -31,4 +31,4 @@ const skillSchema = new Schema<Skill>({
   ],
 });
 
-export default model('Skill', skillSchema);
+export default models.Skill ?? model('Skill', skillSchema);

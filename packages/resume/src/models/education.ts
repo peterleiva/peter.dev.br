@@ -1,4 +1,4 @@
-import { HydratedDocument, model, Schema } from 'mongoose';
+import { HydratedDocument, model, Schema, models } from 'mongoose';
 
 export interface Education {
   title: string;
@@ -44,4 +44,4 @@ const educationSchema = new Schema<Education>({
   ended: Date,
 });
 
-export default model('Education', educationSchema);
+export default models.Education ?? model('Education', educationSchema);

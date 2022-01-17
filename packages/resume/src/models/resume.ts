@@ -1,4 +1,11 @@
-import { HydratedDocument, model, ObjectId, Schema, Types } from 'mongoose';
+import {
+  HydratedDocument,
+  models,
+  model,
+  ObjectId,
+  Schema,
+  Types,
+} from 'mongoose';
 import SkillModel from './skill';
 import EducationModel from './education';
 import JobModel from './job';
@@ -90,4 +97,4 @@ const resumeSchema = new Schema<Resume>({
   },
 });
 
-export default model('Resume', resumeSchema);
+export default models.Resume ?? model('Resume', resumeSchema);
