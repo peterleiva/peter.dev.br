@@ -1,6 +1,6 @@
 import EducationModel from 'models/education';
-import { ResumeDocument } from 'models/resume';
 import type { Education } from 'types';
+import { ResumeDocument } from 'models/resume';
 import { toDateTime, optional } from './serialization-utils';
 import { evolve, map } from 'ramda';
 

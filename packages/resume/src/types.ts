@@ -1,4 +1,5 @@
 import type { DateTime } from 'luxon';
+import type { Education as IEducation } from 'models/education';
 
 export type Company = {
   name: string;
@@ -26,15 +27,9 @@ export type Skill = {
   icon?: string;
 };
 
-export type Education = {
-  title: string;
-  description?: string;
+export type Education = Omit<IEducation, 'started' | 'ended'> & {
   started: DateTime;
   ended?: DateTime;
-
-  institution: {
-    name: string;
-  };
 };
 
 export type Courses = {
