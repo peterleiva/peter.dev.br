@@ -1,6 +1,7 @@
 import { HydratedDocument, model, ObjectId, Schema, Types } from 'mongoose';
-import { Skill } from './skill';
-import { Job } from './job';
+import SkillModel from './skill';
+import EducationModel from './education';
+import JobModel from './job';
 
 export interface Contact {
   link: string;
@@ -13,8 +14,8 @@ export interface Resume {
   contacts: Contact[];
   educations: ObjectId[];
   courses: ObjectId[];
-  jobs: Job[];
-  skills: Skill[];
+  jobs: ObjectId[];
+  skills: ObjectId[];
 }
 
 export type ResumeDocument = HydratedDocument<Resume>;
@@ -51,7 +52,7 @@ const resumeSchema = new Schema<Resume>({
     type: [
       {
         type: Types.ObjectId,
-        ref: 'Education',
+        ref: EducationModel,
       },
     ],
   },
@@ -61,35 +62,29 @@ const resumeSchema = new Schema<Resume>({
     type: [
       {
         type: Types.ObjectId,
-        ref: 'Education',
+        ref: EducationModel,
       },
     ],
   },
 
   jobs: {
     required: true,
-    populate: {
-      path: 'jobs',
-    },
 
     type: [
       {
         type: Types.ObjectId,
-        ref: 'Job',
+        ref: JobModel,
       },
     ],
   },
 
   skills: {
     required: true,
-    populate: {
-      path: 'skills',
-    },
 
     type: [
       {
         type: Types.ObjectId,
-        ref: 'Skill',
+        ref: SkillModel,
       },
     ],
   },
