@@ -1,4 +1,4 @@
-import { model, Schema } from 'mongoose';
+import { HydratedDocument, model, Schema } from 'mongoose';
 
 export interface Education {
   title: string;
@@ -10,6 +10,8 @@ export interface Education {
     name: string;
   };
 }
+
+export type EducationDocument = HydratedDocument<Education>;
 
 const educationSchema = new Schema<Education>({
   title: {

@@ -1,4 +1,4 @@
-import { model, ObjectId, Schema, Types } from 'mongoose';
+import { HydratedDocument, model, ObjectId, Schema, Types } from 'mongoose';
 
 export interface Job {
   position: string;
@@ -51,5 +51,7 @@ const JobSchema = new Schema<Job>({
 
   techs: [{ type: Types.ObjectId, ref: 'Skill' }],
 });
+
+export type JobDocument = HydratedDocument<Job>;
 
 export default model('Job', JobSchema);
