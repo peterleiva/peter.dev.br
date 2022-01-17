@@ -8,7 +8,7 @@ export type Company = {
 export type Job = {
   position: string;
   company: Company;
-  description: string;
+  description?: string;
 
   activity: {
     start: DateTime;
@@ -27,15 +27,21 @@ export type Skill = {
 };
 
 export type Education = {
-  institution: string;
   title: string;
-  status: string;
+  description?: string;
+  started: DateTime;
+  ended?: DateTime;
+
+  institution: {
+    name: string;
+  };
 };
 
 export type Course = {
   title: string;
-  started?: DateTime;
-  ended: DateTime;
+  description?: string;
+  started: DateTime;
+  ended?: DateTime;
 };
 
 export type Training = {
