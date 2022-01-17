@@ -1,16 +1,18 @@
 import EducationModel from 'models/education';
 import { ResumeDocument } from 'models/resume';
 import type { Education } from 'types';
+import { toDateTime, optional } from './serialization-utils';
+import { evolve, map } from 'ramda';
 
-export type EducationReturn = Omit<Education, 'started' | 'ended'> & {
-  started: string;
-  ended?: string;
+type EducationAggregation = Omit<Education, 'started' | 'ended'> & {
+  started: Date;
+  ended?: Date;
 };
 
 export const getEducations = async (
   resume: ResumeDocument
-): Promise<EducationReturn[]> => {
-  return await EducationModel.aggregate<EducationReturn>([
+): Promise<Education[]> => {
+  const educations = await EducationModel.aggregate<EducationAggregation>([
     {
       $match: {
         _id: { $in: resume.educations },
@@ -31,13 +33,16 @@ export const getEducations = async (
           name: '$institution.name',
         },
         description: 1,
-        started: {
-          $dateToString: { date: '$started' },
-        },
-        ended: {
-          $dateToString: { date: '$ended' },
-        },
+        started: 1,
+        ended: 1,
       },
     },
   ]).exec();
+
+  return map(
+    evolve({
+      started: toDateTime,
+      ended: optional(toDateTime),
+    })
+  )(educations);
 };

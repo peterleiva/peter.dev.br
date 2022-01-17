@@ -1,15 +1,18 @@
-import EducationModel from 'models/education';
+import EducationModel, { Education } from 'models/education';
 import type { Courses } from 'types';
 import { ResumeDocument } from 'models/resume';
-import type { EducationReturn } from './get-educations';
+import * as R from 'ramda';
+import { optional, toDateTime } from './serialization-utils';
 
-type CoursesReturn = Omit<Courses, 'courses'> & {
-  courses: EducationReturn[];
+type CoursesAggregation = {
+  institution: string;
+  courses: Omit<Education, 'institution'>[];
 };
+
 export const getCourses = async (
   resume: ResumeDocument
-): Promise<CoursesReturn[]> => {
-  const courses = await EducationModel.aggregate<CoursesReturn>([
+): Promise<Courses[]> => {
+  const courses = await EducationModel.aggregate<CoursesAggregation>([
     {
       $match: {
         _id: { $in: resume.courses },
@@ -29,12 +32,8 @@ export const getCourses = async (
           $push: {
             title: '$title',
             description: '$description',
-            started: {
-              $dateToString: { date: '$started' },
-            },
-            ended: {
-              $dateToString: { date: '$ended' },
-            },
+            started: '$started',
+            ended: '$ended',
           },
         },
       },
@@ -48,5 +47,14 @@ export const getCourses = async (
     },
   ]).exec();
 
-  return courses;
+  return R.map(
+    R.evolve({
+      courses: R.map(
+        R.evolve({
+          started: toDateTime,
+          ended: optional(toDateTime),
+        })
+      ),
+    })
+  )(courses);
 };

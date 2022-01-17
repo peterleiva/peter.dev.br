@@ -3,12 +3,12 @@ import { SkillDocument, Tag } from 'models/skill';
 import { Skill } from 'types';
 import * as R from 'ramda';
 
-export const skillMapper = (skills: SkillDocument[]) => {
+export const skillMapper = (skills: SkillDocument[]): Skill[] => {
   const tagsLens = R.lensProp<Tag>('name');
   const tagView = R.view<Tag, string>(tagsLens);
   const transform = R.evolve({ tags: R.map(tagView) });
 
-  return R.map(
+  return R.map<SkillDocument, Skill>(
     R.compose<
       [SkillDocument],
       Omit<SkillDocument, 'tags'> & { tags: string[] },

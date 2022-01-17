@@ -1,17 +1,17 @@
 import Head from 'next/head';
 import type { GetStaticProps, NextPage } from 'next';
-import type { Job, Skill } from 'types';
+import type { Education, Job, Skill } from 'types';
 import { Section, Skills, Timeline, Header } from 'components';
-import { DateTime } from 'luxon';
-import { map, evolve, pick, isNil, ifElse } from 'ramda';
+import { map, evolve, pick } from 'ramda';
+import { getSkills, getCourses, getResume, getEducations, getJobs } from 'lib';
 import {
-  EducationReturn,
-  getSkills,
-  getCourses,
-  getResume,
-  getEducations,
-  getJobs,
-} from 'lib';
+  jobDeserializer,
+  jobSerializer,
+  educationDeserializer,
+  educationSerializer,
+  courseSerializer,
+} from 'lib/serializers';
+
 import { connect, disconnect } from 'lib/database';
 import { Contact } from 'models/resume';
 import styles from '../styles/Home.module.scss';
@@ -20,15 +20,6 @@ type Activity = {
   start: string;
   end?: string;
 };
-
-const experience = map(
-  evolve({
-    activity: {
-      start: DateTime.fromISO,
-      end: DateTime.fromISO,
-    },
-  })
-);
 
 type JobProps = Omit<Job, 'activity'> & { activity: Activity };
 type CoursesProps = {
@@ -46,7 +37,10 @@ type HomeProps = {
   contacts: Contact[];
   skills: Skill[];
   jobs: JobProps[];
-  educations: EducationReturn[];
+  educations: (Omit<Education, 'started' | 'ended'> & {
+    started: string;
+    ended?: string;
+  })[];
   courses: CoursesProps[];
 };
 
@@ -82,15 +76,17 @@ const Home: NextPage<HomeProps> = ({
           </address>
         </Section>
         <Section title="Experience">
-          <Timeline jobs={experience(jobs)} />
+          <Timeline jobs={jobDeserializer(jobs)} />
         </Section>
         <Section title="Education">
-          {educations.map(({ title, institution: { name: location } }) => (
-            <div key={title}>
-              <h2>{title}</h2>
-              <p>{location}</p>
-            </div>
-          ))}
+          {educationDeserializer(educations).map(
+            ({ title, institution: { name: location } }) => (
+              <div key={title}>
+                <h2>{title}</h2>
+                <p>{location}</p>
+              </div>
+            )
+          )}
         </Section>
         <Section title="Courses & Training">
           {courses.map(({ courses, institution }) => (
@@ -113,8 +109,6 @@ const Home: NextPage<HomeProps> = ({
 };
 
 export default Home;
-
-const toISO = (date: DateTime) => date.toISO();
 
 export const getStaticProps: GetStaticProps<HomeProps> = async () => {
   const db = await connect();
@@ -142,23 +136,14 @@ export const getStaticProps: GetStaticProps<HomeProps> = async () => {
 
   await disconnect(db);
 
-  const optionalDate = ifElse(isNil, () => undefined, toISO);
-
   return {
     props: {
       bio,
       contacts,
-      jobs: map(
-        evolve({
-          activity: {
-            start: toISO,
-            end: optionalDate,
-          },
-        })
-      )(jobs),
+      jobs: jobSerializer(jobs),
       skills,
-      educations,
-      courses,
+      educations: educationSerializer(educations),
+      courses: courseSerializer(courses),
     },
     revalidate: 60 * 60 * 24, // invalidate cache after 1 day
   };
