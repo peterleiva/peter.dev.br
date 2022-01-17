@@ -37,14 +37,7 @@ export type Education = {
   };
 };
 
-export type Course = {
-  title: string;
-  description?: string;
-  started: DateTime;
-  ended?: DateTime;
-};
-
-export type Training = {
+export type Courses = {
   institution: string;
-  courses: Course[];
+  courses: Omit<Education, 'institution'>[];
 };
