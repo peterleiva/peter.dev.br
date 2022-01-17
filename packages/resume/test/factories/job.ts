@@ -1,10 +1,10 @@
 import casual from 'casual';
 import { Factory } from 'fishery';
-import JobModel, { Job } from 'models/job';
+import JobModel, { Job, JobDocument } from 'models/job';
 import { period } from './period';
 
-export default Factory.define<Job>(({ onCreate }) => {
-  onCreate(JobModel.create);
+export default Factory.define<Job, null, JobDocument>(({ onCreate }) => {
+  onCreate(async job => JobModel.create(job));
 
   return {
     position: casual.title,
