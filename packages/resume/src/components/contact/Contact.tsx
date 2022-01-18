@@ -9,7 +9,7 @@ type ContactProps = {
   external?: boolean;
   as?: 'button' | 'a';
   label?: string;
-  icon?: { lib: LibIcon; name: string };
+  icon?: { lib?: LibIcon; name?: string };
   hideIcon?: boolean;
 };
 

@@ -1,7 +1,7 @@
 import { Contact as ContactProps } from 'models/resume';
 import Contact from './Contact';
 import { IoFingerPrintSharp as FingerprintIcon } from 'react-icons/io5';
-import IconLabel from './IconLabel';
+import IconLabel from '../IconLabel';
 
 type ContactsListProps = {
   contacts: ContactProps[];
