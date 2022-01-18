@@ -1,8 +1,8 @@
 import Head from 'next/head';
 import type { GetStaticProps, NextPage } from 'next';
 import type { Education, Job, Skill } from 'types';
-import { Section, Skills, Timeline, Header } from 'components';
-import { map, evolve, pick } from 'ramda';
+import { Section, Skills, Timeline, Header, ContactsList } from 'components';
+import { map, evolve, pick, compose } from 'ramda';
 import { getSkills, getCourses, getResume, getEducations, getJobs } from 'lib';
 import {
   jobDeserializer,
@@ -46,6 +46,7 @@ type HomeProps = {
 
 const Home: NextPage<HomeProps> = ({
   bio,
+  contacts,
   skills,
   jobs,
   educations,
@@ -61,20 +62,12 @@ const Home: NextPage<HomeProps> = ({
       </Head>
       <Header />
       <main className={styles.main}>
-        <Section title="Profile" fill>
-          <p>{bio}</p>
-          <address>
-            <ol>
-              <li>
-                <a href="https://github.com/pherval">GitHub</a>
-              </li>
-              <li>
-                <a href="mailto:contact@peter.dev.br">contact@peter.dev.br</a>
-              </li>
-            </ol>
-            <br />
-          </address>
-        </Section>
+        <div className={styles.profile}>
+          <Section title="Profile" fill>
+            <p>{bio}</p>
+          </Section>
+          <ContactsList contacts={contacts} />
+        </div>
         <Section title="Experience">
           <Timeline jobs={jobDeserializer(jobs)} />
         </Section>
@@ -129,8 +122,20 @@ export const getStaticProps: GetStaticProps<HomeProps> = async () => {
   ]);
 
   const { bio, contacts } = evolve({
-    contacts: map<Contact, Pick<Contact, 'link' | 'name' | 'username'>>(
-      pick(['link', 'name', 'username'])
+    contacts: map<
+      Contact,
+      Pick<Contact, 'link' | 'name' | 'username' | 'icon'>
+    >(
+      compose<
+        [Contact],
+        Contact,
+        Pick<Contact, 'link' | 'name' | 'username' | 'icon'>
+      >(
+        pick(['link', 'name', 'username', 'icon']),
+        evolve({
+          icon: icon => (icon?.name ? { ...icon } : {}),
+        })
+      )
     ),
   })(resume);
 
