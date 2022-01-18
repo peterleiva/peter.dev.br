@@ -1,21 +1,12 @@
 import casual from 'casual';
+import { Types } from 'mongoose';
 import { Factory } from 'fishery';
-import ResumeModel, { Contact, Resume, ResumeDocument } from 'models/resume';
+import ResumeModel, { Resume, ResumeDocument } from 'models/resume';
 import * as R from 'ramda';
 import skillsFactory from './skill';
 import jobsFactory from './job';
 import educationFactory from './education';
-import { Types } from 'mongoose';
-
-const contact = R.times<Contact>(() => ({
-  link: casual.url,
-  name: casual.name,
-  username: casual.username,
-  icon: {
-    lib: 'bs',
-    name: 'BsGithub',
-  },
-}));
+import contact from './contact';
 
 interface TransientParams {
   jobsQuantity: number;
