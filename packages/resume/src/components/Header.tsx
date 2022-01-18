@@ -1,9 +1,4 @@
 import Contact from './Contact';
-import {
-  BsDownload as DownloadIcon,
-  BsEnvelope as EmailIcon,
-  BsPrinter as PrinterIcon,
-} from 'react-icons/bs';
 
 export default function Header() {
   return (
@@ -15,19 +10,13 @@ export default function Header() {
       <nav>
         <ul>
           <li>
-            <Contact href="/" Icon={DownloadIcon}>
-              Download
-            </Contact>
+            <Contact href="/">Download</Contact>
           </li>
           <li>
-            <Contact href="/" Icon={PrinterIcon}>
-              Print
-            </Contact>
+            <Contact href="/">Print</Contact>
           </li>
           <li>
-            <Contact href="/" Icon={EmailIcon}>
-              Contact me
-            </Contact>
+            <Contact href="/">Contact me</Contact>
           </li>
         </ul>
       </nav>
