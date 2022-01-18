@@ -9,11 +9,18 @@ import {
 import SkillModel from './skill';
 import EducationModel from './education';
 import JobModel from './job';
+import { LibIcon } from 'lib/icon-loader';
+
+interface Icon {
+  lib: LibIcon;
+  name: string;
+}
 
 export interface Contact {
   link: string;
   name: string;
   username: string;
+  icon: Partial<Icon>;
 }
 
 export interface Resume {
@@ -41,6 +48,11 @@ const contactSchema = new Schema<Contact>({
   username: {
     type: String,
     required: true,
+  },
+
+  icon: {
+    lib: String,
+    name: String,
   },
 });
 
