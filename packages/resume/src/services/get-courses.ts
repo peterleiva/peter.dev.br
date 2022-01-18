@@ -2,7 +2,7 @@ import EducationModel, { Education } from 'models/education';
 import type { Courses } from 'types';
 import { ResumeDocument } from 'models/resume';
 import * as R from 'ramda';
-import { optional, toDateTime } from './serialization-utils';
+import { optional, toDateTime } from 'lib/serialization-utils';
 
 type CoursesAggregation = {
   institution: string;

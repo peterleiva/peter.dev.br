@@ -2,17 +2,8 @@ import Head from 'next/head';
 import type { GetStaticProps, NextPage } from 'next';
 import type { Education, Job, Skill } from 'types';
 import { Section, Skills, Timeline, Header, ContactsList } from 'components';
-import { map, evolve, pick, compose } from 'ramda';
-import { getSkills, getCourses, getResume, getEducations, getJobs } from 'lib';
-import {
-  jobDeserializer,
-  jobSerializer,
-  educationDeserializer,
-  educationSerializer,
-  courseSerializer,
-} from 'lib/serializers';
-
-import { connect, disconnect } from 'lib/database';
+import { getAllResume } from 'services';
+import { jobDeserializer, educationDeserializer } from 'lib/serializers';
 import { Contact } from 'models/resume';
 import styles from '../styles/Home.module.scss';
 
@@ -104,9 +95,7 @@ const Home: NextPage<HomeProps> = ({
 export default Home;
 
 export const getStaticProps: GetStaticProps<HomeProps> = async () => {
-  const db = await connect();
-
-  const resume = await getResume();
+  const resume = await getAllResume();
 
   if (!resume) {
     return {
@@ -114,42 +103,7 @@ export const getStaticProps: GetStaticProps<HomeProps> = async () => {
     };
   }
 
-  const [skills, educations, jobs, courses] = await Promise.all([
-    getSkills(resume),
-    getEducations(resume),
-    getJobs(resume),
-    getCourses(resume),
-  ]);
-
-  const { bio, contacts } = evolve({
-    contacts: map<
-      Contact,
-      Pick<Contact, 'link' | 'name' | 'username' | 'icon'>
-    >(
-      compose<
-        [Contact],
-        Contact,
-        Pick<Contact, 'link' | 'name' | 'username' | 'icon'>
-      >(
-        pick(['link', 'name', 'username', 'icon']),
-        evolve({
-          icon: icon => (icon?.name ? { ...icon } : {}),
-        })
-      )
-    ),
-  })(resume);
-
-  await disconnect(db);
-
   return {
-    props: {
-      bio,
-      contacts,
-      jobs: jobSerializer(jobs),
-      skills,
-      educations: educationSerializer(educations),
-      courses: courseSerializer(courses),
-    },
-    revalidate: 60 * 60 * 24, // invalidate cache after 1 day
+    props: resume,
   };
 };

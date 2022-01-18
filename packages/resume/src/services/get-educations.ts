@@ -1,7 +1,7 @@
 import EducationModel from 'models/education';
 import type { Education } from 'types';
 import { ResumeDocument } from 'models/resume';
-import { toDateTime, optional } from './serialization-utils';
+import { toDateTime, optional } from 'lib/serialization-utils';
 import { evolve, map } from 'ramda';
 
 type EducationAggregation = Omit<Education, 'started' | 'ended'> & {
