@@ -1,5 +1,3 @@
-import Contact from './Contact';
-
 export default function Header() {
   return (
     <header>
@@ -9,15 +7,9 @@ export default function Header() {
       </section>
       <nav>
         <ul>
-          <li>
-            <Contact href="/">Download</Contact>
-          </li>
-          <li>
-            <Contact href="/">Print</Contact>
-          </li>
-          <li>
-            <Contact href="/">Contact me</Contact>
-          </li>
+          <li>Download</li>
+          <li>Print</li>
+          <li>Contact me</li>
         </ul>
       </nav>
 
