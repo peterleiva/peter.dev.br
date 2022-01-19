@@ -2,7 +2,11 @@
 	"extends": ["eslint:recommended", "prettier"],
 	"overrides": [
 		{
-			"files": "**/__tests__/**",
+			"files": ["*.{tsx,ts}"],
+			"extends": "./eslint/typescript"
+		},
+		{
+			"files": "**/__tests__/**/*",
 			"extends": "./eslint/jest"
 		},
 		{

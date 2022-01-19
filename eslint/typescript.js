@@ -7,6 +7,17 @@ module.exports = {
   plugins: ['@typescript-eslint'],
   parserOptions: {
     tsconfigRootDir: resolve(__dirname, '../packages'),
-    project: ['./*/tsconfig.eslint.json'],
+    project: ['./**/tsconfig.json'],
+    ecmaFeatures: {
+      jsx: true,
+    },
+
+    projectFolderIgnoreList: [
+      '**/node_modules/**',
+      '**/.next/**',
+      '**/dist/**',
+      '**/build/**',
+      '**/public/**',
+    ],
   },
 };
