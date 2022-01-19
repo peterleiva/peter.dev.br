@@ -6,6 +6,10 @@
 			"extends": "./eslint/typescript"
 		},
 		{
+			"files": ["./packages/{resume,client,blog}/**/*"],
+			"extends": "./eslint/react"
+		},
+		{
 			"files": "**/__tests__/**/*",
 			"extends": "./eslint/jest"
 		},

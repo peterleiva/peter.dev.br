@@ -1,7 +1,7 @@
 const { resolve } = require('path');
 
 module.exports = {
-  extends: ['airbnb-typescript/base'],
+  extends: ['airbnb-typescript/base', 'prettier'],
 
   parser: '@typescript-eslint/parser',
   plugins: ['@typescript-eslint'],
