@@ -1,5 +1,5 @@
 import EducationModel, { Education } from 'models/education';
-import type { Courses } from 'types';
+import type { Course, Courses } from 'types';
 import { ResumeDocument } from 'models/resume';
 import * as R from 'ramda';
 import { optional, toDateTime } from 'lib/serialization-utils';
@@ -49,14 +49,14 @@ export const getCourses = async (
     },
   ]).exec();
 
+  const period = R.evolve({
+    started: toDateTime,
+    ended: optional(toDateTime),
+  });
+
   return R.map<CoursesAggregation, Courses>(
     R.evolve({
-      courses: R.map(
-        R.evolve({
-          started: toDateTime,
-          ended: optional(toDateTime),
-        })
-      ),
+      courses: R.map<CourseAggregation, Course>(period),
     })
   )(courses);
 };

@@ -33,9 +33,11 @@ export type Education = Omit<IEducation, 'started' | 'ended'> & {
   ended?: DateTime;
 };
 
+export type Course = Omit<Education, 'institution'>;
+
 export type Courses = {
   institution: string;
-  courses: Omit<Education, 'institution'>[];
+  courses: Course[];
 };
 
 export type Resume = Pick<IResume, 'bio' | 'contacts'> & {

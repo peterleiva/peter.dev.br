@@ -4,12 +4,11 @@ import { ResumeDocument } from 'models/resume';
 import JobModel from 'models/job';
 import { SkillDocument } from 'models/skill';
 import { skillMapper } from './get-skills';
-import { DateTime } from 'luxon';
-import { optional } from 'lib/serialization-utils';
+import { optional, toDateTime } from 'lib/serialization-utils';
 
-type AggregateJob = Omit<Job, 'activity' | 'skills'> & {
+type AggregateJob = Omit<Job, 'activity' | 'techs'> & {
   activity: { start: Date; end?: Date };
-  skills: SkillDocument[];
+  techs: SkillDocument[];
 };
 
 export const getJobs = async (resume: ResumeDocument): Promise<Job[]> => {
@@ -56,8 +55,8 @@ export const getJobs = async (resume: ResumeDocument): Promise<Job[]> => {
     R.evolve({
       techs: skillMapper,
       activity: {
-        start: DateTime.fromJSDate,
-        end: optional(DateTime.fromJSDate),
+        start: toDateTime,
+        end: optional(toDateTime),
       },
     })
   )(jobs);
