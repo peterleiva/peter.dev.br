@@ -1,39 +1,16 @@
 import Head from 'next/head';
 import type { GetStaticProps, NextPage } from 'next';
-import type { Education, Job, Skill } from 'types';
 import { Section, Skills, Timeline, Header, ContactsList } from 'components';
-import { getAllResume } from 'services';
-import { jobDeserializer, educationDeserializer } from 'lib/serializers';
-import { Contact } from 'models/resume';
+import { getResume } from 'services';
+import {
+  jobDeserializer,
+  educationDeserializer,
+  resumeSerializer,
+  SerializedResume,
+} from 'lib/serializers';
 import styles from '../styles/Home.module.scss';
 
-type Activity = {
-  start: string;
-  end?: string;
-};
-
-type JobProps = Omit<Job, 'activity'> & { activity: Activity };
-type CoursesProps = {
-  institution: string;
-  courses: {
-    title: string;
-    description?: string;
-    started: string;
-    ended?: string;
-  }[];
-};
-
-type HomeProps = {
-  bio?: string;
-  contacts: Contact[];
-  skills: Skill[];
-  jobs: JobProps[];
-  educations: (Omit<Education, 'started' | 'ended'> & {
-    started: string;
-    ended?: string;
-  })[];
-  courses: CoursesProps[];
-};
+type HomeProps = SerializedResume;
 
 const Home: NextPage<HomeProps> = ({
   bio,
@@ -95,7 +72,7 @@ const Home: NextPage<HomeProps> = ({
 export default Home;
 
 export const getStaticProps: GetStaticProps<HomeProps> = async () => {
-  const resume = await getAllResume();
+  const resume = await getResume();
 
   if (!resume) {
     return {
@@ -104,6 +81,6 @@ export const getStaticProps: GetStaticProps<HomeProps> = async () => {
   }
 
   return {
-    props: resume,
+    props: resumeSerializer(resume),
   };
 };

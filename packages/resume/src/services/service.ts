@@ -2,16 +2,15 @@ import { connect, disconnect } from 'lib/database';
 import { getCourses } from './get-courses';
 import { getEducations } from './get-educations';
 import { getJobs } from './get-jobs';
-import { getResume } from './get-resume';
 import { getSkills } from './get-skills';
+import ResumeModel, { Contact } from 'models/resume';
 import * as R from 'ramda';
-import { Contact } from 'models/resume';
-import { courseSerializer, educationSerializer, jobSerializer } from 'lib';
+import type { Resume } from 'types';
 
-export async function getAllResume() {
+export async function getResume(): Promise<Resume | null> {
   const db = await connect();
 
-  const resume = await getResume();
+  const resume = await ResumeModel.findOne();
 
   if (!resume) {
     await disconnect(db);
@@ -24,6 +23,8 @@ export async function getAllResume() {
     getJobs(resume),
     getCourses(resume),
   ]);
+
+  await disconnect(db);
 
   const { bio, contacts } = R.evolve({
     contacts: R.map<
@@ -43,14 +44,12 @@ export async function getAllResume() {
     ),
   })(resume);
 
-  await disconnect(db);
-
   return {
     bio,
     contacts,
-    jobs: jobSerializer(jobs),
+    jobs,
     skills,
-    educations: educationSerializer(educations),
-    courses: courseSerializer(courses),
+    educations,
+    courses,
   };
 }
