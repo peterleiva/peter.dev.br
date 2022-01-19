@@ -2,9 +2,10 @@ import * as R from 'ramda';
 import type { Job } from 'types';
 import { ResumeDocument } from 'models/resume';
 import JobModel from 'models/job';
+import { SkillDocument } from 'models/skill';
 import { skillMapper } from './get-skills';
 import { DateTime } from 'luxon';
-import { SkillDocument } from 'src/models/skill';
+import { optional } from 'lib/serialization-utils';
 
 type AggregateJob = Omit<Job, 'activity' | 'skills'> & {
   activity: { start: Date; end?: Date };
@@ -51,12 +52,12 @@ export const getJobs = async (resume: ResumeDocument): Promise<Job[]> => {
     },
   ]).exec();
 
-  return R.map(
+  return R.map<AggregateJob, Job>(
     R.evolve({
       techs: skillMapper,
       activity: {
         start: DateTime.fromJSDate,
-        end: DateTime.fromJSDate,
+        end: optional(DateTime.fromJSDate),
       },
     })
   )(jobs);

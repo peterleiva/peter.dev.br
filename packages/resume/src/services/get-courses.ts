@@ -4,9 +4,11 @@ import { ResumeDocument } from 'models/resume';
 import * as R from 'ramda';
 import { optional, toDateTime } from 'lib/serialization-utils';
 
+type CourseAggregation = Omit<Education, 'institution'>;
+
 type CoursesAggregation = {
   institution: string;
-  courses: Omit<Education, 'institution'>[];
+  courses: CourseAggregation[];
 };
 
 export const getCourses = async (
@@ -47,7 +49,7 @@ export const getCourses = async (
     },
   ]).exec();
 
-  return R.map(
+  return R.map<CoursesAggregation, Courses>(
     R.evolve({
       courses: R.map(
         R.evolve({

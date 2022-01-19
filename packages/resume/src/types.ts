@@ -1,5 +1,6 @@
 import type { DateTime } from 'luxon';
 import type { Education as IEducation } from 'models/education';
+import type { Resume as IResume } from 'models/resume';
 
 export type Company = {
   name: string;
@@ -35,4 +36,11 @@ export type Education = Omit<IEducation, 'started' | 'ended'> & {
 export type Courses = {
   institution: string;
   courses: Omit<Education, 'institution'>[];
+};
+
+export type Resume = Pick<IResume, 'bio' | 'contacts'> & {
+  skills: Skill[];
+  courses: Courses[];
+  educations: Education[];
+  jobs: Job[];
 };
