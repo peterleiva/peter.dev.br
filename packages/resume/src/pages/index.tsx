@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import type { GetStaticProps, NextPage } from 'next';
 import { Section, Skills, Timeline, Header, ContactsList } from 'components';
-import { getResume } from 'services';
+import getResume from 'services';
 import {
   jobDeserializer,
   educationDeserializer,
@@ -19,55 +19,53 @@ const Home: NextPage<HomeProps> = ({
   jobs,
   educations,
   courses,
-}) => {
-  return (
-    <div className={styles.container}>
-      <Head>
-        <title>Peter&apos;s Résumé</title>
-        <meta name="description" content="Peter's Résumé" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        {/* <link rel="icon" href="/favicon.ico" /> */}
-      </Head>
-      <Header />
-      <main className={styles.main}>
-        <div className={styles.profile}>
-          <Section title="Profile" fill>
-            <p>{bio}</p>
-          </Section>
-          <ContactsList contacts={contacts} />
-        </div>
-        <Section title="Experience">
-          <Timeline jobs={jobDeserializer(jobs)} />
+}) => (
+  <div className={styles.container}>
+    <Head>
+      <title>Peter&apos;s Résumé</title>
+      <meta name="description" content="Peter's Résumé" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      {/* <link rel="icon" href="/favicon.ico" /> */}
+    </Head>
+    <Header />
+    <main className={styles.main}>
+      <div className={styles.profile}>
+        <Section title="Profile" fill>
+          <p>{bio}</p>
         </Section>
-        <Section title="Education">
-          {educationDeserializer(educations).map(
-            ({ title, institution: { name: location } }) => (
-              <div key={title}>
-                <h2>{title}</h2>
-                <p>{location}</p>
-              </div>
-            )
-          )}
-        </Section>
-        <Section title="Courses & Training">
-          {courses.map(({ courses, institution }) => (
-            <div key={institution}>
-              <h3>{institution}</h3>
-              <ul>
-                {courses.map(({ title }) => (
-                  <li key={title}>{title}</li>
-                ))}
-              </ul>
+        <ContactsList contacts={contacts} />
+      </div>
+      <Section title="Experience">
+        <Timeline jobs={jobDeserializer(jobs)} />
+      </Section>
+      <Section title="Education">
+        {educationDeserializer(educations).map(
+          ({ title, institution: { name: location } }) => (
+            <div key={title}>
+              <h2>{title}</h2>
+              <p>{location}</p>
             </div>
-          ))}
-        </Section>
-        <Section title="Skills">
-          <Skills skills={skills} />
-        </Section>
-      </main>
-    </div>
-  );
-};
+          )
+        )}
+      </Section>
+      <Section title="Courses & Training">
+        {courses.map(({ courses: trainings, institution }) => (
+          <div key={institution}>
+            <h3>{institution}</h3>
+            <ul>
+              {trainings.map(({ title }) => (
+                <li key={title}>{title}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </Section>
+      <Section title="Skills">
+        <Skills skills={skills} />
+      </Section>
+    </main>
+  </div>
+);
 
 export default Home;
 

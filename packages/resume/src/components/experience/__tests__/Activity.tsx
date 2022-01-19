@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
-import Activity from '../Activity';
 import { DateTime } from 'luxon';
+import Activity from '../Activity';
 
 describe('Activity', () => {
   test("renders 'present' when no activity", () => {

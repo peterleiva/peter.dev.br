@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon';
 
 export const optional = <T, U>(fn: (arg: T) => U) => (arg?: T) =>
-  arg ? fn(arg as NonNullable<T>) : undefined;
+  arg ? fn(arg) : undefined;
 
 export const toISO = (date: DateTime) => date.toISO();
 

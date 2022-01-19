@@ -1,8 +1,8 @@
-import { optional, toISO } from './serialization-utils';
 import * as R from 'ramda';
 import { DateTime } from 'luxon';
 import { Contact } from 'models/resume';
 import { Resume, Job, Education, Courses } from 'types';
+import { optional, toISO } from './serialization-utils';
 
 type SerializedJob = Omit<Job, 'activity'> & {
   activity: { start: string; end?: string };

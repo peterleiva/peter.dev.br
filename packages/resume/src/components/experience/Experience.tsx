@@ -4,7 +4,7 @@ import Activity from './Activity';
 type ExperienceProps = Job;
 
 function name(company: Company) {
-  const alias = company.alias ? company.alias + ' - ' : ' ';
+  const alias = company.alias ? `${company.alias} - ` : ' ';
   return `${alias}${company.name}`;
 }
 

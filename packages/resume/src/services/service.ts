@@ -1,13 +1,13 @@
 import { connect, disconnect } from 'lib/database';
+import ResumeModel, { Contact } from 'models/resume';
+import * as R from 'ramda';
+import type { Resume } from 'types';
 import { getCourses } from './get-courses';
 import { getEducations } from './get-educations';
 import { getJobs } from './get-jobs';
 import { getSkills } from './get-skills';
-import ResumeModel, { Contact } from 'models/resume';
-import * as R from 'ramda';
-import type { Resume } from 'types';
 
-export async function getResume(): Promise<Resume | null> {
+export default async function getResume(): Promise<Resume | null> {
   const db = await connect();
 
   const resume = await ResumeModel.findOne();

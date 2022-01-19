@@ -1,10 +1,11 @@
+/* eslint-disable no-console */
 import mongoose, { Connection } from 'mongoose';
 
 export type DatabaseOptions = Partial<{
   url: string;
 }>;
 
-const DATABASE_URL = process.env.DATABASE_URL;
+const { DATABASE_URL } = process.env;
 const isProd = process.env.NODE_ENV === 'production';
 const DEV_URI_FALLBACK = 'mongodb://localhost:27017/resume';
 
@@ -12,12 +13,12 @@ export async function connect({
   url = DATABASE_URL,
 }: DatabaseOptions = {}): Promise<Connection> {
   if (!url && isProd) {
-    throw 'Database not set. Please, set DATABASE_URL environment variable';
+    throw new Error(
+      'Database not set. Please, set DATABASE_URL environment variable'
+    );
   }
 
-  url ??= DEV_URI_FALLBACK;
-
-  const { connection } = await mongoose.connect(url, {
+  const { connection } = await mongoose.connect(url ?? DEV_URI_FALLBACK, {
     appName: 'Resume',
     wtimeoutMS: isProd ? 25_000 : 0,
     socketTimeoutMS: 30_000 * 3,
@@ -47,7 +48,7 @@ export async function cleanUp(connection: Connection): Promise<Connection> {
 }
 
 export async function log(connection: Connection): Promise<Connection> {
-  mongoose.connection.on('connected', function () {
+  mongoose.connection.on('connected', () => {
     const { host, port, name: db } = connection;
     const connectionUri = `${host}:${port}/${db}`;
     console.info(`Database connected at ${connectionUri}`);
