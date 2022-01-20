@@ -12,8 +12,8 @@ async function seed(): Promise<ResumeDocument> {
     {
       updateOne: {
         filter: {
-          title: 'Data Modeling',
-          'institution.name': 'MongoDB University',
+          title: 'Computer Science',
+          'institution.name': 'Universidade Federal Fluminense',
         },
 
         upsert: true,
@@ -21,13 +21,12 @@ async function seed(): Promise<ResumeDocument> {
         update: {
           title: 'Computer Science',
           started: DateTime.fromObject({
-            year: 2020,
-            month: 2,
-            day: 3,
+            year: 202,
+            month: 11,
           }).toJSDate(),
 
           institution: {
-            name: 'UFF',
+            name: 'Universidade Federal Fluminense',
           },
         },
       },
@@ -50,8 +49,57 @@ async function seed(): Promise<ResumeDocument> {
           title: 'Data Modeling',
           started: DateTime.fromObject({
             year: 2020,
-            month: 2,
-            day: 3,
+          }).toJSDate(),
+          ended: DateTime.fromObject({
+            year: 2020,
+          }).toJSDate(),
+
+          institution: {
+            name: 'MongoDB University',
+          },
+        },
+      },
+    },
+    {
+      updateOne: {
+        filter: {
+          title: 'MongoDB for Javascript Developers',
+          'institution.name': 'MongoDB University',
+        },
+
+        upsert: true,
+
+        update: {
+          title: 'MongoDB for Javascript Developers',
+          started: DateTime.fromObject({
+            year: 2021,
+          }).toJSDate(),
+          ended: DateTime.fromObject({
+            year: 2021,
+          }).toJSDate(),
+
+          institution: {
+            name: 'MongoDB University',
+          },
+        },
+      },
+    },
+    {
+      updateOne: {
+        filter: {
+          title: 'The MongoDB Aggregation Framework',
+          'institution.name': 'MongoDB University',
+        },
+
+        upsert: true,
+
+        update: {
+          title: 'The MongoDB Aggregation Framework',
+          started: DateTime.fromObject({
+            year: 2021,
+          }).toJSDate(),
+          ended: DateTime.fromObject({
+            year: 2021,
           }).toJSDate(),
 
           institution: {
@@ -83,20 +131,56 @@ async function seed(): Promise<ResumeDocument> {
     {
       updateOne: {
         upsert: true,
-        filter: {},
+        filter: {
+          'company.name': 'Superintendência de Tecnologia da Informação',
+        },
         update: {
-          position: 'Developer',
+          position: 'Software Developer',
           company: {
-            name: 'Superintência',
-            alias: 'STI - UFF',
+            name: 'Superintendência de Tecnologia da Informação',
+            alias: 'STI UFF',
           },
           activity: {
             start: DateTime.fromObject({
+              year: 2018,
+              month: 4,
+            }).toJSDate(),
+
+            end: DateTime.fromObject({
               year: 2020,
-              month: 2,
-              day: 3,
+              month: 3,
             }).toJSDate(),
           },
+
+          description:
+            'Worked mainly on back-end development with Ruby on Rails. Acted directly on the maintenance of the University’s wide range of systems involved in whole stack. Using Redmine as a direct communication point to the users to fix bugs and develop new features.',
+        },
+      },
+    },
+    {
+      updateOne: {
+        upsert: true,
+        filter: { 'company.name': 'Rede Nacional de Ensino e Pesquisa' },
+        update: {
+          position: 'Development and Research Assistant',
+          company: {
+            name: 'Rede Nacional de Ensino e Pesquisa',
+            alias: 'RNP',
+          },
+          activity: {
+            start: DateTime.fromObject({
+              year: 2017,
+              month: 10,
+            }).toJSDate(),
+
+            end: DateTime.fromObject({
+              year: 2018,
+              month: 4,
+            }).toJSDate(),
+          },
+
+          description:
+            'Worked with RNP and Federal Fluminense University, developing an application of business model canvas. The Business Model Canvas is a strategic management template used for developing new business models and documenting existing ones. Using SAGE2, a web-based collaboration platform, enabling users to work with remote collaborators through video conferencing. I worked with SAGE2 library using bare metal Javascript (EcmaScript 5) to bring SAGE2 and Business Model Canvas together',
         },
       },
     },
@@ -126,7 +210,7 @@ async function seed(): Promise<ResumeDocument> {
         },
       ],
     },
-    { upsert: true }
+    { upsert: true, new: true }
   ).exec();
 
   resume.educations.push(...educations);
