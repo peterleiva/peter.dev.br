@@ -9,6 +9,8 @@ Each log entry can be in the following kind: **Added**[^1], **Changed**[^2], **D
 
 ### Added
 
+- Seed database script
+- Integrate database to query for resume
 - Privacy focused analytics tool with Umami
 
 ## [0.2.0] - 2022-01-14

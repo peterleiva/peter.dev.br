@@ -1,95 +1,151 @@
-import ResumeModel, { Contact, ResumeDocument } from 'services/models/resume';
+import ResumeModel, { ResumeDocument } from 'services/models/resume';
 import SkillModel from 'services/models/skill';
 import EducationModel from 'services/models/education';
 import JobModel from 'services/models/job';
 import { connect, disconnect } from 'services/database';
-import { map, lensProp, view } from 'ramda';
-import { Types } from 'mongoose';
 import { DateTime } from 'luxon';
 
-type DocumentId = { _id: Types.ObjectId };
-
 async function seed(): Promise<ResumeDocument> {
-  const idLens = lensProp<DocumentId>('_id');
-  const idView = view(idLens);
-  const id = map(idView);
+  const {
+    result: { upserted: educations },
+  } = await EducationModel.bulkWrite([
+    {
+      updateOne: {
+        filter: {
+          title: 'Data Modeling',
+          'institution.name': 'MongoDB University',
+        },
 
-  const contacts: Contact[] = [
-    {
-      username: '@pherval',
-      name: 'Telegram',
-      link: 'https://t.me/pherval',
-      icon: {
-        lib: 'bs',
-        name: 'BsTelegram',
-      },
-    },
-    {
-      username: '@pherval',
-      name: 'Github',
-      link: 'https://github.com/pherval',
-      icon: {
-        lib: 'bs',
-        name: 'BsGithub',
-      },
-    },
-  ];
+        upsert: true,
 
-  const skills = await SkillModel.create([
-    {
-      name: 'Javascript',
-      tags: [{ name: 'principal' }],
-    },
-    {
-      name: 'MongoDB',
-    },
-    {
-      name: 'Next.js',
-    },
-    {
-      name: 'Node.js',
-    },
-  ]);
+        update: {
+          title: 'Computer Science',
+          started: DateTime.fromObject({
+            year: 2020,
+            month: 2,
+            day: 3,
+          }).toJSDate(),
 
-  const educations = await EducationModel.create([
-    {
-      title: 'Data Modeling',
-      started: DateTime.fromObject({ year: 2020, month: 2, day: 3 }).toJSDate(),
-
-      intitution: {
-        name: 'MongoDB University',
+          institution: {
+            name: 'UFF',
+          },
+        },
       },
     },
   ]);
 
-  const jobs = await JobModel.create([
+  const {
+    result: { upserted: courses },
+  } = await EducationModel.bulkWrite([
     {
-      position: 'Developer',
-      company: {
-        name: 'Superintência',
-        alias: 'STI - UFF',
-      },
-      activity: {
-        start: DateTime.fromObject({ year: 2020, month: 2, day: 3 }).toJSDate(),
+      updateOne: {
+        filter: {
+          title: 'Data Modeling',
+          'institution.name': 'MongoDB University',
+        },
+
+        upsert: true,
+
+        update: {
+          title: 'Data Modeling',
+          started: DateTime.fromObject({
+            year: 2020,
+            month: 2,
+            day: 3,
+          }).toJSDate(),
+
+          institution: {
+            name: 'MongoDB University',
+          },
+        },
       },
     },
   ]);
 
-  return ResumeModel.create({
-    contacts,
-    skills: id(skills),
-    educations: id(educations),
-    jobs: id(jobs),
-  });
+  const {
+    result: { upserted: skills },
+  } = await SkillModel.bulkWrite([
+    {
+      updateOne: {
+        filter: { name: 'Javascript' },
+        upsert: true,
+        update: {
+          name: 'Javascript',
+          tags: [{ name: 'principal' }],
+        },
+      },
+    },
+  ]);
+
+  const {
+    result: { upserted: jobs },
+  } = await JobModel.bulkWrite([
+    {
+      updateOne: {
+        upsert: true,
+        filter: {},
+        update: {
+          position: 'Developer',
+          company: {
+            name: 'Superintência',
+            alias: 'STI - UFF',
+          },
+          activity: {
+            start: DateTime.fromObject({
+              year: 2020,
+              month: 2,
+              day: 3,
+            }).toJSDate(),
+          },
+        },
+      },
+    },
+  ]);
+
+  const resume = await ResumeModel.findOneAndUpdate(
+    {},
+    {
+      contacts: [
+        {
+          username: '@pherval',
+          name: 'Telegram',
+          link: 'https://t.me/pherval',
+          icon: {
+            lib: 'bs',
+            name: 'BsTelegram',
+          },
+        },
+        {
+          username: '@pherval',
+          name: 'Github',
+          link: 'https://github.com/pherval',
+          icon: {
+            lib: 'bs',
+            name: 'BsGithub',
+          },
+        },
+      ],
+    },
+    { upsert: true }
+  ).exec();
+
+  resume.educations.push(...educations);
+  resume.skills.push(...skills);
+  resume.jobs.push(...jobs);
+  resume.courses.push(...courses);
+
+  return resume.save();
 }
 
 async function run(): Promise<void> {
+  console.time('seed');
   const db = await connect();
-  const session = await db.startSession();
 
-  await session.withTransaction(seed);
+  const result = await seed();
 
-  await session.endSession();
+  console.log(result);
+  console.timeEnd('seed');
+
   await disconnect(db);
 }
 
