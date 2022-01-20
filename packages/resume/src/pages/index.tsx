@@ -2,15 +2,10 @@ import Head from 'next/head';
 import type { GetStaticProps, NextPage } from 'next';
 import { Section, Skills, Timeline, Header, ContactsList } from 'components';
 import getResume from 'services';
-import {
-  jobDeserializer,
-  educationDeserializer,
-  resumeSerializer,
-  SerializedResume,
-} from 'lib/serializers';
+import { job, education, resume as serializer } from 'lib/serializers';
 import styles from '../styles/Home.module.scss';
 
-type HomeProps = SerializedResume;
+type HomeProps = serializer.SerializedResume;
 
 const Home: NextPage<HomeProps> = ({
   bio,
@@ -36,17 +31,17 @@ const Home: NextPage<HomeProps> = ({
         <ContactsList contacts={contacts} />
       </div>
       <Section title="Experience">
-        <Timeline jobs={jobDeserializer(jobs)} />
+        <Timeline jobs={job.deserialize(jobs)} />
       </Section>
       <Section title="Education">
-        {educationDeserializer(educations).map(
-          ({ title, institution: { name: location } }) => (
+        {education
+          .deserialize(educations)
+          .map(({ title, institution: { name: location } }) => (
             <div key={title}>
               <h2>{title}</h2>
               <p>{location}</p>
             </div>
-          )
-        )}
+          ))}
       </Section>
       <Section title="Courses & Training">
         {courses.map(({ courses: trainings, institution }) => (
@@ -79,6 +74,6 @@ export const getStaticProps: GetStaticProps<HomeProps> = async () => {
   }
 
   return {
-    props: resumeSerializer(resume),
+    props: serializer.serialize(resume),
   };
 };
