@@ -1,6 +1,6 @@
 import Script from 'next/script';
 
-export default function Analytics() {
+export default function Analytics(): JSX.Element | null {
   const id = process.env.NEXT_PUBLIC_ANALYTICS_ID;
   const src = process.env.NEXT_PUBLIC_ANALYTICS_SRC;
 

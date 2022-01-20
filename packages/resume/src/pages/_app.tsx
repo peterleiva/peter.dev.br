@@ -1,9 +1,9 @@
 import type { AppProps } from 'next/app';
 import React from 'react';
-import Analytics from 'lib/Analytics';
+import { Analytics } from 'components';
 import '../styles/globals.scss';
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   return (
     <React.StrictMode>
       <Analytics />
