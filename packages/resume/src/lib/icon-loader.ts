@@ -1,4 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-return */
 import dynamic from 'next/dynamic';
+import { IconBaseProps } from 'react-icons';
 import { BsLink45Deg as FallbackIcon } from 'react-icons/bs';
 
 export type LibIcon =
@@ -34,7 +37,8 @@ const fallback = () => FallbackIcon;
 export function iconLoader({ lib, name = '' }: Partial<Options> = {}) {
   if (!lib) return fallback();
 
-  return dynamic(
+  // TODO: melhorar a tipagem e remover os ignores do eslint ☝️
+  return dynamic<IconBaseProps>(
     () =>
       import(`react-icons/${lib}/index.js`)
         .then(mod => mod[name] ?? fallback())
