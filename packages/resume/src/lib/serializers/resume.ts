@@ -10,8 +10,9 @@ import { SerializedJob, serialize as jobSerializer } from './job';
 
 export type SerializedResume = Omit<
   Resume,
-  'jobs' | 'educations' | 'courses'
+  'jobs' | 'educations' | 'courses' | 'bio'
 > & {
+  bio?: string | null;
   jobs: SerializedJob[];
   educations: SerializedEducation[];
   courses: SerializedCourses[];
@@ -26,8 +27,8 @@ const contactsSerializer = R.map(
   )
 );
 
-export const serialize = R.evolve({
-  bio: R.defaultTo(null),
+export const serialize: (resume: Resume) => SerializedResume = R.evolve({
+  bio: (bio?: string) => bio ?? null,
   contacts: contactsSerializer,
   jobs: jobSerializer,
   educations: educationSerializer,
