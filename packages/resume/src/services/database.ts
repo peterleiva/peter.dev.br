@@ -1,12 +1,13 @@
 /* eslint-disable no-console */
 import mongoose, { Connection } from 'mongoose';
+import { env } from 'node-environment';
 
 export type DatabaseOptions = Partial<{
   url: string;
 }>;
 
 const { DATABASE_URL } = process.env;
-const isProd = process.env.NODE_ENV === 'production';
+const isProd = env('prod');
 const DEV_URI_FALLBACK = 'mongodb://localhost:27017/resume';
 
 export async function connect({
