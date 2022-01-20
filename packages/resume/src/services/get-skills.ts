@@ -1,7 +1,7 @@
-import { ResumeDocument } from 'models/resume';
-import { SkillDocument, Tag } from 'models/skill';
 import { Skill } from 'types';
 import * as R from 'ramda';
+import { ResumeDocument } from './models/resume';
+import { SkillDocument, Tag } from './models/skill';
 
 export const skillMapper = (skills: SkillDocument[]): Skill[] => {
   const tagsLens = R.lensProp<Tag>('name');

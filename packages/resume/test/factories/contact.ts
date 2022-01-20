@@ -1,5 +1,5 @@
 import casual from 'casual';
-import { Contact } from 'models/resume';
+import { Contact } from 'services/models/resume';
 import { times } from 'ramda';
 
 const contact = times<Contact>(() => ({

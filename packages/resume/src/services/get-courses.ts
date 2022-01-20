@@ -1,8 +1,8 @@
-import EducationModel, { Education } from 'models/education';
 import type { Course, Courses } from 'types';
-import { ResumeDocument } from 'models/resume';
 import * as R from 'ramda';
 import { optional, toDateTime } from 'lib/serialization-utils';
+import EducationModel, { Education } from './models/education';
+import { ResumeDocument } from './models/resume';
 
 type CourseAggregation = Omit<Education, 'institution'>;
 
@@ -11,9 +11,9 @@ type CoursesAggregation = {
   courses: CourseAggregation[];
 };
 
-export const getCourses = async (
+export default async function getCourses(
   resume: ResumeDocument
-): Promise<Courses[]> => {
+): Promise<Courses[]> {
   const courses = await EducationModel.aggregate<CoursesAggregation>([
     {
       $match: {
@@ -59,4 +59,4 @@ export const getCourses = async (
       courses: R.map<CourseAggregation, Course>(period),
     })
   )(courses);
-};
+}

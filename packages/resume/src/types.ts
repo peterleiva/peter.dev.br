@@ -1,10 +1,12 @@
 import type { DateTime } from 'luxon';
-import type { Education as IEducation } from 'models/education';
-import type { Resume as IResume } from 'models/resume';
+import type { Education as IEducation } from 'services/models/education';
+import type { Resume as IResume, Contact } from 'services/models/resume';
+
+export { Contact };
 
 export type Company = {
   name: string;
-  alias?: String;
+  alias?: string;
 };
 
 export type Job = {

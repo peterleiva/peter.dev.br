@@ -1,7 +1,7 @@
 import casual from 'casual';
 import { Types } from 'mongoose';
 import { Factory } from 'fishery';
-import ResumeModel, { Resume, ResumeDocument } from 'models/resume';
+import ResumeModel, { Resume, ResumeDocument } from 'services/models/resume';
 import * as R from 'ramda';
 import skillsFactory from './skill';
 import jobsFactory from './job';
@@ -36,7 +36,7 @@ export default Factory.define<Resume, TransientParams, ResumeDocument>(
         courses: idMap(trainingDocs),
       });
 
-      return await doc.save();
+      return doc.save();
     });
 
     return {

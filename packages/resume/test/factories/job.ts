@@ -1,6 +1,6 @@
 import casual from 'casual';
 import { Factory } from 'fishery';
-import JobModel, { Job, JobDocument } from 'models/job';
+import JobModel, { Job, JobDocument } from 'services/models/job';
 import { period } from './period';
 
 export default Factory.define<Job, null, JobDocument>(({ onCreate }) => {

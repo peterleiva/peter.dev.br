@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 import { DateTime } from 'luxon';
-import { Contact } from 'models/resume';
+import { Contact } from 'services/models/resume';
 import { Resume, Job, Education, Courses } from 'types';
 import { optional, toISO } from './serialization-utils';
 

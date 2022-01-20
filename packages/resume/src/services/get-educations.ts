@@ -1,17 +1,17 @@
-import EducationModel from 'models/education';
-import type { Education } from 'types';
-import { ResumeDocument } from 'models/resume';
-import { toDateTime, optional } from 'lib/serialization-utils';
 import { evolve, map } from 'ramda';
+import type { Education } from 'types';
+import { toDateTime, optional } from 'lib/serialization-utils';
+import EducationModel from './models/education';
+import { ResumeDocument } from './models/resume';
 
 type EducationAggregation = Omit<Education, 'started' | 'ended'> & {
   started: Date;
   ended?: Date;
 };
 
-export const getEducations = async (
+export default async function getEducations(
   resume: ResumeDocument
-): Promise<Education[]> => {
+): Promise<Education[]> {
   const educations = await EducationModel.aggregate<EducationAggregation>([
     {
       $match: {
@@ -45,4 +45,4 @@ export const getEducations = async (
       ended: optional(toDateTime),
     })
   )(educations);
-};
+}

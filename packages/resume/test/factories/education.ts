@@ -1,6 +1,9 @@
 import casual from 'casual';
 import { Factory } from 'fishery';
-import EducationModel, { Education, EducationDocument } from 'models/education';
+import EducationModel, {
+  Education,
+  EducationDocument,
+} from 'services/models/education';
 import { period } from './period';
 
 export default Factory.define<Education, null, EducationDocument>(

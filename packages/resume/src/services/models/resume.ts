@@ -1,3 +1,4 @@
+import { LibIcon } from 'lib/icon-loader';
 import {
   HydratedDocument,
   models,
@@ -9,7 +10,6 @@ import {
 import SkillModel from './skill';
 import EducationModel from './education';
 import JobModel from './job';
-import { LibIcon } from 'lib/icon-loader';
 
 interface Icon {
   lib: LibIcon;
