@@ -1,1 +1,2 @@
-export * from './serializers';
+export * from './utils';
+export * from './icon-loader';

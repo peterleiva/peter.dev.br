@@ -1,6 +1,6 @@
 import { evolve, map } from 'ramda';
 import type { Education } from 'types';
-import { toDateTime, optional } from 'lib/serialization-utils';
+import { toDateTime, optionalToDateTime } from 'lib';
 import EducationModel from './models/education';
 import { ResumeDocument } from './models/resume';
 
@@ -42,7 +42,7 @@ export default async function getEducations(
   return map(
     evolve({
       started: toDateTime,
-      ended: optional(toDateTime),
+      ended: optionalToDateTime,
     })
   )(educations);
 }

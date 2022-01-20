@@ -2,7 +2,7 @@ import ResumeModel, { Contact, ResumeDocument } from 'services/models/resume';
 import SkillModel from 'services/models/skill';
 import EducationModel from 'services/models/education';
 import JobModel from 'services/models/job';
-import { connect, disconnect } from 'lib/database';
+import { connect, disconnect } from 'services/database';
 import { map, lensProp, view } from 'ramda';
 import { Types } from 'mongoose';
 import { DateTime } from 'luxon';
@@ -83,7 +83,7 @@ async function seed(): Promise<ResumeDocument> {
   });
 }
 
-async function run() {
+async function run(): Promise<void> {
   const db = await connect();
   const session = await db.startSession();
 

@@ -1,11 +1,9 @@
+import { Connection } from 'mongoose';
 import repl from 'repl';
-// const repl = require('repl');
-// const { connect, disconnect } = require('lib/database');
-// const factories = require('test/factories');
-import { connect, disconnect } from 'src/lib/database';
+import { connect, disconnect } from 'services/database';
 import * as factories from 'test/factories';
 
-async function start() {
+async function start(): Promise<void> {
   const connection = await connect();
 
   const console = repl.start({
@@ -20,7 +18,7 @@ async function start() {
     console.context[model] = connection?.models[model];
   }
 
-  console.on('exit', async () => disconnect(connection));
+  console.on('exit', async (): Promise<Connection> => disconnect(connection));
 }
 
 start();

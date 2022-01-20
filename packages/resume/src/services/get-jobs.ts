@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 import type { Job } from 'types';
-import { optional, toDateTime } from 'lib/serialization-utils';
+import { toDateTime, optionalToDateTime } from 'lib';
 import { skillMapper } from './get-skills';
 import { ResumeDocument } from './models/resume';
 import JobModel from './models/job';
@@ -56,7 +56,7 @@ export default async function getJobs(resume: ResumeDocument): Promise<Job[]> {
       techs: skillMapper,
       activity: {
         start: toDateTime,
-        end: optional(toDateTime),
+        end: optionalToDateTime,
       },
     })
   )(jobs);

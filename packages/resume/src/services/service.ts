@@ -1,6 +1,6 @@
-import { connect, disconnect } from 'lib/database';
 import * as R from 'ramda';
 import type { Resume } from 'types';
+import { connect, disconnect } from './database';
 import ResumeModel, { Contact, ResumeDocument } from './models/resume';
 import getCourses from './get-courses';
 import getEducations from './get-educations';

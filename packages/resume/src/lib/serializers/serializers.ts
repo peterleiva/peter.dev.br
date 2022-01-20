@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 import { Resume, Job, Education, Courses, Contact } from 'types';
-import { optional, toISO, fromISO } from './serialization-utils';
+import { optional, toISO, fromISO } from '../utils';
 
 type SerializedJob = Omit<Job, 'activity'> & {
   activity: { start: string; end?: string };

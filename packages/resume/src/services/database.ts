@@ -47,7 +47,7 @@ export async function cleanUp(connection: Connection): Promise<Connection> {
   return connection;
 }
 
-export async function log(connection: Connection): Promise<Connection> {
+export function log(connection: Connection): Connection {
   mongoose.connection.on('connected', () => {
     const { host, port, name: db } = connection;
     const connectionUri = `${host}:${port}/${db}`;
