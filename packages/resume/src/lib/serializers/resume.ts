@@ -27,6 +27,7 @@ const contactsSerializer = R.map(
 );
 
 export const serialize = R.evolve({
+  bio: R.defaultTo(null),
   contacts: contactsSerializer,
   jobs: jobSerializer,
   educations: educationSerializer,
