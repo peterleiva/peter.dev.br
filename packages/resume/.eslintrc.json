@@ -1,3 +1,32 @@
 {
-  "extends": "next/core-web-vitals"
+  "root": true,
+
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"],
+
+  "extends": [
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    "next/core-web-vitals",
+    "next",
+    "prettier"
+  ],
+  "parserOptions": {
+    "project": "./tsconfig.json",
+    "ecmaFeatures": {
+      "jsx": true
+    },
+
+    "projectFolderIgnoreList": [
+      "**/node_modules/**",
+      "**/.next/**",
+      "**/public/**"
+    ]
+  },
+
+  "settings": {
+    "next": {
+      "rootDir": "./"
+    }
+  }
 }

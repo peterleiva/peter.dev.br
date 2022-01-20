@@ -1,10 +1,6 @@
 {
-	"extends": ["eslint:recommended", "prettier"],
+	"extends": ["eslint:recommended", "./eslint/typescript", "prettier"],
 	"overrides": [
-		{
-			"files": ["*.{tsx,ts}"],
-			"extends": "./eslint/typescript"
-		},
 		{
 			"files": "**/__tests__/**/*",
 			"extends": "./eslint/jest"
@@ -19,7 +15,7 @@
 			"extends": "./eslint/node"
 		},
 		{
-			"files": "**/*.json",
+			"files": "*.json",
 			"extends": "plugin:json/recommended"
 		}
 	]
