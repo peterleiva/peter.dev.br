@@ -1,16 +1,20 @@
 import { connect, disconnect } from 'lib/database';
 import * as R from 'ramda';
 import type { Resume } from 'types';
-import ResumeModel, { Contact } from './models/resume';
+import ResumeModel, { Contact, ResumeDocument } from './models/resume';
 import getCourses from './get-courses';
 import getEducations from './get-educations';
 import getJobs from './get-jobs';
 import { getSkills } from './get-skills';
 
+// FIX: mongoose showing return type as any
+const findResume = (): Promise<ResumeDocument | null> =>
+  ResumeModel.findOne().exec() as Promise<ResumeDocument | null>;
+
 export default async function getResume(): Promise<Resume | null> {
   const db = await connect();
 
-  const resume = await ResumeModel.findOne();
+  const resume = await findResume();
 
   if (!resume) {
     await disconnect(db);
@@ -38,7 +42,7 @@ export default async function getResume(): Promise<Resume | null> {
       >(
         R.pick(['link', 'name', 'username', 'icon']),
         R.evolve({
-          icon: icon => (icon?.name ? { ...icon } : {}),
+          icon: (icon: Contact['icon']) => (icon?.name ? { ...icon } : {}),
         })
       )
     ),

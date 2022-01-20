@@ -1,8 +1,6 @@
 import * as R from 'ramda';
-import { DateTime } from 'luxon';
-import { Contact } from 'services/models/resume';
-import { Resume, Job, Education, Courses } from 'types';
-import { optional, toISO } from './serialization-utils';
+import { Resume, Job, Education, Courses, Contact } from 'types';
+import { optional, toISO, fromISO } from './serialization-utils';
 
 type SerializedJob = Omit<Job, 'activity'> & {
   activity: { start: string; end?: string };
@@ -20,8 +18,8 @@ export const jobSerializer = R.map<Job, SerializedJob>(
 export const jobDeserializer = R.map<SerializedJob, Job>(
   R.evolve({
     activity: {
-      start: DateTime.fromISO,
-      end: DateTime.fromISO,
+      start: fromISO,
+      end: optional(fromISO),
     },
   })
 );
@@ -41,8 +39,8 @@ export const educationSerializer = R.map<Education, SerializedEducation>(
 
 export const educationDeserializer = R.map<SerializedEducation, Education>(
   R.evolve({
-    started: DateTime.fromISO,
-    ended: DateTime.fromISO,
+    started: fromISO,
+    ended: optional(fromISO),
   })
 );
 
@@ -73,7 +71,7 @@ const contactsSerializer = R.map(
   R.compose<[Contact], Contact, Contact>(
     R.pick(['link', 'name', 'username', 'icon']),
     R.evolve({
-      icon: icon => (icon?.name ? { ...icon } : {}),
+      icon: (icon: Contact['icon']) => (icon?.name ? { ...icon } : {}),
     })
   )
 );

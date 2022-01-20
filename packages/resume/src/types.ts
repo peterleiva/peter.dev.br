@@ -1,12 +1,23 @@
 import type { DateTime } from 'luxon';
-import type { Education as IEducation } from 'services/models/education';
-import type { Resume as IResume, Contact } from 'services/models/resume';
+import { LibIcon } from './lib/icon-loader';
 
-export { Contact };
+export type Resume = {
+  contacts: Contact[];
+  bio?: string;
+  skills: Skill[];
+  courses: Courses[];
+  educations: Education[];
+  jobs: Job[];
+};
 
-export type Company = {
+export type Contact = {
+  username: string;
+  link: string;
   name: string;
-  alias?: string;
+  icon: Partial<{
+    lib: LibIcon;
+    name: string;
+  }>;
 };
 
 export type Job = {
@@ -22,7 +33,10 @@ export type Job = {
   techs: Skill[];
 };
 
-export type Tag = string;
+export type Company = {
+  name: string;
+  alias?: string;
+};
 
 export type Skill = {
   name: string;
@@ -30,7 +44,14 @@ export type Skill = {
   icon?: string;
 };
 
-export type Education = Omit<IEducation, 'started' | 'ended'> & {
+export type Tag = string;
+
+export type Education = {
+  title: string;
+  description?: string;
+  institution: {
+    name: string;
+  };
   started: DateTime;
   ended?: DateTime;
 };
@@ -40,11 +61,4 @@ export type Course = Omit<Education, 'institution'>;
 export type Courses = {
   institution: string;
   courses: Course[];
-};
-
-export type Resume = Pick<IResume, 'bio' | 'contacts'> & {
-  skills: Skill[];
-  courses: Courses[];
-  educations: Education[];
-  jobs: Job[];
 };
