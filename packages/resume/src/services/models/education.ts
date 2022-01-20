@@ -17,7 +17,6 @@ const educationSchema = new Schema<Education>({
   title: {
     type: String,
     required: true,
-    unique: true,
     minlength: 3,
   },
 
@@ -28,7 +27,6 @@ const educationSchema = new Schema<Education>({
       name: {
         type: String,
         required: true,
-        unique: true,
         minlength: 3,
       },
     }),
@@ -42,6 +40,12 @@ const educationSchema = new Schema<Education>({
   },
 
   ended: Date,
-});
+}).index(
+  {
+    title: 1,
+    'institution.name': 1,
+  },
+  { unique: true }
+);
 
 export default models.Education ?? model('Education', educationSchema);
