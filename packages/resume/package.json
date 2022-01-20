@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "console": "ts-node-dev -r tsconfig-paths/register -P ./tsconfig.json scripts/console",
+    "seed": "ts-node -r tsconfig-paths/register -P ./tsconfig.json scripts/seed",
     "test": "jest",
     "test:watch": "npm test -- --watch"
   },
