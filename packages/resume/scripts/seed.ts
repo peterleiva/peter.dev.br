@@ -189,6 +189,8 @@ async function seed(): Promise<ResumeDocument> {
   const resume = await ResumeModel.findOneAndUpdate(
     {},
     {
+      name: 'Peter',
+      jobTitle: 'Full Stack Javascript Engineer',
       contacts: [
         {
           username: '@pherval',
@@ -233,4 +235,4 @@ async function run(): Promise<void> {
   await disconnect(db);
 }
 
-run();
+run().catch(console.error);
