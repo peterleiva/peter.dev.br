@@ -25,14 +25,17 @@ const Home: NextPage<HomeProps> = ({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         {/* <link rel="icon" href="/favicon.ico" /> */}
       </Head>
-      <Header name={name} jobTitle={jobTitle} />
-      <main className={styles.main}>
+      <div className={styles.top}>
+        <Header name={name} jobTitle={jobTitle} />
         <div className={styles.profile}>
           <Section title="Profile" fill>
             <p>{bio}</p>
           </Section>
           <ContactsList contacts={contacts} />
         </div>
+      </div>
+
+      <main className={styles.main}>
         <Section title="Experience">
           <Timeline jobs={job.deserialize(jobs)} />
         </Section>

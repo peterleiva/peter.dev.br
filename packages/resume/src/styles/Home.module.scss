@@ -3,7 +3,8 @@
 
 $gap: type.rem(88);
 
-.container {
+.top,
+.main {
 	padding: 0 clamp(var(--space), 10vw, $gap);
 
 	@media screen and (min-width: bp.$dalmata) {
@@ -11,13 +12,22 @@ $gap: type.rem(88);
 	}
 }
 
+.top {
+	padding-bottom: var(--space);
+}
+
 .main,
-.container {
+.container,
+.top {
 	--gap: #{$gap};
 
 	display: flex;
 	flex-direction: column;
 	gap: var(--gap);
+}
+
+.top {
+	background-color: var(--color-background-2);
 }
 
 .profile {
