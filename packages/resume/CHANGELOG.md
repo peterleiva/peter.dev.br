@@ -9,6 +9,7 @@ Each log entry can be in the following kind: **Added**[^1], **Changed**[^2], **D
 
 ### Added
 
+- Section title underlined
 - Linkable sections. An ID href is defined in resume's sections
 - Seed database script
 - Integrate database to query for resume
