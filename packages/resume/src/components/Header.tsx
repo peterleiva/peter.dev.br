@@ -11,11 +11,7 @@ export default function Header({ name, jobTitle }: HeaderProps) {
         <h2>{jobTitle}</h2>
       </section>
       <nav>
-        <ul>
-          <li>Download</li>
-          <li>Print</li>
-          <li>Contact me</li>
-        </ul>
+        <ul></ul>
       </nav>
 
       <style jsx>{`
