@@ -40,7 +40,19 @@ export default function Section({
           }
 
           .text {
+            position: relative;
             color: var(--color-primary-1);
+          }
+
+          .text::after {
+            content: '';
+            border-radius: var(--border-radius);
+            background-color: var(--color-primary-1);
+            height: 2px;
+            width: 34px;
+            position: absolute;
+            bottom: -2px;
+            left: -14px;
           }
 
           .link .icon {
