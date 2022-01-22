@@ -8,17 +8,17 @@ import styles from '../styles/Home.module.scss';
 type HomeProps = { resume: serializer.SerializedResume };
 
 const Home: NextPage<HomeProps> = ({
-  resume: { contacts, bio, jobs, educations, courses, skills },
+  resume: { name, jobTitle, contacts, bio, jobs, educations, courses, skills },
 }) => {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Peter&apos;s Résumé</title>
-        <meta name="description" content="Peter's Résumé" />
+        <title>{name}&apos;s Résumé</title>
+        <meta name="description" content={`${name}'s Résumé`} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         {/* <link rel="icon" href="/favicon.ico" /> */}
       </Head>
-      <Header />
+      <Header name={name} jobTitle={jobTitle} />
       <main className={styles.main}>
         <div className={styles.profile}>
           <Section title="Profile" fill>

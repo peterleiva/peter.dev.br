@@ -1,9 +1,14 @@
-export default function Header() {
+type HeaderProps = {
+  name: string;
+  jobTitle: string;
+};
+
+export default function Header({ name, jobTitle }: HeaderProps) {
   return (
     <header>
       <section className="title">
-        <h1>Peter</h1>
-        <h2>Full Stack Javascript Engineer</h2>
+        <h1>{name}</h1>
+        <h2>{jobTitle}</h2>
       </section>
       <nav>
         <ul>

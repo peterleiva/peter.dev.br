@@ -2,6 +2,8 @@ import type { DateTime } from 'luxon';
 import { LibIcon } from './lib/icon-loader';
 
 export type Resume = {
+  name: string;
+  jobTitle: string;
   contacts: Contact[];
   bio?: string;
   skills: Skill[];

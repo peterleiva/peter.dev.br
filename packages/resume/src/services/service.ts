@@ -7,9 +7,8 @@ import getEducations from './get-educations';
 import getJobs from './get-jobs';
 import { getSkills } from './get-skills';
 
-// FIX: mongoose showing return type as any
 const findResume = (): Promise<ResumeDocument | null> =>
-  ResumeModel.findOne().exec() as Promise<ResumeDocument | null>;
+  ResumeModel.findOne().exec();
 
 export default async function getResume(): Promise<Resume | null> {
   const db = await connect();
@@ -30,7 +29,7 @@ export default async function getResume(): Promise<Resume | null> {
 
   await disconnect(db);
 
-  const { bio, contacts } = R.evolve({
+  const { bio, contacts, jobTitle, name } = R.evolve({
     contacts: R.map<
       Contact,
       Pick<Contact, 'link' | 'name' | 'username' | 'icon'>
@@ -49,6 +48,8 @@ export default async function getResume(): Promise<Resume | null> {
   })(resume);
 
   return {
+    name,
+    jobTitle,
     bio,
     contacts,
     jobs,

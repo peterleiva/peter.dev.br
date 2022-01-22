@@ -6,6 +6,7 @@ import {
   ObjectId,
   Schema,
   Types,
+  Model,
 } from 'mongoose';
 import SkillModel from './skill';
 import EducationModel from './education';
@@ -24,6 +25,8 @@ export interface Contact {
 }
 
 export interface Resume {
+  jobTitle: string;
+  name: string;
   bio?: string;
   contacts: Contact[];
   educations: ObjectId[];
@@ -57,6 +60,16 @@ const contactSchema = new Schema<Contact>({
 });
 
 const resumeSchema = new Schema<Resume>({
+  name: {
+    type: String,
+    required: true,
+  },
+
+  jobTitle: {
+    type: String,
+    required: true,
+  },
+
   bio: String,
 
   contacts: [
@@ -109,4 +122,7 @@ const resumeSchema = new Schema<Resume>({
   },
 });
 
-export default models.Resume ?? model('Resume', resumeSchema);
+type ResumeModel = Model<Resume>;
+
+export default (models.Resume as ResumeModel) ??
+  model<Resume>('Resume', resumeSchema);
