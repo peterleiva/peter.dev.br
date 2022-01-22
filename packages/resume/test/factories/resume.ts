@@ -40,6 +40,8 @@ export default Factory.define<Resume, TransientParams, ResumeDocument>(
     });
 
     return {
+      name: casual.first_name,
+      jobTitle: casual.catch_phrase,
       bio: casual.description,
       contacts: contact(2),
       educations,
