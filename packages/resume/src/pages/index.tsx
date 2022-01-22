@@ -1,8 +1,15 @@
 import Head from 'next/head';
 import type { GetStaticProps, NextPage } from 'next';
-import { Section, Skills, Timeline, Header, ContactsList } from 'components';
+import {
+  Section,
+  Skills,
+  Timeline,
+  Header,
+  ContactsList,
+  Education,
+} from 'components';
 import getResume from 'services';
-import { job, education, resume as serializer } from 'lib/serializers';
+import { job, education, course, resume as serializer } from 'lib/serializers';
 import styles from '../styles/Home.module.scss';
 
 type HomeProps = { resume: serializer.SerializedResume };
@@ -32,24 +39,27 @@ const Home: NextPage<HomeProps> = ({
         <Section title="Education">
           {education
             .deserialize(educations)
-            .map(({ title, institution: { name: location } }) => (
-              <div key={title}>
-                <h2>{title}</h2>
-                <p>{location}</p>
-              </div>
+            .map(({ title, institution: { name }, ended }) => (
+              <Education
+                key={title}
+                title={title}
+                educations={[{ name, end: ended }]}
+              />
             ))}
         </Section>
         <Section title="Courses & Training">
-          {courses.map(({ courses: trainings, institution }) => (
-            <div key={institution}>
-              <h3>{institution}</h3>
-              <ul>
-                {trainings.map(({ title }) => (
-                  <li key={title}>{title}</li>
-                ))}
-              </ul>
-            </div>
-          ))}
+          {course
+            .deserialize(courses)
+            .map(({ courses: trainings, institution }) => (
+              <Education
+                key={institution}
+                title={institution}
+                educations={trainings.map(({ title, ended }) => ({
+                  end: ended,
+                  name: title,
+                }))}
+              />
+            ))}
         </Section>
         <Section title="Skills">
           <Skills skills={skills} />
