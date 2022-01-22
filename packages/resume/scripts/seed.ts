@@ -4,8 +4,11 @@ import EducationModel from 'services/models/education';
 import JobModel from 'services/models/job';
 import { connect, disconnect } from 'services/database';
 import { DateTime } from 'luxon';
+import { ObjectId } from 'mongoose';
 
 async function seed(): Promise<ResumeDocument> {
+  // const id = (document: Document[]) => document.map(d => d._id);
+
   const {
     result: { upserted: educations },
   } = await EducationModel.bulkWrite([
@@ -215,10 +218,10 @@ async function seed(): Promise<ResumeDocument> {
     { upsert: true, new: true }
   ).exec();
 
-  resume.educations.push(...educations);
-  resume.skills.push(...skills);
-  resume.jobs.push(...jobs);
-  resume.courses.push(...courses);
+  resume.educations.push(...(educations as ObjectId[]));
+  resume.skills.push(...(skills as ObjectId[]));
+  resume.jobs.push(...(jobs as ObjectId[]));
+  resume.courses.push(...(courses as ObjectId[]));
 
   return resume.save();
 }
