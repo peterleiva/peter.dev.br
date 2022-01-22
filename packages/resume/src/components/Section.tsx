@@ -1,4 +1,6 @@
 import type { ReactNode } from 'react';
+import Link from 'next/link';
+import { RiLink as LinkIcon } from 'react-icons/ri';
 
 export type SectionProps = {
   title: string;
@@ -15,25 +17,45 @@ export default function Section({
 }: SectionProps) {
   return (
     <section className={layoutClass(fill)}>
-      <h2>{title}</h2>
+      <h2 id={title}>
+        <Link href={`#${title}`} passHref>
+          <a href="passHref" className="link">
+            <span className="icon">
+              <LinkIcon />
+            </span>
+            <span className="text">{title}</span>
+          </a>
+        </Link>
+      </h2>
       <div className="body">{children}</div>
       <style jsx>
         {`
           h2 {
             text-align: center;
+            margin-bottom: var(--space);
           }
 
-          .fill > .body {
-            text-align: justify;
+          .link {
+            position: relative;
           }
 
-          section {
-            display: flex;
-            flex-flow: column;
-            gap: var(--space);
+          .text {
+            color: var(--color-primary-1);
           }
 
-          @media screen and (min-width: 560px) {
+          .link .icon {
+            position: absolute;
+            left: calc(-1 * var(--space));
+            top: 0;
+            color: var(--color-link);
+            display: none;
+          }
+
+          .link:hover .icon {
+            display: inline;
+          }
+
+          @media screen and (min-width: 540px) {
             .columns {
               display: grid;
               grid-template-columns: repeat(4, 1fr);
@@ -45,7 +67,11 @@ export default function Section({
               grid-column: 1 / 2;
             }
 
-            .columns div {
+            .columns .link {
+              justify-content: left;
+            }
+
+            .columns .body {
               grid-column: 2 / 5;
             }
           }
