@@ -17,8 +17,8 @@ export default function ContactsList({ contacts }: ContactsListProps) {
       ))}
 
       <div className="email">
-        <Contact href="mailto:resume@peter.dev.br" hideIcon external>
-          resume@peter.dev.br
+        <Contact href="mailto:job@peter.dev.br" hideIcon external>
+          job@peter.dev.br
         </Contact>
         <span className="fingerprint">
           <IconLabel Icon={FingerprintIcon}>A141FC37</IconLabel>
