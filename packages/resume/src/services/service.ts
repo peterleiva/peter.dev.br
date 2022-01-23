@@ -18,7 +18,7 @@ const dbWrapper = async <T>(fn: () => Promise<T>) => {
 const findResume = (): Promise<ResumeDocument | null> =>
   ResumeModel.findOne().exec();
 
-export default async function getResume(): Promise<Resume | null> {
+export async function getResume(): Promise<Resume | null> {
   const db = await connect();
 
   const resume = await findResume();

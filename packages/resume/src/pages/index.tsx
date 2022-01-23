@@ -8,8 +8,8 @@ import {
   ContactsList,
   Education,
 } from 'components';
-import getResume from 'services';
 import { SiNextdotjs as NextIcon } from 'react-icons/si';
+import { getResume } from 'services';
 import { job, education, course, resume as serializer } from 'lib/serializers';
 import pkg from '../../package.json';
 import styles from '../styles/Home.module.scss';
