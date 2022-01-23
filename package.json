@@ -44,5 +44,8 @@
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": "eslint --cache --fix",
     "*.--write": "prettier --write --ignore-unknown"
+  },
+  "dependencies": {
+    "react-query": "^3.34.11"
   }
 }
