@@ -1,7 +1,7 @@
 import * as R from 'ramda';
 import type { Job } from 'types';
 import { toDateTime, optionalToDateTime } from 'lib';
-import { skillMapper } from './get-skills';
+import { skillMapper } from './skills';
 import { ResumeDocument } from './models/resume';
 import JobModel from './models/job';
 import { SkillDocument } from './models/skill';

@@ -1,11 +1,19 @@
 import * as R from 'ramda';
-import type { Resume } from 'types';
+import type { Resume, Tag } from 'types';
 import { connect, disconnect } from './database';
 import ResumeModel, { Contact, ResumeDocument } from './models/resume';
 import getCourses from './get-courses';
 import getEducations from './get-educations';
 import getJobs from './get-jobs';
-import { getSkills } from './get-skills';
+import { allTags, getSkills, byTag } from './skills';
+
+const dbWrapper = async <T>(fn: () => Promise<T>) => {
+  const db = await connect();
+  const result = await fn();
+  await disconnect(db);
+
+  return result;
+};
 
 const findResume = (): Promise<ResumeDocument | null> =>
   ResumeModel.findOne().exec();
@@ -58,3 +66,7 @@ export default async function getResume(): Promise<Resume | null> {
     courses,
   };
 }
+
+export const getSkillsByTag = (tag: Tag) => dbWrapper(() => byTag(tag));
+
+export const getAllTags = async () => dbWrapper(allTags);
