@@ -70,3 +70,12 @@ export async function getResume(): Promise<Resume | null> {
 export const getSkillsByTag = (tag: Tag) => dbWrapper(() => byTag(tag));
 
 export const getAllTags = async () => dbWrapper(allTags);
+
+export const getAllSkills = async () =>
+  dbWrapper(async () => {
+    const resume = await findResume();
+
+    if (!resume) return [];
+
+    return getSkills(resume);
+  });
