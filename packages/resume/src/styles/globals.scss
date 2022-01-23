@@ -1,5 +1,6 @@
 @use "typography";
 @use "modern-css-reset";
+@use "reset-button" as reset;
 
 * {
 	box-sizing: border-box;
@@ -34,4 +35,8 @@ a {
 	text-decoration: none;
 	color: var(--color-link);
 	font-style: normal;
+}
+
+.reset-button {
+	@extend %reset-button;
 }
