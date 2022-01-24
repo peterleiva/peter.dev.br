@@ -4,17 +4,24 @@ type TabItemProps<T> = {
   id: T;
   children?: React.ReactNode | ((activated: boolean) => React.ReactNode);
   as?: keyof JSX.IntrinsicElements;
+  onSelect?: (tab: T) => void;
 };
 
 export default function Tab<T>({
   id,
   children,
+  onSelect,
   as: Component = 'div',
 }: TabItemProps<T>) {
   const { activate, isActivated } = useTabContext();
 
+  const select = () => {
+    activate(id);
+    onSelect?.(id);
+  };
+
   return (
-    <Component onClick={() => activate(id)}>
+    <Component onClick={() => select()}>
       {typeof children === 'function'
         ? children?.(isActivated?.(id) ?? false)
         : children}
