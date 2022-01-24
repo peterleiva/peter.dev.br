@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, useState } from 'react';
+import type { SyntheticEvent } from 'react';
 import type { Skill } from 'types';
 import SkillsList from './SkillsList';
 import useAllSkills from './useAllSkills';
