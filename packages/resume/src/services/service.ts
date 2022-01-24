@@ -64,7 +64,7 @@ export const getSkillsByTag = (tag: Tag) => dbWrapper(() => byTag(tag));
 
 export const getAllTags = () => dbWrapper(allTags);
 
-export const getAllSkills = async () => {
+export const getAllSkills = async () =>
   dbWrapper(async () => {
     const resume = await findResume();
 
@@ -72,4 +72,3 @@ export const getAllSkills = async () => {
 
     return getSkills(resume);
   });
-};
