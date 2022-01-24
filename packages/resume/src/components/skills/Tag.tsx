@@ -4,13 +4,13 @@ import { join } from 'ramda';
 
 type TagProps = {
   activated?: boolean;
-  tag: Tag;
+  name: Tag;
   onClick?: (tag: Tag) => void;
 };
 
 const activatedClass = (activated?: boolean) => (activated ? 'activated' : '');
 
-export default function Tag({ tag, activated, onClick }: TagProps) {
+export default function Tag({ name: tag, activated, onClick }: TagProps) {
   return (
     <button
       onClick={() => onClick?.(tag)}
