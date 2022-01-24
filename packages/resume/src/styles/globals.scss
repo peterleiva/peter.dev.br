@@ -40,3 +40,19 @@ a {
 .reset-button {
 	@extend %reset-button;
 }
+
+.text-success {
+	color: var(--color-success);
+}
+
+.text-info {
+	color: var(--color-info);
+}
+
+.text-warning {
+	color: var(--color-warning);
+}
+
+.text-error {
+	color: var(--color-error);
+}
