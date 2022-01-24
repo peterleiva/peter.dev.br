@@ -1,18 +1,20 @@
+import { useState } from 'react';
 import { Skill, Tag as ITag } from 'types';
 import Tag from './Tag';
 import useTags from './useTags';
 import useSkillsByTag from './useSkillsByTag';
 import SkillsList from './SkillsList';
 import AllSkills from './AllSkills';
+import Error from './Error';
+import Loading from './Loading';
 import { TabPanel, Tabs, Tab } from '../tabs';
-import { useState } from 'react';
 
 type SkillsProps = {
   skills: Skill[];
 };
 
 export default function Skills({ skills: initialData }: SkillsProps) {
-  const { tags, isLoading: isLoadingTags } = useTags();
+  const { tags, isLoading: isLoadingTags, isFetching, refetch } = useTags();
   const [tag, setTag] = useState<ITag | undefined>();
   const { skills, isLoading, isError } = useSkillsByTag(tag);
 
@@ -24,15 +26,8 @@ export default function Skills({ skills: initialData }: SkillsProps) {
         </Tab>
 
         {tags?.map(name => (
-          <Tab key={name} id={name}>
-            {activated => (
-              <Tag
-                key={name}
-                name={name}
-                onClick={setTag}
-                activated={activated}
-              />
-            )}
+          <Tab key={name} id={name} onSelect={setTag}>
+            {activated => <Tag key={name} name={name} activated={activated} />}
           </Tab>
         ))}
 
@@ -44,12 +39,12 @@ export default function Skills({ skills: initialData }: SkillsProps) {
       </TabPanel>
 
       <TabPanel id={tag}>
-        {isLoading ? (
-          <p>loading...</p>
-        ) : isError ? (
-          <p>Error loading skill with tag {tag}</p>
+        {isLoading || isFetching ? (
+          <Loading />
+        ) : isError || !skills ? (
+          <Error refetch={refetch} />
         ) : (
-          skills && <SkillsList skills={skills} />
+          <SkillsList skills={skills} />
         )}
       </TabPanel>
 
