@@ -4,19 +4,51 @@ import Tag from './Tag';
 import useTags from './useTags';
 import useSkillsByTag from './useSkillsByTag';
 import SkillsList from './SkillsList';
-import AllSkills from './AllSkills';
 import Error from './Error';
 import Loading from './Loading';
 import { TabPanel, Tabs, Tab } from '../tabs';
+import { UseQueryResult } from 'react-query';
+import { pick } from 'ramda';
+import useAllSkills from './useAllSkills';
 
 type SkillsProps = {
   skills: Skill[];
 };
 
+function Wrapper({
+  isLoading,
+  isFetching,
+  refetch,
+  isError,
+  data,
+}: Pick<
+  UseQueryResult<Skill[] | undefined>,
+  'isLoading' | 'isFetching' | 'refetch' | 'isError' | 'data'
+>) {
+  if (isLoading || isFetching) {
+    return <Loading />;
+  }
+
+  if (isError || !data) {
+    return <Error refetch={refetch} />;
+  }
+
+  return <SkillsList skills={data} />;
+}
+
+const getStates = pick([
+  'isLoading',
+  'isFetching',
+  'isError',
+  'data',
+  'refetch',
+]);
+
 export default function Skills({ skills: initialData }: SkillsProps) {
-  const { tags, isLoading: isLoadingTags, isFetching, refetch } = useTags();
+  const { tags, isLoading: isLoadingTags } = useTags();
   const [tag, setTag] = useState<ITag | undefined>();
-  const { skills, isLoading, isError } = useSkillsByTag(tag);
+  const skillsByTag = useSkillsByTag(tag);
+  const allSkills = useAllSkills(initialData);
 
   return (
     <Tabs defaultValue="All">
@@ -35,17 +67,11 @@ export default function Skills({ skills: initialData }: SkillsProps) {
       </section>
 
       <TabPanel id="All">
-        <AllSkills initialData={initialData} />
+        <Wrapper {...getStates({ data: allSkills.skills, ...allSkills })} />
       </TabPanel>
 
       <TabPanel id={tag}>
-        {isLoading || isFetching ? (
-          <Loading />
-        ) : isError || !skills ? (
-          <Error refetch={refetch} />
-        ) : (
-          <SkillsList skills={skills} />
-        )}
+        <Wrapper {...getStates({ data: skillsByTag.skills, ...skillsByTag })} />
       </TabPanel>
 
       <style jsx>{`

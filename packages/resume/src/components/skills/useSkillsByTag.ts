@@ -29,5 +29,5 @@ export default function useSkillsByTag(tag?: Tag) {
     QueryKey
   >(['skills', tag], fetchSkillByTag);
 
-  return { skills: data, ...query };
+  return { skills: data, tag, ...query };
 }
