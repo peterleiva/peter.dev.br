@@ -1,4 +1,3 @@
-import { Connection } from 'mongoose';
 import repl from 'repl';
 import { connect, disconnect } from 'services/database';
 import * as factories from 'test/factories';
@@ -18,7 +17,7 @@ async function start(): Promise<void> {
     console.context[model] = connection?.models[model];
   }
 
-  console.on('exit', async (): Promise<Connection> => disconnect(connection));
+  console.on('exit', disconnect);
 }
 
 start();
