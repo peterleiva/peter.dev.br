@@ -1,5 +1,4 @@
-import React, { useContext } from 'react';
-import { TabContext } from './Tabs';
+import useTabContext from './useTabContext';
 
 type TabItemProps<T> = {
   id: T;
@@ -10,15 +9,15 @@ type TabItemProps<T> = {
 export default function Tab<T>({
   id,
   children,
-  as: Item = 'div',
+  as: Component = 'div',
 }: TabItemProps<T>) {
-  const tab = useContext(TabContext);
+  const { activate, isActivated } = useTabContext();
 
   return (
-    <Item onClick={() => tab?.activate(id)}>
+    <Component onClick={() => activate(id)}>
       {typeof children === 'function'
-        ? children?.(tab?.isActivated?.(id) ?? false)
+        ? children?.(isActivated?.(id) ?? false)
         : children}
-    </Item>
+    </Component>
   );
 }

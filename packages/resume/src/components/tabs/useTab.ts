@@ -1,9 +1,9 @@
 import { useState } from 'react';
 
-export default function useTab<T>() {
-  const [tab, setTab] = useState<T>();
+export default function useTab(defaultTab: unknown) {
+  const [tab, setTab] = useState(defaultTab);
 
-  const isActivated = (value?: T) => value === tab;
+  const isActivated = (value?: unknown) => value === tab;
 
   return { activate: setTab, isActivated, tab };
 }
