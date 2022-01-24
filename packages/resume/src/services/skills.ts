@@ -38,6 +38,9 @@ export const allTags = async (): Promise<ITag[]> => {
         _id: '$tags.name',
       },
     },
+    {
+      $sort: { _id: 1 },
+    },
   ]).exec();
 
   const idProp = R.lensProp<TagAggregate>('_id');
