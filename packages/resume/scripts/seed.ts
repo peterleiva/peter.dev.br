@@ -228,14 +228,14 @@ async function seed(): Promise<ResumeDocument> {
 
 async function run(): Promise<void> {
   console.time('seed');
-  const db = await connect();
+  await connect();
 
   const result = await seed();
 
   console.log(result);
   console.timeEnd('seed');
 
-  await disconnect(db);
+  await disconnect();
 }
 
 run().catch(console.error);
