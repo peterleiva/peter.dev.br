@@ -10,6 +10,8 @@ const { DATABASE_URL } = process.env;
 const isProd = env('prod');
 const DEV_URI_FALLBACK = 'mongodb://localhost:27017/resume';
 
+let db = global.db;
+
 export async function connect({
   url = DATABASE_URL,
 }: DatabaseOptions = {}): Promise<Connection> {
@@ -19,33 +21,40 @@ export async function connect({
     );
   }
 
-  const { connection } = await mongoose.connect(url ?? DEV_URI_FALLBACK, {
+  if (db) {
+    return db;
+  }
+
+  ({ connection: db } = await mongoose.connect(url ?? DEV_URI_FALLBACK, {
     appName: 'Resume',
     wtimeoutMS: isProd ? 25_000 : 0,
     socketTimeoutMS: 30_000 * 3,
     maxPoolSize: 200,
     keepAlive: true,
     keepAliveInitialDelay: 300_000,
-  });
+    bufferCommands: false,
+  }));
 
-  return connection;
+  global.db = db;
+
+  return db;
 }
 
-export async function disconnect(connection: Connection): Promise<Connection> {
-  await connection.close();
+export async function disconnect(): Promise<Connection | undefined> {
+  await db?.close();
 
-  return connection;
+  return db;
 }
 
-export async function cleanUp(connection: Connection): Promise<Connection> {
+export async function cleanUp(): Promise<Connection | undefined> {
   try {
-    await connection.dropDatabase();
+    await db?.dropDatabase();
   } catch (err) {
     console.error('Cannot clean the database');
     console.error('%o', err);
   }
 
-  return connection;
+  return db;
 }
 
 export function log(connection: Connection): Connection {
@@ -64,12 +73,4 @@ export function log(connection: Connection): Connection {
   });
 
   return connection;
-}
-
-export async function effect<T>(fun: () => Promise<T>): Promise<T> {
-  const connection = await connect();
-  const result = await fun();
-  await disconnect(connection);
-
-  return result;
 }
