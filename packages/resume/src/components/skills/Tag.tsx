@@ -1,11 +1,11 @@
 import { FaHashtag as HashtagIcon } from 'react-icons/fa';
-import type { Tag } from 'types';
+import type { Tag as ITag } from 'types';
 import { join } from 'ramda';
 
 type TagProps = {
   activated?: boolean;
-  name: Tag;
-  onClick?: (tag: Tag) => void;
+  name: ITag;
+  onClick?: (tag: ITag) => void;
 };
 
 const activatedClass = (activated?: boolean) => (activated ? 'activated' : '');
