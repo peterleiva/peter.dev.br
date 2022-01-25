@@ -44,6 +44,7 @@ export default function Techs({ techs, hide = false }: TechProps) {
           flex-flow: row nowrap;
           align-items: center;
           gap: var(--space);
+          min-height: var(--space);
         }
 
         button {
@@ -57,7 +58,6 @@ export default function Techs({ techs, hide = false }: TechProps) {
         }
 
         .techs {
-          min-height: var(--space);
           display: flex;
           flex-flow: row wrap;
           gap: var(--space-sm) var(--space);
