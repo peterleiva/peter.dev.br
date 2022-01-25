@@ -1,5 +1,8 @@
 import type { Job, Company } from 'types';
 import Activity from './Activity';
+import Skill from './Skill';
+import { map, pipe } from 'ramda';
+import Techs from './Techs';
 
 type ExperienceProps = Job;
 
@@ -28,17 +31,7 @@ export default function Experience({
         </div>
       </header>
       <div>{description}</div>
-
-      {techs.length > 0 && (
-        <div>
-          <i>Techs: </i>
-          <ol>
-            {techs.map(skill => (
-              <li key={skill.name}>{skill.name}</li>
-            ))}
-          </ol>
-        </div>
-      )}
+      <Techs techs={techs} />
 
       <style jsx>{`
         .container {
