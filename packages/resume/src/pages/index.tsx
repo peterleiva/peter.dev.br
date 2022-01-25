@@ -9,7 +9,9 @@ import {
   Education,
 } from 'components';
 import getResume from 'services';
+import { SiNextdotjs as NextIcon } from 'react-icons/si';
 import { job, education, course, resume as serializer } from 'lib/serializers';
+import pkg from '../../package.json';
 import styles from '../styles/Home.module.scss';
 
 type HomeProps = { resume: serializer.SerializedResume };
@@ -21,7 +23,7 @@ const Home: NextPage<HomeProps> = ({
     <div className={styles.container}>
       <Head>
         <title>{name}&apos;s Résumé</title>
-        <meta name="description" content={`${name}'s Résumé`} />
+        <meta name="description" content={`${name}'s Resumé`} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -68,6 +70,19 @@ const Home: NextPage<HomeProps> = ({
           <Skills skills={skills} />
         </Section>
       </main>
+
+      <footer className={styles.footer}>
+        <a
+          href="https://nextjs.org"
+          target="_blank"
+          rel="noreferrer"
+          className={styles.built}
+        >
+          built with
+          <NextIcon style={{ color: 'var(--color-black)' }} />
+        </a>
+        <small>v{pkg.version}</small>
+      </footer>
     </div>
   );
 };
