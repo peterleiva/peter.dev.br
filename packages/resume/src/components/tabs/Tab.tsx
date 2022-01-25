@@ -1,6 +1,6 @@
 import useTabContext from './useTabContext';
 
-type TabItemProps<T> = {
+type TabProps<T> = {
   id: T;
   children?: React.ReactNode | ((activated: boolean) => React.ReactNode);
   as?: keyof JSX.IntrinsicElements;
@@ -12,7 +12,7 @@ export default function Tab<T>({
   children,
   onSelect,
   as: Component = 'div',
-}: TabItemProps<T>) {
+}: TabProps<T>) {
   const { activate, isActivated } = useTabContext();
 
   const select = () => {

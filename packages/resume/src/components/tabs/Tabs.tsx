@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import useTab from './useTab';
 import TabContext from './context';
+import Tab from './Tab';
+import TabPanel from './TabPanel';
 
 type TabProps<T> = {
   children: React.ReactNode;
@@ -9,7 +11,7 @@ type TabProps<T> = {
   defaultValue: T;
 };
 
-export default function Tab<T>({
+function Tabs<T>({
   children,
   onSelect,
   as: Tab = 'div',
@@ -27,3 +29,8 @@ export default function Tab<T>({
     </Tab>
   );
 }
+
+Tabs.Tab = Tab;
+Tabs.Panel = TabPanel;
+
+export default Tabs;

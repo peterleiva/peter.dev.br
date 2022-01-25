@@ -5,7 +5,9 @@ export default function useTabContext() {
   const context = useContext(tabContext);
 
   if (!context) {
-    throw new Error(`Component must be used within in Tabs component`);
+    throw new Error(
+      `Tabs compound components cannot be rendered outsite of Tabs Component`
+    );
   }
 
   return context;

@@ -6,7 +6,7 @@ import useSkillsByTag from './useSkillsByTag';
 import SkillsList from './SkillsList';
 import Error from './Error';
 import Loading from './Loading';
-import { TabPanel, Tabs, Tab } from '../tabs';
+import { Tabs } from '../tabs';
 import { UseQueryResult } from 'react-query';
 import { pick } from 'ramda';
 import useAllSkills from './useAllSkills';
@@ -53,26 +53,26 @@ export default function Skills({ skills: initialData }: SkillsProps) {
   return (
     <Tabs defaultValue="All">
       <section className="tags">
-        <Tab id="All">
+        <Tabs.Tab id="All">
           {activated => <Tag name="All" activated={activated} />}
-        </Tab>
+        </Tabs.Tab>
 
         {tags?.map(name => (
-          <Tab key={name} id={name} onSelect={setTag}>
+          <Tabs.Tab key={name} id={name} onSelect={setTag}>
             {activated => <Tag key={name} name={name} activated={activated} />}
-          </Tab>
+          </Tabs.Tab>
         ))}
 
         {isLoadingTags && <span>&#8411;</span>}
       </section>
 
-      <TabPanel id="All">
+      <Tabs.Panel id="All">
         <Wrapper {...getStates({ data: allSkills.skills, ...allSkills })} />
-      </TabPanel>
+      </Tabs.Panel>
 
-      <TabPanel id={tag}>
+      <Tabs.Panel id={tag}>
         <Wrapper {...getStates({ data: skillsByTag.skills, ...skillsByTag })} />
-      </TabPanel>
+      </Tabs.Panel>
 
       <style jsx>{`
         .tags {
