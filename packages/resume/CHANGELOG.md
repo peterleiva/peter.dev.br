@@ -10,6 +10,8 @@ Each log entry can be in the following kind: **Added**[^1], **Changed**[^2], **D
 ### Added
 
 - Footer Section
+- Skills sections load by tags, showing error and loading state
+- Show/hide skills of Job Experience
 - Section title underlined
 - Linkable sections. An ID href is defined in resume's sections
 - Seed database script
