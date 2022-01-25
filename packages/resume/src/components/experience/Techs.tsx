@@ -9,8 +9,6 @@ type TechProps = {
   hide?: boolean;
 };
 
-const techKey = (tech: ISkill) => ({ key: tech.name, ...tech });
-
 /**
  * List of techs used in a job experience
  *
@@ -21,7 +19,7 @@ export default function Techs({ techs, hide = false }: TechProps) {
   if (techs.length <= 0) return null;
 
   return (
-    <div className="techs">
+    <div className="container">
       <button className="reset-button" onClick={toggle}>
         <Icon />
         <RightIcon
@@ -31,9 +29,23 @@ export default function Techs({ techs, hide = false }: TechProps) {
         />
       </button>
 
-      {isOn && techs.map(techKey).map(Skill)}
+      {isOn && (
+        <div className="techs">
+          {techs.map(({ name }) => (
+            <Skill key={name} name={name} />
+          ))}
+        </div>
+      )}
 
       <style jsx>{`
+        .container {
+          margin-top: var(--space);
+          display: flex;
+          flex-flow: row nowrap;
+          align-items: center;
+          gap: var(--space);
+        }
+
         button {
           display: flex;
           justify-items: center;
@@ -46,10 +58,9 @@ export default function Techs({ techs, hide = false }: TechProps) {
 
         .techs {
           min-height: var(--space);
-          margin-top: var(--space);
           display: flex;
           flex-flow: row wrap;
-          gap: var(--space);
+          gap: var(--space-sm) var(--space);
           align-items: center;
           justify-items: space-around;
         }
