@@ -7,6 +7,8 @@ Each log entry can be in the following kind: **Added**[^1], **Changed**[^2], **D
 
 ## [Unreleased]
 
+## [0.3.0] - 2022-01-25
+
 ### Added
 
 - Footer Section
@@ -28,7 +30,8 @@ Each log entry can be in the following kind: **Added**[^1], **Changed**[^2], **D
 - Setup Typography with Modular Scale to mantain Vertical Rhythm
 - Setup Home page grid layout
 
-[unreleased]: https://github.com/pherval/peter.dev.br/compare/resume@v0.2.0...resume@HEAD
+[unreleased]: https://github.com/pherval/peter.dev.br/compare/resume@v0.3.0...resume@HEAD
+[0.3.0]: https://github.com/pherval/peter.dev.br/compare/resume@v0.2.0...resume@v0.3.0
 [0.2.0]: https://github.com/pherval/peter.dev.br/compare/resume@v0.1.0...resume@v0.2.0
 [0.1.0]: https://github.com/pherval/peter.dev.br/releases/tag/v0.1.0
 
