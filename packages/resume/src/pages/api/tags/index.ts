@@ -1,10 +1,8 @@
+import { withSentry } from '@sentry/nextjs';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { getAllTags } from 'services';
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
     const tags = await getAllTags();
 
@@ -14,3 +12,5 @@ export default async function handler(
     res.status(500).send('error fetching all tags');
   }
 }
+
+export default withSentry(handler);
