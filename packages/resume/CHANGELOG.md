@@ -7,6 +7,10 @@ Each log entry can be in the following kind: **Added**[^1], **Changed**[^2], **D
 
 ## [Unreleased]
 
+### Added
+
+- Monitoring and Error Handler with [Sentry](https://sentry.io)
+
 ## [0.3.0] - 2022-01-25
 
 ### Added
