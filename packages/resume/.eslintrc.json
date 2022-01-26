@@ -1,5 +1,6 @@
 {
   "root": true,
+  "ignorePatterns": ["next.config.js"],
 
   "parser": "@typescript-eslint/parser",
   "plugins": ["@typescript-eslint"],

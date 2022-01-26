@@ -13,6 +13,7 @@
     "test:watch": "npm test -- --watch"
   },
   "dependencies": {
+    "@sentry/nextjs": "^6.17.2",
     "luxon": "^2.3.0",
     "mongoose": "^6.1.6",
     "next": "11.1.3",
