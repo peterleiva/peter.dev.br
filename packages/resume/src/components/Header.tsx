@@ -21,8 +21,8 @@ export default function Header({ name, jobTitle }: HeaderProps) {
         }
 
         .title > h2 {
-          margin-left: -30%;
-          margin-right: 5%;
+          margin-left: -20%;
+          margin-right: -10%;
         }
 
         @media print {
