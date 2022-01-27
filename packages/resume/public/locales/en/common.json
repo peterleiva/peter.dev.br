@@ -1,0 +1,13 @@
+{
+  "emoji": "🇺🇸",
+  "resume": "{{name}}'s Resumé",
+  "experience": "Experience",
+  "profile": "Profile",
+  "education": "Education",
+  "courses_traning": "Courses & Trainings",
+  "skills": "Skills",
+  "all": "All",
+  "footer": {
+    "built": "built with"
+  }
+}

@@ -11,7 +11,8 @@ import {
 import { SiNextdotjs as NextIcon } from 'react-icons/si';
 import { getResume } from 'services';
 import { job, education, course, resume as serializer } from 'lib/serializers';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { LanguageSwitcher } from 'i18n';
 import pkg from '../../package.json';
 import styles from '../styles/Home.module.scss';
@@ -96,7 +97,7 @@ const Home: NextPage<HomeProps> = ({
 
 export default Home;
 
-export const getStaticProps: GetStaticProps<HomeProps> = async () => {
+export const getStaticProps: GetStaticProps<HomeProps> = async ({ locale }) => {
   const resume = await getResume();
 
   if (!resume) {
@@ -105,7 +106,15 @@ export const getStaticProps: GetStaticProps<HomeProps> = async () => {
     };
   }
 
+  let props = {
+    resume: serializer.serialize(resume),
+  };
+
+  if (locale) {
+    props = { ...props, ...(await serverSideTranslations(locale, ['common'])) };
+  }
+
   return {
-    props: { resume: serializer.serialize(resume) },
+    props,
   };
 };

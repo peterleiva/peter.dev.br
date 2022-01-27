@@ -1,23 +1,10 @@
 const { withSentryConfig } = require('@sentry/nextjs');
+const { i18n } = require('./next-i18next.config');
 
 /** @type {import('next').NextConfig} */
 const config = {
   reactStrictMode: true,
-  i18n: {
-    locales: ['pt', 'en'],
-    defaultLocale: 'en',
-    domains: [
-      {
-        domain: 'resume.peter.dev.br',
-
-        defaultLocale: 'en',
-      },
-      {
-        domain: 'curriculo.peter.dev.br',
-        defaultLocale: 'pt',
-      },
-    ],
-  },
+  i18n,
 };
 
 const sentryWebpackPluginOptions = {
