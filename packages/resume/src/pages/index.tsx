@@ -11,6 +11,8 @@ import {
 import { SiNextdotjs as NextIcon } from 'react-icons/si';
 import { getResume } from 'services';
 import { job, education, course, resume as serializer } from 'lib/serializers';
+import { useTranslation } from 'react-i18next';
+import { LanguageSwitcher } from 'i18n';
 import pkg from '../../package.json';
 import styles from '../styles/Home.module.scss';
 
@@ -19,18 +21,23 @@ type HomeProps = { resume: serializer.SerializedResume };
 const Home: NextPage<HomeProps> = ({
   resume: { name, jobTitle, contacts, bio, jobs, educations, courses, skills },
 }) => {
+  const { t } = useTranslation();
+
   return (
     <div className={styles.container}>
       <Head>
-        <title>{name}&apos;s Résumé</title>
-        <meta name="description" content={`${name}'s Resumé`} />
+        <title>{t('resume', { name })}</title>
+        <meta name="description" content={t('resume', { name })} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className={styles.top}>
-        <Header name={name} jobTitle={jobTitle} />
+        <div className="header">
+          <LanguageSwitcher />
+          <Header name={name} jobTitle={jobTitle} />
+        </div>
         <div className={styles.profile}>
-          <Section title="Profile" fill>
+          <Section title={t('profile')} fill>
             <p>{bio}</p>
           </Section>
           <ContactsList contacts={contacts} />
@@ -38,10 +45,10 @@ const Home: NextPage<HomeProps> = ({
       </div>
 
       <main className={styles.main}>
-        <Section title="Experience">
+        <Section title={t('experience')}>
           <Timeline jobs={job.deserialize(jobs)} />
         </Section>
-        <Section title="Education">
+        <Section title={t('education')}>
           {education
             .deserialize(educations)
             .map(({ title, institution: { name }, ended }) => (
@@ -52,7 +59,7 @@ const Home: NextPage<HomeProps> = ({
               />
             ))}
         </Section>
-        <Section title="Courses & Training">
+        <Section title={t('courses_traning')}>
           {course
             .deserialize(courses)
             .map(({ courses: trainings, institution }) => (
@@ -66,7 +73,7 @@ const Home: NextPage<HomeProps> = ({
               />
             ))}
         </Section>
-        <Section title="Skills">
+        <Section title={t('skills')}>
           <Skills skills={skills} />
         </Section>
       </main>
@@ -78,7 +85,7 @@ const Home: NextPage<HomeProps> = ({
           rel="noreferrer"
           className={styles.built}
         >
-          built with
+          {t('footer.built')}
           <NextIcon style={{ color: 'var(--color-black)' }} />
         </a>
         <small>v{pkg.version}</small>
