@@ -8,6 +8,22 @@ type Props = {
   onSwitch?: (lang: string) => void;
 };
 
+type Language = {
+  emoji: string;
+  nativeLanguage: string;
+};
+
+const langs: { [lng: string]: Language } = {
+  en: {
+    emoji: '🇺🇸',
+    nativeLanguage: 'English',
+  },
+  pt: {
+    emoji: '🇧🇷',
+    nativeLanguage: 'Português',
+  },
+};
+
 const activated = (value: boolean) => (value ? 'activated' : '');
 
 function LanguageSwitcher({ className, onSwitch }: Props) {
@@ -26,10 +42,12 @@ function LanguageSwitcher({ className, onSwitch }: Props) {
 
   return (
     <div className={className}>
-      {locales.map(lng => (
-        <Link key={lng} href="/" locale={lng} passHref>
-          <a className={activated(lng === language)}>{t('emoji', { lng })}</a>
-        </Link>
+      {Object.keys(langs).map(lng => (
+        <div key={lng}>
+          <Link key={lng} href="/" locale={lng} passHref>
+            <a className={activated(lng === language)}>{langs[lng].emoji}</a>
+          </Link>
+        </div>
       ))}
 
       <style jsx>
