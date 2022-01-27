@@ -1,44 +1,35 @@
-import { join } from 'ramda';
-import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'next-i18next';
+import { useRouter } from 'next/dist/client/router';
+import Link from 'next/link';
 
 type Props = {
   className?: string;
-  onSwitch?: (lang: Language) => void;
-};
-
-type Language = {
-  nativeName: string;
-  emoji: string;
-};
-
-const langs: { [lang: string]: Language } = {
-  en: { nativeName: 'English', emoji: '🇺🇸' },
-  pt: { nativeName: 'Português', emoji: '🇧🇷' },
+  onSwitch?: (lang: string) => void;
 };
 
 const activated = (value: boolean) => (value ? 'activated' : '');
 
 function LanguageSwitcher({ className, onSwitch }: Props) {
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
+  const { locales, locale } = useRouter();
   const [language, switcher] = useState(i18n.resolvedLanguage);
 
-  const handleSwitch = (lang: string) => {
-    i18n.changeLanguage(lang);
-    switcher(lang);
-    onSwitch?.(langs[lang]);
-  };
+  useEffect(() => {
+    if (locale) {
+      switcher(locale);
+      onSwitch?.(locale);
+    }
+  }, [locale, onSwitch]);
+
+  if (!locales) return null;
 
   return (
     <div className={className}>
-      {Object.keys(langs).map(lang => (
-        <button
-          key={lang}
-          className={join(' ', ['reset-button', activated(lang === language)])}
-          onClick={() => handleSwitch(lang)}
-        >
-          {langs[lang].emoji}
-        </button>
+      {locales.map(lng => (
+        <Link key={lng} href="/" locale={lng} passHref>
+          <a className={activated(lng === language)}>{t('emoji', { lng })}</a>
+        </Link>
       ))}
 
       <style jsx>
