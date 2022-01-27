@@ -41,18 +41,16 @@ function LanguageSwitcher({ className, onSwitch }: Props) {
             float: right;
           }
 
-          button {
+          a {
             position: relative;
           }
 
-          button.activated::after {
+          a.activated::after {
             content: '⦿';
-            height: 3px;
-            width: var(--space-sm);
-            color: var(--color-black);
-            position: absolute;
-            bottom: 0;
-            right: 0;
+            color: var(--color-primary-1);
+            display: flex;
+            flex-flow: column nowrap;
+            align-items: center;
           }
         `}
       </style>
