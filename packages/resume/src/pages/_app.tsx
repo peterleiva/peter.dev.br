@@ -3,6 +3,7 @@ import React from 'react';
 import QueryProvider from 'QueryProvider';
 import { Analytics } from 'components';
 import 'whatwg-fetch';
+import 'i18n/init';
 import '../styles/globals.scss';
 
 function MyApp({ Component, pageProps }: AppProps): JSX.Element {

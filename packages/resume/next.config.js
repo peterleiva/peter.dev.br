@@ -3,6 +3,21 @@ const { withSentryConfig } = require('@sentry/nextjs');
 /** @type {import('next').NextConfig} */
 const config = {
   reactStrictMode: true,
+  i18n: {
+    locales: ['pt', 'en'],
+    defaultLocale: 'en',
+    domains: [
+      {
+        domain: 'resume.peter.dev.br',
+
+        defaultLocale: 'en',
+      },
+      {
+        domain: 'curriculo.peter.dev.br',
+        defaultLocale: 'pt',
+      },
+    ],
+  },
 };
 
 const sentryWebpackPluginOptions = {
