@@ -10,5 +10,5 @@ const SENTRY_DSN = process.env.SENTRY_DSN || process.env.NEXT_PUBLIC_SENTRY_DSN;
 Sentry.init({
   dsn: SENTRY_DSN,
   tracesSampleRate: env('prod', 'staging') ? 0.75 : env('test') ? 0 : 1,
-  debug: true,
+  release: 'resume@' + process.env.npm_package_version,
 });
