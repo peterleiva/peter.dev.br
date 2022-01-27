@@ -10,6 +10,7 @@ import { Tabs } from '../tabs';
 import { UseQueryResult } from 'react-query';
 import { pick } from 'ramda';
 import useAllSkills from './useAllSkills';
+import { useTranslation } from 'react-i18next';
 
 type SkillsProps = {
   skills: Skill[];
@@ -49,12 +50,13 @@ export default function Skills({ skills: initialData }: SkillsProps) {
   const [tag, setTag] = useState<ITag | undefined>();
   const skillsByTag = useSkillsByTag(tag);
   const allSkills = useAllSkills(initialData);
+  const { t } = useTranslation();
 
   return (
-    <Tabs defaultValue="All">
+    <Tabs defaultValue={t('all')}>
       <section className="tags">
-        <Tabs.Tab id="All">
-          {activated => <Tag name="All" activated={activated} />}
+        <Tabs.Tab id={t('all')}>
+          {activated => <Tag name={t('all')} activated={activated} />}
         </Tabs.Tab>
 
         {tags?.map(name => (
@@ -66,7 +68,7 @@ export default function Skills({ skills: initialData }: SkillsProps) {
         {isLoadingTags && <span>&#8411;</span>}
       </section>
 
-      <Tabs.Panel id="All">
+      <Tabs.Panel id={t('all')}>
         <Wrapper {...getStates({ data: allSkills.skills, ...allSkills })} />
       </Tabs.Panel>
 
