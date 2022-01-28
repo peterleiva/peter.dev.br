@@ -2,18 +2,32 @@ import { Skill, Tag as ITag } from 'types';
 import * as R from 'ramda';
 import { ResumeDocument } from './models/resume';
 import SkillModel, { SkillDocument, Tag } from './models/skill';
+import { Translations } from './models';
 
+const attrs = <T extends Translations>(translatable: T, locale: string) =>
+  Object.keys(translatable?.translations?.[locale.toLowerCase()] ?? {});
+
+function translate(
+  obj: Translations,
+  locale: string
+): { [attr: string]: TranslationEntry } {
+  return attrs(obj, locale).reduce((attrs, attr) => {
+    const translation = obj.translations?.[locale]?.[attr];
+    console.log('attrs', translation);
+
+    return R.mergeRight(attrs, { [attr]: translation ?? obj[attr] });
+  }, {});
+}
 export const skillMapper = (skills: SkillDocument[]): Skill[] => {
   const tagsLens = R.lensProp<Tag>('name');
   const tagView = R.view<Tag, string>(tagsLens);
   const transform = R.evolve({ tags: R.map(tagView) });
 
+  const translator = (skill: SkillDocument) =>
+    R.mergeRight(skill, translate(skill, 'pt'));
+
   return R.map<SkillDocument, Skill>(
-    R.compose<
-      [SkillDocument],
-      Omit<SkillDocument, 'tags'> & { tags: string[] },
-      Skill
-    >(R.pick(['name', 'tags']), transform)
+    R.pipe(transform, translator, R.pick(['name', 'tags']))
   )(skills);
 };
 
@@ -26,6 +40,7 @@ export const getSkills = async (resume: ResumeDocument): Promise<Skill[]> => {
 };
 
 type TagAggregate = { _id: string };
+
 export const allTags = async (): Promise<ITag[]> => {
   const tags = await SkillModel.aggregate<TagAggregate>([
     {

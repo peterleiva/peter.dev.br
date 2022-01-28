@@ -1,17 +1,20 @@
 import { HydratedDocument, models, model, Schema, Model } from 'mongoose';
+import { plugins, Translate, Translations } from './plugins';
 
 export interface Tag {
   name: string;
 }
 
-export interface Skill {
+export interface Skill extends Translations {
   name: string;
   tags: Tag[];
 }
 
-export type SkillDocument = HydratedDocument<Skill>;
+export type SkillDocument = HydratedDocument<Skill, Translate>;
 
-const skillSchema = new Schema<Skill>({
+type SkillModel = Model<Skill, Record<string, unknown>, Translate>;
+
+const skillSchema = new Schema<Skill, SkillModel, Translate>({
   name: {
     type: String,
     required: true,
@@ -31,9 +34,7 @@ const skillSchema = new Schema<Skill>({
       },
     }),
   ],
-});
-
-type SkillModel = Model<Skill>;
+}).plugin(plugins.translations, ['name']);
 
 export default (models.Skill as SkillModel) ??
   model<Skill>('Skill', skillSchema);

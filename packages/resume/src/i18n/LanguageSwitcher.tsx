@@ -27,7 +27,7 @@ const langs: { [lng: string]: Language } = {
 const activated = (value: boolean) => (value ? 'activated' : '');
 
 function LanguageSwitcher({ className, onSwitch }: Props) {
-  const { i18n, t } = useTranslation();
+  const { i18n } = useTranslation();
   const { locales, locale } = useRouter();
   const [language, switcher] = useState(i18n.resolvedLanguage);
 
