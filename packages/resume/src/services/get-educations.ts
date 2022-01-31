@@ -1,8 +1,7 @@
 import { evolve, map } from 'ramda';
 import type { Education } from 'types';
 import { toDateTime, optionalToDateTime } from 'lib';
-import EducationModel from './models/education';
-import { ResumeDocument } from './models/resume';
+import { ResumeDocument, EducationModel } from './models';
 
 type EducationAggregation = Omit<Education, 'started' | 'ended'> & {
   started: Date;

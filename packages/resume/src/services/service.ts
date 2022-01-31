@@ -1,7 +1,7 @@
 import * as R from 'ramda';
 import type { Resume, Tag } from 'types';
 import { connect } from './database';
-import ResumeModel, { Contact, ResumeDocument } from './models/resume';
+import { Contact, ResumeDocument, ResumeModel } from './models';
 import getCourses from './get-courses';
 import getEducations from './get-educations';
 import getJobs from './get-jobs';

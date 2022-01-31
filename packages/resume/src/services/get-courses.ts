@@ -1,8 +1,7 @@
 import type { Course, Courses } from 'types';
 import * as R from 'ramda';
 import { optionalToDateTime, toDateTime } from 'lib';
-import EducationModel, { Education } from './models/education';
-import { ResumeDocument } from './models/resume';
+import { Education, ResumeDocument, EducationModel } from './models';
 
 type CourseAggregation = Omit<Education, 'institution'>;
 
