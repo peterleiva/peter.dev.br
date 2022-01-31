@@ -1,9 +1,13 @@
 {
-	"extends": ["eslint:recommended", "./eslint/typescript", "prettier"],
+	"extends": ["eslint:recommended", "prettier"],
 	"overrides": [
 		{
-			"files": "**/__tests__/**/*",
-			"extends": "./eslint/jest"
+			"files": "*.ts?(x)",
+			"extends": "./packages/eslint-config/typescript"
+		},
+		{
+			"files": ["**/__+(tests|mocks|snapshots)__/**/*", "**/*.{spec,test}.*"],
+			"extends": "./packages/eslint-config/jest"
 		},
 		{
 			"files": [
@@ -12,7 +16,7 @@
 				"./packages/*/*.js",
 				"./eslint/**/*.js"
 			],
-			"extends": "./eslint/node"
+			"extends": "./packages/eslint-config/node"
 		},
 		{
 			"files": "*.json",
