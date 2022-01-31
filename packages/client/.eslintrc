@@ -1,5 +1,5 @@
 {
-	"extends": ["../../eslint/react", "../../eslint/typescript"],
+	"extends": ["../eslint-config/react"],
 	"rules": {
 		"react/react-in-jsx-scope": "off"
 	}
