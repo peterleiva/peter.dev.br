@@ -1,3 +1,5 @@
+import NavBar from './NavBar';
+
 type HeaderProps = {
   name: string;
   jobTitle: string;
@@ -10,9 +12,7 @@ export default function Header({ name, jobTitle }: HeaderProps) {
         <h1>{name}</h1>
         <h2>{jobTitle}</h2>
       </section>
-      <nav>
-        <ul></ul>
-      </nav>
+      <NavBar />
 
       <style jsx>{`
         header {
@@ -23,12 +23,6 @@ export default function Header({ name, jobTitle }: HeaderProps) {
         .title > h2 {
           margin-left: -20%;
           margin-right: -10%;
-        }
-
-        @media print {
-          nav {
-            display: none;
-          }
         }
 
         @media screen and (min-width: 866px) {
@@ -46,41 +40,6 @@ export default function Header({ name, jobTitle }: HeaderProps) {
           border-radius: var(--border-radius);
           padding: var(--space-xs) var(--space);
           font-variant: small-caps;
-        }
-
-        nav ul {
-          display: flex;
-
-          flex-wrap: row nowrap;
-          margin: var(--space) 0;
-          justify-content: space-evenly;
-          gap: var(--space-md);
-
-          list-style: none;
-          padding: 0;
-        }
-
-        @media screen and (max-width: 470px) {
-          nav ul {
-            display: flex;
-            flex-flow: column;
-            align-items: center;
-          }
-        }
-
-        nav ul li {
-          position: relative;
-        }
-
-        nav ul li::after {
-          content: '';
-          display: block;
-          border: 2px solid black;
-          position: absolute;
-          left: 50%;
-          bottom: -10%;
-          width: var(--space);
-          border-radius: 2px;
         }
       `}</style>
     </header>
