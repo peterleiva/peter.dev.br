@@ -1,17 +1,18 @@
 import Link from 'next/link';
-import nav from './navigation.json';
+import IconLabel from '../IconLabel';
+import { BsEnvelope as MailIcon } from 'react-icons/bs';
 
 export default function NavBar() {
   return (
     <nav>
       <ul>
-        {nav.map(({ name, to }) => (
-          <li key={name}>
-            <Link href={to} passHref>
-              <a href="dummy">{name}</a>
+        <li>
+          <IconLabel Icon={MailIcon} color="var(--color-secondary)">
+            <Link href="/contact" passHref>
+              <a href="dummy">contact me</a>
             </Link>
-          </li>
-        ))}
+          </IconLabel>
+        </li>
       </ul>
 
       <style jsx>{`
@@ -23,7 +24,6 @@ export default function NavBar() {
 
         nav ul {
           display: flex;
-
           flex-wrap: row nowrap;
           margin: var(--space) 0;
           justify-content: space-evenly;
@@ -41,6 +41,11 @@ export default function NavBar() {
           }
         }
 
+        nav ul a {
+          color: var(--color-black);
+          font-weight: var(--weight-bold);
+        }
+
         nav ul li {
           position: relative;
         }
@@ -48,10 +53,10 @@ export default function NavBar() {
         nav ul li::after {
           content: '';
           display: block;
-          border: 2px solid black;
+          border: 2px solid var(--color-secondary);
           position: absolute;
-          left: 50%;
-          bottom: -10%;
+          right: calc(50% - var(--space));
+          bottom: 0;
           width: var(--space);
           border-radius: 2px;
         }
