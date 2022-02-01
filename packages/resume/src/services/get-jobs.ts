@@ -1,7 +1,7 @@
 import * as R from 'ramda';
 import type { Job } from 'types';
 import { toDateTime, optionalToDateTime } from 'lib';
-import { skillMapper } from './skills';
+import { convert as skillConvert } from './skills';
 import { ResumeDocument, JobModel, SkillDocument } from './models';
 
 type AggregateJob = Omit<Job, 'activity' | 'techs'> & {
@@ -51,7 +51,7 @@ export default async function getJobs(resume: ResumeDocument): Promise<Job[]> {
 
   return R.map<AggregateJob, Job>(
     R.evolve({
-      techs: skillMapper,
+      techs: skillConvert,
       activity: {
         start: toDateTime,
         end: optionalToDateTime,

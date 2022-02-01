@@ -2,7 +2,7 @@ import { Skill, Tag as ITag } from 'types';
 import * as R from 'ramda';
 import { ResumeDocument, SkillModel, SkillDocument, Tag } from './models';
 
-export const skillMapper = (skills: SkillDocument[]): Skill[] => {
+export const convert = (skills: SkillDocument[]): Skill[] => {
   const tagsLens = R.lensProp<Tag>('name');
   const tagView = R.view<Tag, string>(tagsLens);
   const transform = R.evolve({ tags: R.map(tagView) });
@@ -17,7 +17,7 @@ export const getSkills = async (resume: ResumeDocument): Promise<Skill[]> => {
     'skills'
   );
 
-  return skillMapper(skills);
+  return convert(skills);
 };
 
 type TagAggregate = { _id: string };
@@ -46,5 +46,5 @@ export const allTags = async (): Promise<ITag[]> => {
 export const byTag = async (tag: ITag): Promise<Skill[]> => {
   const skills = await SkillModel.find({ 'tags.name': tag });
 
-  return skillMapper(skills);
+  return convert(skills);
 };
