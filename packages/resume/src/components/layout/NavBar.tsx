@@ -1,11 +1,19 @@
 import Link from 'next/link';
 import IconLabel from '../IconLabel';
 import { BsEnvelope as MailIcon } from 'react-icons/bs';
+import { BiHomeAlt as HomeIcon } from 'react-icons/bi';
 
 export default function NavBar() {
   return (
     <nav>
       <ul>
+        <li>
+          <IconLabel Icon={HomeIcon} color="var(--color-secondary)">
+            <Link href="/" passHref>
+              <a href="dummy">home</a>
+            </Link>
+          </IconLabel>
+        </li>
         <li>
           <IconLabel Icon={MailIcon} color="var(--color-secondary)">
             <Link href="/contact" passHref>
