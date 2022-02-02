@@ -1,7 +1,3 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 @use 'typography';
 @use 'modern-css-reset';
 @use 'reset-button' as reset;
@@ -59,4 +55,16 @@ a {
 
 .text-error {
 	color: var(--color-error);
+}
+
+.text-center {
+	text-align: center;
+}
+
+.text-left {
+	text-align: left;
+}
+
+.text-right {
+	text-align: right;
 }

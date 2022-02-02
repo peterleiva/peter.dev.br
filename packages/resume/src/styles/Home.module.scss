@@ -1,5 +1,5 @@
-@use "styles/typography/functions" as type;
-@use "styles/breakpoints" as bp;
+@use 'styles/typography/functions' as type;
+@use 'styles/breakpoints' as bp;
 
 $gap: type.rem(88);
 
@@ -16,7 +16,6 @@ $gap: type.rem(88);
 	padding-bottom: var(--space);
 }
 
-.main,
 .container,
 .top {
 	--gap: #{$gap};
