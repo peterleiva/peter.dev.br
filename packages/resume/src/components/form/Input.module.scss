@@ -1,3 +1,5 @@
+$icon-index: 100;
+
 .control {
 	display: flex;
 	flex-direction: column;
@@ -6,27 +8,52 @@
 }
 
 .label {
+	order: -1;
 	font-weight: var(--weight-bold);
+}
+
+.input-container {
+	position: relative;
+}
+
+.clear {
+	position: absolute;
+	z-index: $icon-index;
+	cursor: pointer;
 }
 
 .input {
 	position: relative;
-	order: 1;
+	width: 100%;
+}
+
+.left {
+	left: var(--space);
+}
+
+.right {
+	right: var(--space);
+}
+
+.top {
+	top: var(--space-sm);
+}
+
+.bottom {
+	bottom: var(--space-sm);
 }
 
 .icon {
+	@extend .top, .left;
 	position: absolute;
-	top: calc(var(--space) * 1.5);
-	z-index: 100;
-	left: var(--space);
+	z-index: $icon-index;
 }
 
 .input {
 	position: relative;
 	border-radius: var(--border-radius-md);
 	border: 2px solid var(--color-gray-90);
-	padding: var(--space-xs);
-	padding-left: var(--space-md);
+	padding: var(--space-xs) var(--space-md);
 	outline: none;
 	font-weight: var(--weight-bold);
 }
@@ -64,6 +91,6 @@
 }
 
 .textarea ~ .icon {
+	@extend .top, .right;
 	left: auto;
-	right: var(--space-sm);
 }

@@ -3,10 +3,7 @@ import clsx from 'clsx';
 import Input from './Input';
 import styles from './Input.module.scss';
 
-type Props = (
-  | JSX.IntrinsicElements['input']
-  | JSX.IntrinsicElements['textarea']
-) & {
+type Props = $ElementProps<typeof Input> & {
   id: string;
   label: string;
   Icon?: IconType;
