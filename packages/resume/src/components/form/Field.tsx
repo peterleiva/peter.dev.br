@@ -9,11 +9,21 @@ type Props = $ElementProps<typeof Input> & {
   Icon?: IconType;
 };
 
-export default function Field({ id, label, Icon, className, ...props }: Props) {
+export default function Field({
+  id,
+  label,
+  Icon,
+  className,
+  required,
+  ...props
+}: Props) {
   return (
     <div className={clsx(styles.control, className)}>
-      <Input Icon={Icon} id={id} {...props} />
-      <label htmlFor={id} className={styles.label}>
+      <Input Icon={Icon} id={id} required={required} {...props} />
+      <label
+        htmlFor={id}
+        className={clsx(styles.label, { [styles.required]: required })}
+      >
         {label}
       </label>
     </div>

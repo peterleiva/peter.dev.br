@@ -79,7 +79,7 @@ $icon-index: 100;
 	color: var(--color-error);
 }
 
-.input:required ~ .label::after {
+.label.required::after {
 	content: '*';
 	color: var(--color-error);
 }
