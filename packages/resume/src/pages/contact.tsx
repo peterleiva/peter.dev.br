@@ -25,12 +25,12 @@ const Contact: NextPage = () => {
             placeholder="John Doe"
           />
           <Field
-            id="contact"
-            label="Contact"
-            type="text"
+            id="email"
+            label="Email"
+            type="email"
             Icon={MailIcon}
             className={styles.col1}
-            placeholder="johndoe@example.com or https://t.me/<your-username> ..."
+            placeholder="johndoe@example.com"
           />
           <Field
             id="message"
@@ -41,7 +41,9 @@ const Contact: NextPage = () => {
           />
         </div>
 
-        <Button className={styles.button}>Send message</Button>
+        <Button type="submit" className={styles.button}>
+          Send message
+        </Button>
       </form>
     </div>
   );
