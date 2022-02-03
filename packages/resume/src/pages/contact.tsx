@@ -8,6 +8,8 @@ import { CgProfile as NameIcon } from 'react-icons/cg';
 import { MdAlternateEmail as MailIcon } from 'react-icons/md';
 import styles from 'styles/Contact.module.scss';
 
+const Button = ButtonWithIcon(ButtonIcon);
+
 const Contact: NextPage = () => {
   return (
     <div>
@@ -39,9 +41,7 @@ const Contact: NextPage = () => {
           />
         </div>
 
-        <ButtonWithIcon className={styles.button} Icon={ButtonIcon}>
-          Send message
-        </ButtonWithIcon>
+        <Button className={styles.button}>Send message</Button>
       </form>
     </div>
   );
