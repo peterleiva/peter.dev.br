@@ -4,10 +4,15 @@
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
+	max-width: breakpoints.$big;
+	margin: 0 auto;
 }
 
 .controls {
 	margin-block: var(--space-lg);
+	display: flex;
+	flex-direction: column;
+	gap: var(--space);
 }
 
 .title {
@@ -19,7 +24,6 @@
 	.controls {
 		display: grid;
 		grid-template-columns: repeat(2, 1fr);
-		gap: var(--space);
 	}
 
 	.col1 {
