@@ -16,7 +16,7 @@ export default function ButtonWithIcon(Icon: IconType) {
           .button {
             display: flex;
             gap: var(--space-sm);
-            alignitems: center;
+            align-items: center;
           }
         `}</style>
       </Button>

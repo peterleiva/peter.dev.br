@@ -11,4 +11,5 @@
 .button.disabled {
 	color: var(--color-gray-20);
 	background-color: var(--color-gray-90);
+	cursor: no-drop;
 }
