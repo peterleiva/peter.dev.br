@@ -25,6 +25,26 @@ type Props = FormInputProps & {
 const isInput = (props: FormInputProps): props is InputProps =>
   'type' in props || 'accept' in props;
 
+const iconValidity = (
+  invalid: boolean,
+  Icon?: IconType,
+  Fallback = FallbackIcon
+) => {
+  return function IconLabel() {
+    return (
+      <span className={styles.icon}>
+        {invalid ? (
+          <InvalidIcon color="var(--color-error)" />
+        ) : Icon ? (
+          <Icon />
+        ) : (
+          <Fallback />
+        )}
+      </span>
+    );
+  };
+};
+
 export default function Input({
   Icon,
   id,
@@ -51,17 +71,7 @@ export default function Input({
     setTimeout(() => setValidity(ref?.current), 0);
   };
 
-  const printIcon = (Fallback: IconType = FallbackIcon) => (
-    <span className={styles.icon}>
-      {invalid ? (
-        <InvalidIcon color="var(--color-error)" />
-      ) : Icon ? (
-        <Icon />
-      ) : (
-        <Fallback />
-      )}
-    </span>
-  );
+  const InputIcon = iconValidity(invalid, Icon);
 
   if (isInput(inputProps)) {
     return (
@@ -82,10 +92,12 @@ export default function Input({
           onInvalid={handleInvalid}
           {...inputProps}
         />
-        {printIcon()}
+        <InputIcon />
       </div>
     );
   }
+
+  const TextareaIcon = iconValidity(invalid, Icon, TextareaFallback);
 
   return (
     <div className={styles['input-container']}>
@@ -104,7 +116,7 @@ export default function Input({
         onInvalid={handleInvalid}
         {...(inputProps as TextareaProps)}
       />
-      {printIcon(TextareaFallback)}
+      <TextareaIcon />
     </div>
   );
 }
