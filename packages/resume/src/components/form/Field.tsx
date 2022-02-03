@@ -1,7 +1,7 @@
 import { IconType } from 'react-icons';
-import styles from './Input.module.scss';
 import clsx from 'clsx';
 import Input from './Input';
+import styles from './Input.module.scss';
 
 type Props = (
   | JSX.IntrinsicElements['input']
