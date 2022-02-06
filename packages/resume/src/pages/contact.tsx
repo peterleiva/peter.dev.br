@@ -1,31 +1,51 @@
-import {
-  ChangeEventHandler,
-  FormEvent,
-  FormEventHandler,
-  useReducer,
-} from 'react';
 import { GetStaticProps, NextPage } from 'next';
 import { getResume } from 'services';
 import { pick } from 'ramda';
-import { Field, useForm } from 'form';
-import { ButtonWithIcon } from 'components';
-import { BsArrowRight as ButtonIcon } from 'react-icons/bs';
+import { Field, useForm, SubmitHandler } from 'form';
+import {
+  ButtonWithIcon,
+  SuccessMessage,
+  ErrorMessage,
+  LoadingSpinner,
+} from 'components';
+import { BsArrowRight as ProceedIcon } from 'react-icons/bs';
 import { CgProfile as NameIcon } from 'react-icons/cg';
 import { MdAlternateEmail as MailIcon } from 'react-icons/md';
+import useSendMessage from 'lib/useSendMessage';
 import styles from 'styles/Contact.module.scss';
-
-const Button = ButtonWithIcon(ButtonIcon);
 
 const Contact: NextPage = () => {
   const { field, submission, clear, isBlank } = useForm();
+  const { isLoading, isSuccess, isError, error, mutate } = useSendMessage({
+    onSuccess: () => {
+      clear();
+    },
+  });
+
+  const handleSubmit: SubmitHandler = data => {
+    mutate(new URLSearchParams(data));
+  };
+
+  const Button = ButtonWithIcon(isLoading ? LoadingSpinner : ProceedIcon);
 
   return (
     <div>
-      <h2 className={styles.title}>\Contact</h2>
+      {isSuccess && (
+        <SuccessMessage title="Well done">
+          your message are sent correctly. I&apos;ll be in touch ASAP
+        </SuccessMessage>
+      )}
+
+      {isError && (
+        <ErrorMessage title="Oh snap">
+          something unexpected happens.
+        </ErrorMessage>
+      )}
+
       <form
         method="post"
         className={styles.form}
-        onSubmit={submission(data => console.log(data))}
+        onSubmit={submission(handleSubmit)}
       >
         <div className={styles.fields}>
           <Field
@@ -62,7 +82,7 @@ const Contact: NextPage = () => {
           />
         </div>
 
-        <Button type="submit" className={styles.button}>
+        <Button type="submit" className={styles.button} disabled={isLoading}>
           Send message
         </Button>
       </form>
