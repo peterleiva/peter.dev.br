@@ -8,3 +8,4 @@ export { default as Education } from './Education';
 export { default as Layout } from './layout';
 export { default as Button } from './Button';
 export { default as ButtonWithIcon } from './ButtonWithIcon';
+export * from './FlashMessage';
