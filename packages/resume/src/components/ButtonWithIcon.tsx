@@ -1,7 +1,10 @@
-import { IconType } from 'react-icons';
+import type { ComponentType } from 'react';
+import type { IconType } from 'react-icons';
 import Button from './Button';
 
-export default function ButtonWithIcon(Icon: IconType) {
+export default function ButtonWithIcon(
+  Icon: IconType | ComponentType<{ size: number }>
+) {
   return function WithIcon({
     children,
     ...buttonProps
