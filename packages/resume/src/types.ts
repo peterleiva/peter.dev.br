@@ -64,3 +64,9 @@ export type Courses = {
   institution: string;
   courses: Course[];
 };
+
+export type Message = {
+  name?: string;
+  email?: string;
+  text: string;
+};

@@ -1,7 +1,8 @@
 import { NextApiHandler } from 'next';
-import { sendMessage, Message } from 'services';
+import { sendMessage } from 'services';
+import type { Message } from 'types';
 
-type Errors = {
+export type Errors = {
   errors: {
     [error: string]: {
       reason: string;
@@ -27,7 +28,9 @@ const handler: NextApiHandler<Message | Errors | string> =
         value: '' + message,
       };
 
-      res.status(400).send(errors);
+      console.error(errors);
+
+      res.status(400).json(errors);
       return;
     }
 
@@ -36,7 +39,7 @@ const handler: NextApiHandler<Message | Errors | string> =
       res.status(200).json(sent);
     } catch (error) {
       console.error(error);
-      res.status(500).send("coulnd't send message");
+      res.status(500).end();
     }
   };
 
