@@ -74,8 +74,6 @@ const FlashMessage = (Icon: IconType, type: MessageType) =>
           </div>
 
           <style jsx>{`
-            @use 'sass:color';
-
             .flash-message {
               position: relative;
               color: var(--color-white);
