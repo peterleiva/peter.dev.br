@@ -16,7 +16,7 @@ import styles from 'styles/Contact.module.scss';
 
 const Contact: NextPage = () => {
   const { field, submission, clear, isBlank } = useForm();
-  const { isLoading, isSuccess, isError, error, mutate } = useSendMessage({
+  const { isLoading, isSuccess, isError, mutate } = useSendMessage({
     onSuccess: () => {
       clear();
     },
@@ -31,13 +31,13 @@ const Contact: NextPage = () => {
   return (
     <div>
       {isSuccess && (
-        <SuccessMessage title="Well done">
+        <SuccessMessage title="Well done" className={styles.message}>
           your message are sent correctly. I&apos;ll be in touch ASAP
         </SuccessMessage>
       )}
 
       {isError && (
-        <ErrorMessage title="Oh snap">
+        <ErrorMessage title="Oh snap" className={styles.message}>
           something unexpected happens.
         </ErrorMessage>
       )}

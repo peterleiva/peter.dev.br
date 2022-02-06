@@ -8,6 +8,11 @@
 	margin: 0 auto;
 }
 
+.message {
+	width: min(400px, 100%);
+	margin: 0 auto;
+}
+
 .title {
 	animation: 2s infinite typing;
 	overflow: hidden;
