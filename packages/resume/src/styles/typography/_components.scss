@@ -1,6 +1,6 @@
-@use "sass:math";
-@use "mixins" as *;
-@use "functions" as *;
+@use 'sass:math';
+@use 'mixins' as *;
+@use 'functions' as *;
 
 @include setup();
 
@@ -44,4 +44,20 @@ h3,
 .h3 {
 	@include setting(17px);
 	font-weight: var(--weight-bold);
+}
+
+.type-1 {
+	@include scale(1);
+}
+
+.type-2 {
+	@include scale(2);
+}
+
+.type-3 {
+	@include scale(3);
+}
+
+.type-4 {
+	@include scale(4);
 }

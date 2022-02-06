@@ -1,0 +1,9 @@
+<svg width="89" height="104" xmlns="http://www.w3.org/2000/svg">
+  <g fill-rule="evenodd" style="mix-blend-mode: overlay;">
+    <path d="M68 51a8 8 0 0 1 7.87 9.42C83.98 65.04 89 71.43 89 78.5 89 92.58 69.08 104 44.5 104S0 92.58 0 78.5 19.92 53 44.5 53c5.9 0 11.51.66 16.66 1.85A8 8 0 0 1 68 51Z"/>
+    <circle cx="81" cy="26" r="7"/>
+    <circle cx="34" cy="31" r="8"/>
+    <circle cx="56" cy="15" r="4"/>
+    <circle cx="38" cy="2" r="2"/>
+  </g>
+</svg>

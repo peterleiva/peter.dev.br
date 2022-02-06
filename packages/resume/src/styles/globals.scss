@@ -29,6 +29,7 @@
 	--border-radius: 2px;
 	--border-radius-md: 5px;
 	--border-radius-lg: 12px;
+	--border-radius-xl: 24px;
 }
 
 a {
@@ -76,4 +77,8 @@ a {
 
 .full-height {
 	height: 100%;
+}
+
+.margin-auto {
+	margin: auto;
 }
