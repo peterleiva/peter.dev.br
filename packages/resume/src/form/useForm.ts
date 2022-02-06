@@ -11,12 +11,12 @@ type State = {
   message: string;
 };
 
-type SubmitCallback = {
+export type SubmitHandler = {
   (data: State, e?: FormEvent<HTMLFormElement>): void;
 };
 
 type Submission = {
-  (f: SubmitCallback, prevent?: boolean): FormEventHandler<HTMLFormElement>;
+  (f: SubmitHandler, prevent?: boolean): FormEventHandler<HTMLFormElement>;
 };
 
 const reducer = (state: State, data: Partial<State>): State => {
@@ -49,7 +49,8 @@ export default function useForm() {
     };
 
   const isBlank = (id: keyof State) => data[id] === '';
-  const clear = (id: keyof State) => dispatch({ [id]: '' });
+  const clear = (id?: keyof State) =>
+    id ? dispatch({ [id]: '' }) : dispatch(initializer());
 
   return { data, handler, field, submission, clear, isBlank };
 }
