@@ -3,35 +3,17 @@ import pkg from '../../../package.json';
 
 export default function Footer() {
   return (
-    <footer>
+    <footer className="border-t border-gray-300 flex justify-between mx-8 p-4 items-center">
       <a
         href="https://nextjs.org"
         target="_blank"
         rel="noreferrer"
-        className="built"
+        className="flex items-center gap-4"
       >
         built with
         <NextIcon style={{ color: 'var(--color-black)' }} />
       </a>
       <small>v{pkg.version}</small>
-
-      <style jsx>{`
-        footer {
-          border-top: 1px solid var(--color-gray-79);
-          display: flex;
-          justify-content: space-between;
-          flex-flow: row wrap;
-          margin: 0 var(--space);
-          padding: var(--space-sm);
-          align-items: center;
-        }
-
-        footer > .built {
-          display: flex;
-          align-items: center;
-          gap: var(--space-sm);
-        }
-      `}</style>
     </footer>
   );
 }
