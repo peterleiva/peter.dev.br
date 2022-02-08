@@ -58,11 +58,17 @@ const FlashMessage = (Icon: IconType, type: MessageType) =>
     if (closed) return null;
 
     return (
-      <div className={clsx('flash-message', className)}>
-        <button className="close reset-button" onClick={close}>
+      <div
+        className={clsx(
+          'flash-message',
+          'relative text-white p-4 rounded-3xl',
+          className
+        )}
+      >
+        <button className="float-right" onClick={close}>
           <CloseIcon size="24" />
         </button>
-        <span className="alert">
+        <span className="alert absolute left-5 -top-6">
           <svg width="43" height="48" xmlns="http://www.w3.org/2000/svg">
             <path d="M21.37 0a21.37 21.37 0 1 1-4.13 42.35l-7.86 5.19a2 2 0 0 1-3.1-1.8l.52-8.73A21.37 21.37 0 0 1 21.37 0Z" />
             <g transform="translate(13, 15)">
@@ -70,38 +76,20 @@ const FlashMessage = (Icon: IconType, type: MessageType) =>
             </g>
           </svg>
         </span>
-        <div className="body">
+        <div className="ml-20">
           <h2 className="type-2">{title}!</h2>
           <p>{children}</p>
         </div>
 
         <style jsx>{`
           .flash-message {
-            position: relative;
-            color: var(--color-white);
-            padding: var(--space);
-            border-radius: var(--border-radius-xl);
             background: no-repeat url(/flash-message-bg.svg) ${color.primary};
             background-position: left -14px bottom -25px;
             background-blend-mode: overlay;
           }
 
-          .body {
-            margin-left: var(--space-lg);
-          }
-
-          .alert {
-            position: absolute;
-            top: calc(-1 * var(--space));
-            left: var(--space);
-          }
-
           .alert path {
             fill: ${color.secondary};
-          }
-
-          .close {
-            float: right;
           }
         `}</style>
       </div>
