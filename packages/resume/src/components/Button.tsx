@@ -1,5 +1,4 @@
 import clsx from 'clsx';
-import styles from 'styles/Button.module.scss';
 
 type ButtonProps = JSX.IntrinsicElements['button'];
 type AnchorProps = JSX.IntrinsicElements['a'];
@@ -15,14 +14,26 @@ export default function Button({
   ...htmlProps
 }: ButtonTypes): JSX.Element {
   const buttonCls = clsx(
-    styles.button,
-    { [styles.disabled]: disabled },
+    'text-white font-medium bg-black px-4 py-2 rounded border-0 cursor-pointer disabled:text-slate-300 disabled:text-gray-500 disabled:bg-gray-300 disabled:cursor-no-drop',
     className
   );
 
   if (isAnchor(htmlProps)) {
-    return <a className={buttonCls} {...htmlProps} />;
+    return (
+      <a
+        className={clsx(buttonCls, {
+          'text-gray-500 bg-gray-300 cursor-no-drop': disabled,
+        })}
+        {...htmlProps}
+      />
+    );
   }
 
-  return <button className={buttonCls} {...(htmlProps as ButtonProps)} />;
+  return (
+    <button
+      className={buttonCls}
+      disabled={disabled}
+      {...(htmlProps as ButtonProps)}
+    />
+  );
 }
