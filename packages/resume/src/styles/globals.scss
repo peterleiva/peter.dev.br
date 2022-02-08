@@ -1,6 +1,10 @@
-@use "typography";
-@use "modern-css-reset";
-@use "reset-button" as reset;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@use 'typography';
+@use 'modern-css-reset';
+@use 'reset-button' as reset;
 
 * {
 	box-sizing: border-box;
