@@ -9,6 +9,7 @@ type State = {
   name: string;
   email: string;
   message: string;
+  subject: string;
 };
 
 export type SubmitHandler = {
@@ -26,7 +27,7 @@ const reducer = (state: State, data: Partial<State>): State => {
   };
 };
 
-const initializer = () => ({ name: '', email: '', message: '' });
+const initializer = () => ({ name: '', email: '', message: '', subject: '' });
 
 export default function useForm() {
   const [data, dispatch] = useReducer(reducer, {}, initializer);

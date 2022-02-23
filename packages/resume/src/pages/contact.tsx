@@ -10,7 +10,11 @@ import {
 } from 'components';
 import { BsArrowRight as ProceedIcon } from 'react-icons/bs';
 import { CgProfile as NameIcon } from 'react-icons/cg';
-import { MdAlternateEmail as MailIcon } from 'react-icons/md';
+import {
+  MdAlternateEmail as MailIcon,
+  MdOutlineSubject as SubjectIcon,
+} from 'react-icons/md';
+
 import useSendMessage from 'lib/useSendMessage';
 import styles from 'styles/Contact.module.scss';
 
@@ -69,6 +73,17 @@ const Contact: NextPage = () => {
             onClear={() => clear('email')}
             showClear={!isBlank('email')}
             {...field('email')}
+          />
+          <Field
+            id="subject"
+            label="Subject"
+            type="text"
+            Icon={SubjectIcon}
+            className={styles.col1}
+            placeholder="write a subject"
+            onClear={() => clear('subject')}
+            showClear={!isBlank('subject')}
+            {...field('subject')}
           />
           <Field
             id="message"
