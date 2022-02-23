@@ -20,7 +20,7 @@ const handler: NextApiHandler<Message | Errors | string> =
       return;
     }
 
-    const { message, name, email } = req.body;
+    const { message, name, email, subject } = req.body;
 
     if (!message && typeof message !== 'string') {
       errors.errors.message = {
@@ -35,7 +35,12 @@ const handler: NextApiHandler<Message | Errors | string> =
     }
 
     try {
-      const sent = await sendMessage({ text: message as string, name, email });
+      const sent = await sendMessage({
+        text: message as string,
+        name,
+        email,
+        subject,
+      });
       res.status(200).json(sent);
     } catch (error) {
       console.error(error);
