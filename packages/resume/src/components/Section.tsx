@@ -17,7 +17,7 @@ export default function Section({
 }: SectionProps) {
   return (
     <section className={layoutClass(fill)}>
-      <h2 id={title}>
+      <h2 id={title} className="text-center mb-4 text-2xl font-semibold">
         <Link href={`#${title}`} passHref>
           <a href="passHref" className="link">
             <span className="icon">
@@ -30,11 +30,6 @@ export default function Section({
       <div className="body">{children}</div>
       <style jsx>
         {`
-          h2 {
-            text-align: center;
-            margin-bottom: var(--space);
-          }
-
           .link {
             position: relative;
           }
