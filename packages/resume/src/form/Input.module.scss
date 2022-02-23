@@ -7,11 +7,6 @@ $icon-index: 100;
 	position: relative;
 }
 
-.label {
-	order: -1;
-	font-weight: var(--weight-bold);
-}
-
 .input-container {
 	height: 100%;
 	position: relative;
@@ -76,11 +71,6 @@ $icon-index: 100;
 }
 
 .input:focus:invalid ~ .icon {
-	color: var(--color-error);
-}
-
-.label.required::after {
-	content: '*';
 	color: var(--color-error);
 }
 
