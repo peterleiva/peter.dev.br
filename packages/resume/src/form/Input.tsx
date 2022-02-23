@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { FocusEventHandler, RefObject, useRef, useState } from 'react';
+import { RefObject, forwardRef } from 'react';
 import type { IconType } from 'react-icons';
 import {
   BiData as FallbackIcon,
@@ -20,6 +20,7 @@ type Props = FormInputProps & {
   id: string;
   onClear?: () => void;
   showClear?: boolean;
+  invalid?: boolean;
 };
 
 const isInput = (props: FormInputProps): props is InputProps =>
@@ -45,30 +46,33 @@ const iconValidity = (
   };
 };
 
-export default function Input({
-  Icon,
-  id,
-  className,
-  onClear,
-  showClear = false,
-  ...inputProps
-}: Props) {
+export default forwardRef<InputElement, Props>(function Input(
+  {
+    Icon,
+    id,
+    className,
+    onClear,
+    invalid = false,
+    showClear = false,
+    ...inputProps
+  }: Props,
+  ref
+) {
   const inputCls = clsx(styles.input, className);
-  const [invalid, setInvalid] = useState<boolean>(false);
-  const ref = useRef<InputElement>(null);
+  // const [invalid, setInvalid] = useState<boolean>(false);
 
-  const setValidity = (element?: InputElement | null) =>
-    setInvalid(!element?.validity?.valid);
+  // const setValidity = (element?: InputElement | null) =>
+  //   setInvalid(!element?.validity?.valid);
 
-  const handleBlur: FocusEventHandler<InputElement> = (e): void => {
-    setValidity(e.target);
-  };
+  // const handleBlur: FocusEventHandler<InputElement> = (e): void => {
+  //   setValidity(e.target);
+  // };
 
-  const handleInvalid = () => setInvalid(true);
+  // const handleInvalid = () => setInvalid(true);
 
   const handleClear = () => {
     onClear?.();
-    setTimeout(() => setValidity(ref?.current), 0);
+    // setTimeout(() => setValidity(ref?.current), 0);
   };
 
   const InputIcon = iconValidity(invalid, Icon);
@@ -88,8 +92,8 @@ export default function Input({
           className={inputCls}
           id={id}
           name={id}
-          onBlur={handleBlur}
-          onInvalid={handleInvalid}
+          // onBlur={handleBlur}
+          // onInvalid={handleInvalid}
           {...inputProps}
         />
         <InputIcon />
@@ -112,11 +116,11 @@ export default function Input({
         id={id}
         ref={ref as RefObject<HTMLTextAreaElement>}
         className={clsx(inputCls, styles.textarea)}
-        onBlur={handleBlur}
-        onInvalid={handleInvalid}
+        // onBlur={handleBlur}
+        // onInvalid={handleInvalid}
         {...(inputProps as TextareaProps)}
       />
       <TextareaIcon />
     </div>
   );
-}
+});

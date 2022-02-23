@@ -20,12 +20,12 @@ const handler: NextApiHandler<Message | Errors | string> =
       return;
     }
 
-    const { message, name, email, subject } = req.body;
+    const { text, name, email, subject } = req.body;
 
-    if (!message && typeof message !== 'string') {
+    if (!text && typeof text !== 'string') {
       errors.errors.message = {
         reason: 'message is required and must be a string',
-        value: '' + message,
+        value: '' + text,
       };
 
       console.error(errors);
@@ -36,7 +36,7 @@ const handler: NextApiHandler<Message | Errors | string> =
 
     try {
       const sent = await sendMessage({
-        text: message as string,
+        text: text as string,
         name,
         email,
         subject,

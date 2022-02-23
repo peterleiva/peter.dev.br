@@ -1,7 +1,9 @@
 import { GetStaticProps, NextPage } from 'next';
 import { getResume } from 'services';
 import { pick } from 'ramda';
-import { Field, useForm, SubmitHandler } from 'form';
+import { Field } from 'form';
+import { useForm, type SubmitHandler } from 'react-hook-form';
+
 import {
   ButtonWithIcon,
   SuccessMessage,
@@ -15,18 +17,20 @@ import {
   MdOutlineSubject as SubjectIcon,
 } from 'react-icons/md';
 
+import type { Message } from 'types';
 import useSendMessage from 'lib/useSendMessage';
 import styles from 'styles/Contact.module.scss';
 
 const Contact: NextPage = () => {
-  const { field, submission, clear, isBlank } = useForm();
+  const { register, handleSubmit, reset, resetField } = useForm<Message>();
   const { isLoading, isSuccess, isError, mutate } = useSendMessage({
     onSuccess: () => {
-      clear();
+      reset();
     },
   });
 
-  const handleSubmit: SubmitHandler = data => {
+  const submission: SubmitHandler<Message> = data => {
+    console.log('data', data);
     mutate(new URLSearchParams(data));
   };
 
@@ -46,11 +50,7 @@ const Contact: NextPage = () => {
         </ErrorMessage>
       )}
 
-      <form
-        method="post"
-        className={styles.form}
-        onSubmit={submission(handleSubmit)}
-      >
+      <form className={styles.form} onSubmit={handleSubmit(submission)}>
         <div className={styles.fields}>
           <Field
             id="name"
@@ -59,9 +59,8 @@ const Contact: NextPage = () => {
             Icon={NameIcon}
             className={styles.col1}
             placeholder="John Doe"
-            onClear={() => clear('name')}
-            showClear={!isBlank('name')}
-            {...field('name')}
+            onClear={() => resetField('name')}
+            {...register('name')}
           />
           <Field
             id="email"
@@ -70,9 +69,8 @@ const Contact: NextPage = () => {
             Icon={MailIcon}
             className={styles.col1}
             placeholder="johndoe@example.com"
-            onClear={() => clear('email')}
-            showClear={!isBlank('email')}
-            {...field('email')}
+            onClear={() => resetField('email')}
+            {...register('email')}
           />
           <Field
             id="subject"
@@ -81,19 +79,16 @@ const Contact: NextPage = () => {
             Icon={SubjectIcon}
             className={styles.col1}
             placeholder="write a subject"
-            onClear={() => clear('subject')}
-            showClear={!isBlank('subject')}
-            {...field('subject')}
+            onClear={() => resetField('subject')}
+            {...register('subject')}
           />
           <Field
             id="message"
             label="Message"
             className={styles.col2}
             placeholder="write your message"
-            onClear={() => clear('message')}
-            showClear={!isBlank('message')}
-            required
-            {...field('message')}
+            onClear={() => resetField('text')}
+            {...register('text', { required: true })}
           />
         </div>
 
