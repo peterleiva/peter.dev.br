@@ -88,6 +88,7 @@ const Contact: NextPage = () => {
             className={styles.col2}
             placeholder="write your message"
             onClear={() => resetField('text')}
+            required
             {...register('text', { required: true })}
           />
         </div>
