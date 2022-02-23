@@ -1,23 +1,28 @@
 import { forwardRef } from 'react';
 import { IconType } from 'react-icons';
 import clsx from 'clsx';
-import Input from './Input';
+import { Input, BaseInput } from './Input';
 import styles from './Input.module.scss';
 import Label from './Label';
 
-type Props = $ElementProps<typeof Input> & {
+type Props = {
   label: string;
   id?: string;
-  Icon?: IconType;
+  required?: boolean;
+  className?: string;
+  renderInput: JSX.Element;
 };
 
-export default forwardRef<HTMLInputElement, Props>(function Field(
-  { id, label, Icon, className, required, ...props }: Props,
-  ref
-) {
+export default function Field({
+  id,
+  label,
+  className,
+  renderInput: input,
+  required,
+}: Props) {
   return (
     <div className={clsx(styles.control, className)}>
-      <Input Icon={Icon} id={id} required={required} ref={ref} {...props} />
+      {input}
       <Label
         id={id}
         required={required}
@@ -26,4 +31,4 @@ export default forwardRef<HTMLInputElement, Props>(function Field(
       />
     </div>
   );
-});
+}

@@ -1,7 +1,7 @@
 import { GetStaticProps, NextPage } from 'next';
 import { getResume } from 'services';
 import { pick } from 'ramda';
-import { Field } from 'form';
+import { Field, Form, Input, Textarea } from 'form';
 import { useForm, type SubmitHandler } from 'react-hook-form';
 
 import {
@@ -50,53 +50,62 @@ const Contact: NextPage = () => {
         </ErrorMessage>
       )}
 
-      <form className={styles.form} onSubmit={handleSubmit(submission)}>
+      <Form className={styles.form} onSubmit={submission}>
         <div className={styles.fields}>
           <Field
             id="name"
             label="Name"
-            type="text"
-            Icon={NameIcon}
+            renderInput={
+              <Input
+                id="name"
+                type="text"
+                Icon={NameIcon}
+                placeholder="John Doe"
+              />
+            }
             className={styles.col1}
-            placeholder="John Doe"
-            onClear={() => resetField('name')}
-            {...register('name')}
           />
           <Field
             id="email"
             label="Email"
-            type="email"
-            Icon={MailIcon}
+            renderInput={
+              <Input
+                id="email"
+                type="email"
+                Icon={MailIcon}
+                placeholder="johndoe@example.com"
+              />
+            }
             className={styles.col1}
-            placeholder="johndoe@example.com"
-            onClear={() => resetField('email')}
-            {...register('email')}
           />
           <Field
             id="subject"
             label="Subject"
-            type="text"
-            Icon={SubjectIcon}
+            renderInput={
+              <Input
+                id="subject"
+                type="text"
+                placeholder="write a subject"
+                Icon={SubjectIcon}
+              />
+            }
             className={styles.col1}
-            placeholder="write a subject"
-            onClear={() => resetField('subject')}
-            {...register('subject')}
           />
           <Field
             id="message"
             label="Message"
-            className={styles.col2}
-            placeholder="write your message"
-            onClear={() => resetField('text')}
             required
-            {...register('text', { required: true })}
+            renderInput={
+              <Textarea id="message" placeholder="write your message" />
+            }
+            className={styles.col2}
           />
         </div>
 
         <Button type="submit" className={styles.button} disabled={isLoading}>
           Send message
         </Button>
-      </form>
+      </Form>
     </div>
   );
 };
