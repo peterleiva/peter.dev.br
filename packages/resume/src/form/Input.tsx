@@ -40,10 +40,11 @@ const iconValidity = (
 type InputProps = Props & JSX.IntrinsicElements['input'];
 
 export function Input({ Icon, id, className, ...inputProps }: InputProps) {
-  const { register } = useFormContext();
+  const { register, getFieldState } = useFormContext();
   const { clearable: showClose, handleClear } = useClear(id);
+  const { invalid } = getFieldState(id);
 
-  const InputIcon = iconValidity(false, Icon);
+  const InputIcon = iconValidity(invalid, Icon);
 
   return (
     <BaseInput
@@ -106,19 +107,18 @@ export const BaseInput = ({
 type TextareaProps = JSX.IntrinsicElements['textarea'] & Props;
 
 export function Textarea({
-  invalid = false,
   Icon,
   id,
   className,
   required,
   ...inputProps
 }: TextareaProps) {
-  const { register } = useFormContext();
+  const { register, getFieldState } = useFormContext();
   const { clearable: showClear, handleClear } = useClear(id);
 
-  console.log('clar', showClear);
+  const { invalid: isInvalid } = getFieldState(id);
 
-  const TextareaIcon = iconValidity(invalid, Icon, TextareaFallback);
+  const TextareaIcon = iconValidity(isInvalid, Icon, TextareaFallback);
 
   return (
     <BaseInput
@@ -134,6 +134,7 @@ export function Textarea({
           'h-full bg-zinc-200',
           className
         )}
+        required
         {...inputProps}
         {...register(id, { required })}
       />
