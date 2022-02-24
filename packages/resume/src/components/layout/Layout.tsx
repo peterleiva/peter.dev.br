@@ -22,7 +22,7 @@ export default function Layout({ name, children, jobTitle, Top }: Props) {
       </Head>
       <div className={styles.top}>
         <Header name={name} jobTitle={jobTitle} />
-        <div className={styles.profile}>{Top}</div>
+        {Top && <div className={styles.profile}>{Top}</div>}
       </div>
 
       <main className={styles.main}>{children}</main>
