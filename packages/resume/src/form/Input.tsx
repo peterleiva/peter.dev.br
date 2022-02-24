@@ -42,6 +42,7 @@ type InputProps = Props & JSX.IntrinsicElements['input'];
 export function Input({ Icon, id, className, ...inputProps }: InputProps) {
   const { register } = useFormContext();
   const { clearable: showClose, handleClear } = useClear(id);
+  console.log('showClose', showClose);
 
   const InputIcon = iconValidity(false, Icon);
 
