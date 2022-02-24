@@ -30,7 +30,7 @@ export default function useSendMessage(
   options: Omit<
     UseMutationOptions<Message, Errors, URLSearchParams>,
     'mutationKey' | 'mutationFn'
-  >
+  > = {}
 ) {
   const mutation = useMutation<Message, Errors, URLSearchParams>(
     'contact',

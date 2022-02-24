@@ -22,11 +22,7 @@ import useSendMessage from 'lib/useSendMessage';
 import styles from 'styles/Contact.module.scss';
 
 const Contact: NextPage = () => {
-  const { isLoading, isSuccess, isError, mutate } = useSendMessage({
-    onSuccess: () => {
-      // reset();
-    },
-  });
+  const { isLoading, isSuccess, isError, mutate } = useSendMessage();
 
   const submission: SubmitHandler<Message> = data => {
     mutate(new URLSearchParams(data));
