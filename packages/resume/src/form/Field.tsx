@@ -1,7 +1,4 @@
-import { forwardRef } from 'react';
-import { IconType } from 'react-icons';
 import clsx from 'clsx';
-import { Input, BaseInput } from './Input';
 import styles from './Input.module.scss';
 import Label from './Label';
 

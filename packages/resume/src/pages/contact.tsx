@@ -2,7 +2,7 @@ import { GetStaticProps, NextPage } from 'next';
 import { getResume } from 'services';
 import { pick } from 'ramda';
 import { Field, Form, Input, Textarea } from 'form';
-import { useForm, type SubmitHandler } from 'react-hook-form';
+import { type SubmitHandler } from 'react-hook-form';
 
 import {
   ButtonWithIcon,

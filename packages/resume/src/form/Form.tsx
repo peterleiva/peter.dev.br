@@ -1,28 +1,23 @@
 import {
   useForm,
-  type DefaultValues,
-  type FieldValues,
+  type SubmitHandler,
+  type UseFormProps,
   FormProvider,
-  type UnpackNestedValue,
-  UseFormReset,
 } from 'react-hook-form';
 
-type Props<TFieldValues extends FieldValues> = {
-  defaultValues: DefaultValues<TFieldValues>;
+type Props<T> = {
+  onSubmit: SubmitHandler<T>;
   children: React.ReactNode;
-  onSubmit: (
-    data: UnpackNestedValue<TFieldValues>,
-    reset: UseFormReset<TFieldValues>
-  ) => void;
-} & JSX.IntrinsicElements['form'];
+  useFormProps?: UseFormProps<T>;
+} & Omit<JSX.IntrinsicElements['form'], 'onSubmit'>;
 
-export default function Form<TFieldValues>({
-  defaultValues,
+export default function Form<T>({
+  useFormProps,
   onSubmit,
   children,
   ...htmlProps
-}: Props<TFieldValues>) {
-  const methods = useForm({ defaultValues });
+}: Props<T>) {
+  const methods = useForm(useFormProps);
   const { handleSubmit, reset } = methods;
 
   return (
