@@ -18,7 +18,7 @@ export default function Field({
   required,
 }: Props) {
   return (
-    <div className={clsx(styles.control, className)}>
+    <div className={clsx('flex flex-col w-full relative', className)}>
       {input}
       <Label
         id={id}

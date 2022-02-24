@@ -1,23 +1,5 @@
 $icon-index: 100;
 
-.control {
-	display: flex;
-	flex-direction: column;
-	width: 100%;
-	position: relative;
-}
-
-.clear {
-	position: absolute;
-	z-index: $icon-index;
-	cursor: pointer;
-}
-
-.input {
-	position: relative;
-	width: 100%;
-}
-
 .left {
 	left: var(--space);
 }
@@ -41,28 +23,15 @@ $icon-index: 100;
 }
 
 .input {
-	position: relative;
-	border-radius: var(--border-radius-md);
-	border: 2px solid var(--color-gray-90);
 	padding: var(--space-xs) var(--space-md);
-	outline: none;
-	font-weight: var(--weight-bold);
 }
 
 .input:disabled {
 	background-color: var(--color-gray-90);
 }
 
-.input:focus {
-	border-color: var(--color-secondary);
-}
-
 .input:focus ~ .icon {
 	color: var(--color-secondary);
-}
-
-.input:focus:invalid {
-	border-color: var(--color-error);
 }
 
 .input:focus:invalid ~ .icon {
@@ -72,8 +41,6 @@ $icon-index: 100;
 .textarea {
 	padding: var(--space-sm);
 	padding-right: var(--space);
-	background-color: var(--color-gray-79);
-	height: 100%;
 }
 
 .textarea ~ .icon {
