@@ -42,7 +42,6 @@ type InputProps = Props & JSX.IntrinsicElements['input'];
 export function Input({ Icon, id, className, ...inputProps }: InputProps) {
   const { register } = useFormContext();
   const { clearable: showClose, handleClear } = useClear(id);
-  console.log('showClose', showClose);
 
   const InputIcon = iconValidity(false, Icon);
 
@@ -57,7 +56,7 @@ export function Input({ Icon, id, className, ...inputProps }: InputProps) {
       }
     >
       <input
-        className={clsx(styles.input, className)}
+        className={clsx(inputClass, styles.input, className)}
         id={id}
         {...inputProps}
         {...register(id)}
@@ -74,7 +73,12 @@ type CloseButtonProps = Pick<Props, 'onClear'> & {
 const CloseButton = ({ onClear, className }: CloseButtonProps) => {
   return (
     <CloseIcon
-      className={clsx(styles.clear, styles.bottom, styles.right, className)}
+      className={clsx(
+        'absolute cursor-pointer z-50',
+        styles.bottom,
+        styles.right,
+        className
+      )}
       onClick={onClear}
     />
   );
@@ -112,6 +116,8 @@ export function Textarea({
   const { register } = useFormContext();
   const { clearable: showClear, handleClear } = useClear(id);
 
+  console.log('clar', showClear);
+
   const TextareaIcon = iconValidity(invalid, Icon, TextareaFallback);
 
   return (
@@ -121,7 +127,13 @@ export function Textarea({
     >
       <textarea
         id={id}
-        className={clsx(styles.input, styles.textarea, className)}
+        className={clsx(
+          inputClass,
+          styles.input,
+          styles.textarea,
+          'h-full bg-zinc-200',
+          className
+        )}
         {...inputProps}
         {...register(id, { required })}
       />
@@ -129,3 +141,6 @@ export function Textarea({
     </BaseInput>
   );
 }
+
+const inputClass =
+  'relative rounded border-2 border-gray-300 outline-none font-semibold w-full focus:border-secondary focus:invalid:border-red-500';
