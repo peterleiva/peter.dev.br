@@ -1,27 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useWatch } from 'react-hook-form';
 import { useFormContext } from './context';
 
 export default function useClear(id: string) {
-  const { watch, resetField } = useFormContext();
-  const [clearable, setClearable] = useState(false);
+  const { resetField } = useFormContext();
+  const value = useWatch({ name: id });
 
-  useEffect(() => {
-    const { unsubscribe } = watch((data, { name, type }) => {
-      // when data is reseted
-      if (!type && !name) {
-        setClearable(false);
-      }
-
-      // otherwise only check for id watched
-      if (name === id) {
-        const value = data[name];
-        setClearable(!!value);
-      }
-    });
-
-    return () => unsubscribe();
-  }, [watch, id]);
+  const clearable = !!value;
 
   const handleClear = () => resetField(id);
+
   return { clearable, handleClear };
 }
