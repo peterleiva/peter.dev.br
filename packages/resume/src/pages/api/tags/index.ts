@@ -1,4 +1,3 @@
-import { withSentry } from '@sentry/nextjs';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { getAllTags } from 'services';
 
@@ -13,4 +12,4 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   }
 }
 
-export default withSentry(handler);
+export default handler;
