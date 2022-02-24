@@ -2,12 +2,13 @@ import {
   useForm,
   type SubmitHandler,
   type DefaultValues,
+  type FieldValues,
+  FormProvider,
 } from 'react-hook-form';
-import { FormContext } from './context';
 
-type Props<TFieldValues> = {
+type Props<TFieldValues extends FieldValues> = {
   defaultValues: DefaultValues<TFieldValues>;
-  children: React.ReactNode | React.ReactNode[];
+  children: React.ReactNode;
   onSubmit: SubmitHandler<TFieldValues>;
 } & JSX.IntrinsicElements['form'];
 
@@ -21,10 +22,10 @@ export default function Form<TFieldValues>({
   const { handleSubmit } = methods;
 
   return (
-    <FormContext.Provider value={methods}>
+    <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)} {...htmlProps}>
         {children}
       </form>
-    </FormContext.Provider>
+    </FormProvider>
   );
 }

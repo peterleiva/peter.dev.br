@@ -9,7 +9,6 @@ import { GrClose as CloseIcon } from 'react-icons/gr';
 import styles from './Input.module.scss';
 import { useFormContext } from './context';
 import useClear from './useClear';
-import { useEffect, useState } from 'react';
 
 type Props = {
   id: string;
@@ -41,23 +40,10 @@ const iconValidity = (
 type InputProps = Props & JSX.IntrinsicElements['input'];
 
 export function Input({ Icon, id, className, ...inputProps }: InputProps) {
-  const { register, watch } = useFormContext();
+  const { register } = useFormContext();
   const { clearable: showClose, handleClear } = useClear(id);
-  const [invalid, setInvalid] = useState<boolean>(false);
 
-  const InputIcon = iconValidity(invalid, Icon);
-
-  useEffect(() => {
-    const { unsubscribe } = watch((data, { name }) => {
-      if (name) {
-        const value = data[name];
-        console.log('asdasd', value.error);
-        setInvalid(value.error);
-      }
-    });
-
-    return unsubscribe;
-  }, [watch, id]);
+  const InputIcon = iconValidity(false, Icon);
 
   return (
     <BaseInput
@@ -119,6 +105,7 @@ export function Textarea({
   Icon,
   id,
   className,
+  required,
   ...inputProps
 }: TextareaProps) {
   const { register } = useFormContext();
@@ -135,7 +122,7 @@ export function Textarea({
         id={id}
         className={clsx(styles.input, styles.textarea, className)}
         {...inputProps}
-        {...register(id)}
+        {...register(id, { required })}
       />
       <TextareaIcon />
     </BaseInput>

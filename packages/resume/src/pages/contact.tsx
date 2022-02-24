@@ -22,15 +22,13 @@ import useSendMessage from 'lib/useSendMessage';
 import styles from 'styles/Contact.module.scss';
 
 const Contact: NextPage = () => {
-  const { register, handleSubmit, reset, resetField } = useForm<Message>();
   const { isLoading, isSuccess, isError, mutate } = useSendMessage({
     onSuccess: () => {
-      reset();
+      // reset();
     },
   });
 
   const submission: SubmitHandler<Message> = data => {
-    console.log('data', data);
     mutate(new URLSearchParams(data));
   };
 
@@ -92,11 +90,11 @@ const Contact: NextPage = () => {
             className={styles.col1}
           />
           <Field
-            id="message"
+            id="text"
             label="Message"
             required
             renderInput={
-              <Textarea id="message" placeholder="write your message" />
+              <Textarea id="text" placeholder="write your message" required />
             }
             className={styles.col2}
           />
