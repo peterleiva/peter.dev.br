@@ -6,10 +6,16 @@ export default function useClear(id: string) {
   const [clearable, setClearable] = useState(false);
 
   useEffect(() => {
-    const { unsubscribe } = watch((data, { name }) => {
+    const { unsubscribe } = watch((data, { name, type }) => {
+      // when data is reseted
+      if (!type && !name) {
+        setClearable(false);
+      }
+
+      // otherwise only check for id watched
       if (name === id) {
         const value = data[name];
-        setClearable(value);
+        setClearable(!!value);
       }
     });
 
