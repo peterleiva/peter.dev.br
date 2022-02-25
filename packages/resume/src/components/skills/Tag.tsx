@@ -1,6 +1,6 @@
 import { FaHashtag as HashtagIcon } from 'react-icons/fa';
 import type { Tag as ITag } from 'types';
-import { join } from 'ramda';
+import clsx from 'clsx';
 
 type TagProps = {
   activated?: boolean;
@@ -14,9 +14,9 @@ export default function Tag({ name: tag, activated, onClick }: TagProps) {
   return (
     <button
       onClick={() => onClick?.(tag)}
-      className={join(' ', ['tag', 'reset-button', activatedClass(activated)])}
+      className={clsx('tag', 'reset-button', activatedClass(activated))}
     >
-      <span className="container">
+      <span className="flex flex-row flex-wrap items-center justity-between">
         <HashtagIcon transform="rotate(-15)" />
         <span className="keyword">{tag}</span>
       </span>
@@ -39,13 +39,6 @@ export default function Tag({ name: tag, activated, onClick }: TagProps) {
         .activated .keyword,
         .tag:hover .keyword {
           color: var(--color-primary-1);
-        }
-
-        .container {
-          display: flex;
-          flex-flow: row nowrap;
-          align-items: center;
-          justify-content: space-between;
         }
       `}</style>
     </button>

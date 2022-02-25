@@ -52,7 +52,7 @@ export default function Skills({ skills: initialData }: SkillsProps) {
 
   return (
     <Tabs defaultValue="All">
-      <section className="tags">
+      <section className="flex flex-row flex-wrap mb-5">
         <Tabs.Tab id="All">
           {activated => <Tag name="All" activated={activated} />}
         </Tabs.Tab>
@@ -73,13 +73,6 @@ export default function Skills({ skills: initialData }: SkillsProps) {
       <Tabs.Panel id={tag}>
         <Wrapper {...getStates({ data: skillsByTag.skills, ...skillsByTag })} />
       </Tabs.Panel>
-
-      <style jsx>{`
-        .tags {
-          display: flex;
-          flex-flow: row wrap;
-        }
-      `}</style>
     </Tabs>
   );
 }
