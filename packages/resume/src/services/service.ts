@@ -5,7 +5,8 @@ import ResumeModel, { Contact, ResumeDocument } from './models/resume';
 import getCourses from './get-courses';
 import getEducations from './get-educations';
 import getJobs from './get-jobs';
-import { allTags, getSkills, byTag } from './skills';
+import { getSkills, byTag } from './skills';
+import { allTags } from './tags';
 
 const dbWrapper = async <T>(fn: () => Promise<T>) => {
   await connect();
