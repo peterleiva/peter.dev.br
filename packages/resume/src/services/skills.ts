@@ -8,31 +8,32 @@ import SkillModel, {
 } from './models/skill';
 import { i18n } from 'next-i18next';
 
-export const skillMapper = (skills: ISkill[]): Skill[] => {
+export const skillConvert = (skills: SkillDocument[]): Skill[] => {
   const tagsLens = R.lensProp<Tag>('name');
   const tagView = R.view<Tag, string>(tagsLens);
   const transform = R.evolve({ tags: R.map(tagView) });
 
-  return R.map<ISkill, Skill>(
+  return R.map(
     R.compose<[ISkill], Omit<ISkill, 'tags'> & { tags: string[] }, Skill>(
       R.pick(['name', 'tags']),
       transform
     )
-  )(skills);
+  )(translate(skills));
 };
+
+const translate = (skills: SkillDocument[]) =>
+  skills.map(skill => skill.translate(i18n?.language));
 
 export const getSkills = async (resume: ResumeDocument): Promise<Skill[]> => {
   const { skills } = await resume.populate<{ skills: SkillDocument[] }>(
     'skills'
   );
 
-  return skillMapper(
-    skills.map((skill: SkillDocument) => skill.translate(i18n?.language))
-  );
+  return skillConvert(skills);
 };
 
-export const byTag = async (tag: ITag): Promise<Skill[]> => {
+export const getByTag = async (tag: ITag): Promise<Skill[]> => {
   const skills = await SkillModel.find({ 'tags.name': tag });
 
-  return skillMapper(skills.map(skill => skill.translate(i18n?.language)));
+  return skillConvert(skills);
 };
