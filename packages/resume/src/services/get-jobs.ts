@@ -10,14 +10,6 @@ type PopulatedJob = Omit<JobDocument, 'techs'> & {
   techs: SkillDocument[];
 };
 
-const jobPicker = R.pick([
-  'position',
-  'activity',
-  'description',
-  'company',
-  'techs',
-]);
-
 const companyPicker = R.pick(['name', 'alias']);
 
 export default async function getJobs(resume: ResumeDocument): Promise<Job[]> {
@@ -28,20 +20,24 @@ export default async function getJobs(resume: ResumeDocument): Promise<Job[]> {
     },
   });
 
-  return R.map<PopulatedJob, Job>(
-    R.pipe(
-      R.evolve({
-        company: companyPicker,
-        techs: skillConvert,
+  return jobs.map(
+    ({
+      position,
+      activity: { start, end },
+      description,
+      company,
+      techs,
+    }: PopulatedJob) => {
+      return {
+        position,
+        description,
+        company: companyPicker(company),
         activity: {
-          start: toDateTime,
-          end: optionalToDateTime,
+          start: toDateTime(start),
+          end: optionalToDateTime(end),
         },
-      }),
-      R.evolve({
-        activity: R.pick(['start', 'end']),
-      }),
-      jobPicker
-    )
-  )(jobs);
+        techs: skillConvert(techs),
+      };
+    }
+  );
 }

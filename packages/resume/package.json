@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "typecheck": "tsc --noEmit",
     "console": "ts-node-dev -r tsconfig-paths/register -P ./tsconfig.json scripts/console",
     "seed": "ts-node -r tsconfig-paths/register -P ./tsconfig.json scripts/seed",
     "test": "jest",

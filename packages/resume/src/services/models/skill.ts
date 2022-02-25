@@ -6,7 +6,7 @@ export interface Tag {
 
 export interface Skill {
   name: string;
-  name_pt: string;
+  name_pt?: string;
   tags: Tag[];
 }
 
@@ -27,7 +27,6 @@ const skillSchema = new Schema<Skill, SkillModel>({
 
   name_pt: {
     type: String,
-    required: true,
     unique: true,
     minlength: 2,
     maxlength: 255,
