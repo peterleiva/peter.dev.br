@@ -1,4 +1,6 @@
 import { DateTime } from 'luxon';
+import { useTranslation } from 'next-i18next';
+import { useRouter } from 'next/dist/client/router';
 import { compose, defaultTo, invoker, isNil, unless } from 'ramda';
 
 const monthYear = compose<[DateTime | undefined], DateTime, string>(
@@ -20,5 +22,11 @@ export default function Activity({
     unless(isNil, invoker(1, 'toFormat')('LLL yyyy'))
   );
 
-  return <time dateTime={monthYear(time)}>{activity(time)}</time>;
+  const { i18n } = useTranslation();
+
+  return (
+    <time dateTime={monthYear(time)}>
+      {activity(time?.setLocale(i18n.language))}
+    </time>
+  );
 }
