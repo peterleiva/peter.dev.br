@@ -1,6 +1,10 @@
 {
   "job": "Engenheiro Javascript Full Stack",
   "all": "Todos",
+  "pt": {
+    "flag": "🇧🇷",
+    "lang": "Português"
+  },
   "footer": {
     "built": "construído com"
   },
