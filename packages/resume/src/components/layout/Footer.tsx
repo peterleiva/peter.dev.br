@@ -1,7 +1,10 @@
+import { useTranslation } from 'next-i18next';
 import { SiNextdotjs as NextIcon } from 'react-icons/si';
 import pkg from '../../../package.json';
 
 export default function Footer() {
+  const { t } = useTranslation();
+
   return (
     <footer className="border-t border-gray-300 flex justify-between mx-8 p-4 items-center">
       <a
@@ -10,7 +13,7 @@ export default function Footer() {
         rel="noreferrer"
         className="flex items-center gap-4"
       >
-        built with
+        {t('footer.built')}
         <NextIcon style={{ color: 'var(--color-black)' }} />
       </a>
       <small>v{pkg.version}</small>

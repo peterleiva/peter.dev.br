@@ -10,6 +10,7 @@ import { Tabs } from '../tabs';
 import { UseQueryResult } from 'react-query';
 import { pick } from 'ramda';
 import useAllSkills from './useAllSkills';
+import { useTranslation } from 'next-i18next';
 
 type SkillsProps = {
   skills: Skill[];
@@ -49,12 +50,13 @@ export default function Skills({ skills: initialData }: SkillsProps) {
   const [tag, setTag] = useState<ITag | undefined>();
   const skillsByTag = useSkillsByTag(tag);
   const allSkills = useAllSkills(initialData);
+  const { t } = useTranslation();
 
   return (
     <Tabs defaultValue="All">
       <section className="flex flex-row flex-wrap mb-5">
         <Tabs.Tab id="All">
-          {activated => <Tag name="All" activated={activated} />}
+          {activated => <Tag name={t('all')} activated={activated} />}
         </Tabs.Tab>
 
         {tags?.map(name => (

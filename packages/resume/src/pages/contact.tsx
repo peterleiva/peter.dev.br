@@ -1,4 +1,5 @@
 import { GetStaticProps, NextPage } from 'next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { getResume } from 'services';
 import { pick } from 'ramda';
 import { Field, Form, Input, Textarea } from 'form';
@@ -20,9 +21,11 @@ import {
 import type { Message } from 'types';
 import useSendMessage from 'lib/useSendMessage';
 import styles from 'styles/Contact.module.scss';
+import { useTranslation } from 'next-i18next';
 
 const Contact: NextPage = () => {
   const { isLoading, isSuccess, isError, mutate } = useSendMessage();
+  const { t } = useTranslation('contact');
 
   const submission: SubmitHandler<Message> = data => {
     mutate(new URLSearchParams(data));
@@ -33,14 +36,20 @@ const Contact: NextPage = () => {
   return (
     <div>
       {isSuccess && (
-        <SuccessMessage title="Well done" className={styles.message}>
-          your message are sent correctly. I&apos;ll be in touch ASAP
+        <SuccessMessage
+          title={t('flash_message.success.title')}
+          className={styles.message}
+        >
+          {t('flash_message.success.description')}
         </SuccessMessage>
       )}
 
       {isError && (
-        <ErrorMessage title="Oh snap" className={styles.message}>
-          something unexpected happens.
+        <ErrorMessage
+          title={t('flash_message.failure.title')}
+          className={styles.message}
+        >
+          {t('flash_message.failure.description')}
         </ErrorMessage>
       )}
 
@@ -48,38 +57,38 @@ const Contact: NextPage = () => {
         <div className={styles.fields}>
           <Field
             id="name"
-            label="Name"
+            label={t('fields.name.label')}
             renderInput={
               <Input
                 id="name"
                 type="text"
                 Icon={NameIcon}
-                placeholder="John Doe"
+                placeholder={t('fields.name.placeholder')}
               />
             }
             className={styles.col1}
           />
           <Field
             id="email"
-            label="Email"
+            label={t('fields.email.label')}
             renderInput={
               <Input
                 id="email"
                 type="email"
                 Icon={MailIcon}
-                placeholder="johndoe@example.com"
+                placeholder={t('fields.email.placeholder')}
               />
             }
             className={styles.col1}
           />
           <Field
             id="subject"
-            label="Subject"
+            label={t('fields.subject.label')}
             renderInput={
               <Input
                 id="subject"
                 type="text"
-                placeholder="write a subject"
+                placeholder={t('fields.subject.placeholder')}
                 Icon={SubjectIcon}
               />
             }
@@ -87,17 +96,21 @@ const Contact: NextPage = () => {
           />
           <Field
             id="text"
-            label="Message"
+            label={t('fields.message.label')}
             required
             renderInput={
-              <Textarea id="text" placeholder="write your message" required />
+              <Textarea
+                id="text"
+                placeholder={t('fields.message.placeholder')}
+                required
+              />
             }
             className={styles.col2}
           />
         </div>
 
         <Button type="submit" className={styles.button} disabled={isLoading}>
-          Send message
+          {t('submit')}
         </Button>
       </Form>
     </div>
@@ -106,7 +119,7 @@ const Contact: NextPage = () => {
 
 export default Contact;
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const resume = await getResume();
 
   if (!resume) {
@@ -115,9 +128,12 @@ export const getStaticProps: GetStaticProps = async () => {
     };
   }
 
+  const translations = locale ? await serverSideTranslations(locale) : {};
+
   return {
     props: {
       resume: pick(['name', 'jobTitle'], resume),
+      ...translations,
     },
   };
 };

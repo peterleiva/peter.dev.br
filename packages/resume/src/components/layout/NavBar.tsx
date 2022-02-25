@@ -2,22 +2,25 @@ import Link from 'next/link';
 import IconLabel from '../IconLabel';
 import { BsEnvelope as MailIcon } from 'react-icons/bs';
 import { BiHomeAlt as HomeIcon } from 'react-icons/bi';
+import { useTranslation } from 'next-i18next';
 
 export default function NavBar() {
+  const { t } = useTranslation('nav');
+
   return (
     <nav>
       <ul>
         <li>
           <IconLabel Icon={HomeIcon} color="var(--color-secondary)">
             <Link href="/" passHref>
-              <a href="dummy">home</a>
+              <a href="dummy">{t('home')}</a>
             </Link>
           </IconLabel>
         </li>
         <li>
           <IconLabel Icon={MailIcon} color="var(--color-secondary)">
             <Link href="/contact" passHref>
-              <a href="dummy">contact me</a>
+              <a href="dummy">{t('contact_me')}</a>
             </Link>
           </IconLabel>
         </li>
