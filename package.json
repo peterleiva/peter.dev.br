@@ -46,6 +46,6 @@
     "*.--write": "prettier --write --ignore-unknown"
   },
   "dependencies": {
-    "framer-motion": "^6.2.3"
+    "resume": "0.0.1"
   }
 }
