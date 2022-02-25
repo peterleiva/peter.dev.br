@@ -1,0 +1,32 @@
+{
+  "fields": {
+    "message": {
+      "label": "Message",
+      "placeholder": "write your message"
+    },
+    "name": {
+      "label": "Name",
+      "placeholder": "John Doe/Jane Doe"
+    },
+    "email": {
+      "label": "email",
+      "placeholder": "email@example.com"
+    },
+    "subject": {
+      "label": "Subject",
+      "placeholder": "define your topic"
+    }
+  },
+  "submit": "Send Message",
+
+  "flash_message": {
+    "success": {
+      "title": "Well Done",
+      "description": "I&apos;ll be in touch ASAP"
+    },
+    "failure": {
+      "title": "Oh Snap",
+      "description": "something unexpected happens."
+    }
+  }
+}

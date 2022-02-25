@@ -65,7 +65,7 @@ export default function Section({
           @media screen and (min-width: 540px) {
             .columns {
               display: grid;
-              grid-template-columns: repeat(4, 1fr);
+              grid-template-columns: minmax(145px, 1fr) repeat(3, 1fr);
               gap: var(--gap);
             }
 

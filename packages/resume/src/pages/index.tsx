@@ -1,19 +1,23 @@
 import type { GetStaticProps, NextPage } from 'next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { Section, Skills, Timeline, Education } from 'components';
 import { getResume } from 'services';
 import { job, education, course, resume as serializer } from 'lib/serializers';
+import { useTranslation } from 'next-i18next';
 
 type HomeProps = { resume: serializer.SerializedResume };
 
 const Home: NextPage<HomeProps> = ({
   resume: { jobs, educations, courses, skills },
 }) => {
+  const { t } = useTranslation();
+
   return (
     <div className="flex flex-col gap-20">
-      <Section title="Experience">
+      <Section title={t('sections.experience')}>
         <Timeline jobs={job.deserialize(jobs)} />
       </Section>
-      <Section title="Education">
+      <Section title={t('sections.education')}>
         {education
           .deserialize(educations)
           .map(({ title, institution: { name }, ended }) => (
@@ -24,7 +28,7 @@ const Home: NextPage<HomeProps> = ({
             />
           ))}
       </Section>
-      <Section title="Courses & Training">
+      <Section title={t('sections.courses_trainings')}>
         {course
           .deserialize(courses)
           .map(({ courses: trainings, institution }) => (
@@ -38,7 +42,7 @@ const Home: NextPage<HomeProps> = ({
             />
           ))}
       </Section>
-      <Section title="Skills">
+      <Section title={t('sections.skills')}>
         <Skills skills={skills} />
       </Section>
     </div>
@@ -47,7 +51,7 @@ const Home: NextPage<HomeProps> = ({
 
 export default Home;
 
-export const getStaticProps: GetStaticProps<HomeProps> = async () => {
+export const getStaticProps: GetStaticProps<HomeProps> = async ({ locale }) => {
   const resume = await getResume();
 
   if (!resume) {
@@ -56,7 +60,12 @@ export const getStaticProps: GetStaticProps<HomeProps> = async () => {
     };
   }
 
+  const translations = locale ? await serverSideTranslations(locale) : {};
+
   return {
-    props: { resume: serializer.serialize(resume) },
+    props: {
+      resume: serializer.serialize(resume),
+      ...translations,
+    },
   };
 };

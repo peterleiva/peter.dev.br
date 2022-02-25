@@ -1,0 +1,14 @@
+{
+  "job": "Engenheiro Javascript Full Stack",
+  "all": "Todos",
+  "footer": {
+    "built": "construído com"
+  },
+  "sections": {
+    "education": "Educação",
+    "experience": "Experiência",
+    "profile": "Perfil",
+    "courses_trainings": "Cursos e Treinamentos",
+    "skills": "Habilidades"
+  }
+}

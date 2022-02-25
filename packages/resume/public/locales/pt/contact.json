@@ -1,0 +1,32 @@
+{
+  "fields": {
+    "message": {
+      "label": "Mensagem",
+      "placeholder": "escreva sua mensagem"
+    },
+    "name": {
+      "label": "Nome",
+      "placeholder": "Sicrana/Sicrano"
+    },
+    "email": {
+      "label": "email",
+      "placeholder": "email@example.com"
+    },
+    "subject": {
+      "label": "Assunto",
+      "placeholder": "escreve um tópico"
+    }
+  },
+  "submit": "Enviar Mensagem",
+
+  "flash_message": {
+    "success": {
+      "title": "Muito Bem",
+      "description": "Entratrei em contato em breve."
+    },
+    "failure": {
+      "title": "Vixe",
+      "description": "algo inesperado aconteceu."
+    }
+  }
+}
