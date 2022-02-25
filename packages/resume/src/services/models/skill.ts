@@ -6,13 +6,26 @@ export interface Tag {
 
 export interface Skill {
   name: string;
+  name_pt: string;
   tags: Tag[];
 }
 
-export type SkillDocument = HydratedDocument<Skill>;
+interface Translatable {
+  translate(locale?: string): Skill;
+}
 
-const skillSchema = new Schema<Skill>({
+export type SkillDocument = HydratedDocument<Skill, Translatable>;
+
+const skillSchema = new Schema<Skill, SkillModel>({
   name: {
+    type: String,
+    required: true,
+    unique: true,
+    minlength: 2,
+    maxlength: 255,
+  },
+
+  name_pt: {
     type: String,
     required: true,
     unique: true,
@@ -33,7 +46,17 @@ const skillSchema = new Schema<Skill>({
   ],
 });
 
-type SkillModel = Model<Skill>;
+skillSchema.method<SkillDocument>(
+  'translate',
+  function (locale?: string): Skill {
+    const translated = this.toObject<Skill>();
+    translated.name = this.get(`name_${locale}`) ?? translated.name;
+
+    return translated;
+  }
+);
+
+type SkillModel = Model<Skill, Record<string, unknown>, Translatable>;
 
 export default (models.Skill as SkillModel) ??
   model<Skill>('Skill', skillSchema);

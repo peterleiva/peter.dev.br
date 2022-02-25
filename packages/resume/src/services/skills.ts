@@ -1,19 +1,23 @@
-import { Skill, Tag as ITag } from 'types';
+import type { Skill, Tag as ITag } from 'types';
 import * as R from 'ramda';
-import { ResumeDocument } from './models/resume';
-import SkillModel, { SkillDocument, Tag } from './models/skill';
+import { type ResumeDocument } from './models/resume';
+import SkillModel, {
+  type SkillDocument,
+  type Tag,
+  type Skill as ISkill,
+} from './models/skill';
+import { i18n } from 'next-i18next';
 
-export const skillMapper = (skills: SkillDocument[]): Skill[] => {
+export const skillMapper = (skills: ISkill[]): Skill[] => {
   const tagsLens = R.lensProp<Tag>('name');
   const tagView = R.view<Tag, string>(tagsLens);
   const transform = R.evolve({ tags: R.map(tagView) });
 
-  return R.map<SkillDocument, Skill>(
-    R.compose<
-      [SkillDocument],
-      Omit<SkillDocument, 'tags'> & { tags: string[] },
-      Skill
-    >(R.pick(['name', 'tags']), transform)
+  return R.map<ISkill, Skill>(
+    R.compose<[ISkill], Omit<ISkill, 'tags'> & { tags: string[] }, Skill>(
+      R.pick(['name', 'tags']),
+      transform
+    )
   )(skills);
 };
 
@@ -22,33 +26,13 @@ export const getSkills = async (resume: ResumeDocument): Promise<Skill[]> => {
     'skills'
   );
 
-  return skillMapper(skills);
-};
-
-type TagAggregate = { _id: string };
-export const allTags = async (): Promise<ITag[]> => {
-  const tags = await SkillModel.aggregate<TagAggregate>([
-    {
-      $unwind: {
-        path: '$tags',
-      },
-    },
-    {
-      $group: {
-        _id: '$tags.name',
-      },
-    },
-    {
-      $sort: { _id: 1 },
-    },
-  ]).exec();
-
-  const idProp = R.lensProp<TagAggregate>('_id');
-  return R.map(R.view(idProp))(tags);
+  return skillMapper(
+    skills.map((skill: SkillDocument) => skill.translate(i18n?.language))
+  );
 };
 
 export const byTag = async (tag: ITag): Promise<Skill[]> => {
   const skills = await SkillModel.find({ 'tags.name': tag });
 
-  return skillMapper(skills);
+  return skillMapper(skills.map(skill => skill.translate(i18n?.language)));
 };
