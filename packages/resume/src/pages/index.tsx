@@ -9,7 +9,7 @@ const Home: NextPage<HomeProps> = ({
   resume: { jobs, educations, courses, skills },
 }) => {
   return (
-    <div className="home">
+    <div className="flex flex-col gap-20">
       <Section title="Experience">
         <Timeline jobs={job.deserialize(jobs)} />
       </Section>
@@ -41,13 +41,6 @@ const Home: NextPage<HomeProps> = ({
       <Section title="Skills">
         <Skills skills={skills} />
       </Section>
-      <style jsx>{`
-        .home {
-          display: flex;
-          flex-direction: column;
-          gap: var(--gap);
-        }
-      `}</style>
     </div>
   );
 };
