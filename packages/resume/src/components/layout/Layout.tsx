@@ -3,6 +3,7 @@ import Head from 'next/head';
 import Footer from './Footer';
 import Header from './Header';
 import styles from 'styles/Home.module.scss';
+import LanguageSwitcher from '../LanguageSwitcher';
 
 type Props = {
   name: string;
@@ -22,6 +23,7 @@ export default function Layout({ name, children, jobTitle, Top }: Props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className={styles.top}>
+        <LanguageSwitcher className="absolute top-2 right-10" />
         <Header name={name} jobTitle={jobTitle} />
         {Top && <div className={styles.profile}>{Top}</div>}
       </div>
