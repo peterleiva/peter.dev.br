@@ -1,7 +1,5 @@
 import type { Job, Company } from 'types';
 import Activity from './Activity';
-import Skill from './Skill';
-import { map, pipe } from 'ramda';
 import Techs from './Techs';
 
 type ExperienceProps = Job;
