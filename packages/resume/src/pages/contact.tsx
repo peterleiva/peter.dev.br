@@ -16,10 +16,11 @@ import {
   MdAlternateEmail as MailIcon,
   MdOutlineSubject as SubjectIcon,
 } from 'react-icons/md';
-
+import Captcha from 'components/Captcha';
 import type { Message } from 'types';
 import useSendMessage from 'lib/useSendMessage';
 import styles from 'styles/Contact.module.scss';
+import clsx from 'clsx';
 
 const Contact: NextPage = () => {
   const { isLoading, isSuccess, isError, mutate } = useSendMessage();
@@ -44,7 +45,13 @@ const Contact: NextPage = () => {
         </ErrorMessage>
       )}
 
-      <Form className={styles.form} onSubmit={submission}>
+      <Form
+        className={clsx(
+          'flex flex-col gap-9 items-center justify-center mx-auto',
+          styles.form
+        )}
+        onSubmit={submission}
+      >
         <div className={styles.fields}>
           <Field
             id="name"
@@ -95,6 +102,7 @@ const Contact: NextPage = () => {
             className={styles.col2}
           />
         </div>
+        <Captcha />
 
         <Button type="submit" className={styles.button} disabled={isLoading}>
           Send message

@@ -1,28 +1,20 @@
 @use 'breakpoints';
 
 .form {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
 	max-width: breakpoints.$big;
-	margin: 0 auto;
 }
 
 .message {
 	width: min(400px, 100%);
 	margin: 0 auto;
-}
-
-.title {
-	animation: 2s infinite typing;
-	overflow: hidden;
+	margin-bottom: var(--space-md);
 }
 
 .form > .fields {
-	margin-block: var(--space-lg);
 	display: flex;
 	flex-direction: column;
 	gap: var(--space);
+	width: 100%;
 }
 
 @media screen and (min-width: breakpoints.$shepard) {
@@ -38,23 +30,5 @@
 	.fields > .col2 {
 		grid-column: 2 / span 1;
 		grid-row: 1 / span 3;
-	}
-}
-
-.form > .button {
-	margin: 0 auto;
-}
-
-@keyframes typing {
-	from {
-		width: 2rem;
-	}
-
-	30% {
-		width: 100%;
-	}
-
-	to {
-		width: 100%;
 	}
 }
