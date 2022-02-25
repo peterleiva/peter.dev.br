@@ -19,7 +19,7 @@ export default function Header({ name, jobTitle }: HeaderProps) {
           </a>
         </Link>
       </section>
-      <NavBar />
+      <NavBar className="place-self-start" />
 
       <style jsx>{`
         .title h2 {

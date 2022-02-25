@@ -4,11 +4,11 @@ import { BsEnvelope as MailIcon } from 'react-icons/bs';
 import { BiHomeAlt as HomeIcon } from 'react-icons/bi';
 import { useTranslation } from 'next-i18next';
 
-export default function NavBar() {
+export default function NavBar(props: JSX.IntrinsicElements['nav']) {
   const { t } = useTranslation('nav');
 
   return (
-    <nav>
+    <nav {...props}>
       <ul>
         <li>
           <IconLabel Icon={HomeIcon} color="var(--color-secondary)">
