@@ -5,7 +5,10 @@ import {
   ObjectId,
   Schema,
   Types,
+  Model,
 } from 'mongoose';
+
+import { Translatable, translatePlugin } from './plugins';
 
 export interface Job {
   position: string;
@@ -25,7 +28,7 @@ interface Company {
   alias?: string;
 }
 
-const JobSchema = new Schema<Job>({
+const jobSchema = new Schema<Job, JobModel, Translatable<Job>>({
   position: {
     type: String,
     required: true,
@@ -59,6 +62,10 @@ const JobSchema = new Schema<Job>({
   techs: [{ type: Types.ObjectId, ref: 'Skill' }],
 });
 
-export type JobDocument = HydratedDocument<Job>;
+jobSchema.plugin(translatePlugin, { paths: ['position', 'description'] });
 
-export default models.Job ?? model('Job', JobSchema);
+export type JobDocument = HydratedDocument<Job, Translatable<Job>>;
+
+export type JobModel = Model<Job, Record<string, never>, Translatable<Job>>;
+
+export default (models.Job as JobModel) ?? model('Job', jobSchema);
