@@ -1,16 +1,20 @@
 import { FaHashtag as HashtagIcon } from 'react-icons/fa';
-import type { Tag as ITag } from 'types';
+import type { Tag } from 'types';
 import clsx from 'clsx';
+import { useTabContext } from '../tabs';
 
 type TagProps = {
-  activated?: boolean;
-  name: ITag;
-  onClick?: (tag: ITag) => void;
+  tag: Tag;
+  onClick?: (tag: Tag) => void;
 };
 
 const activatedClass = (activated?: boolean) => (activated ? 'activated' : '');
 
-export default function Tag({ name: tag, activated, onClick }: TagProps) {
+export default function Tag({ tag, onClick }: TagProps) {
+  const { isActivated } = useTabContext();
+
+  const activated = isActivated(tag.id);
+
   return (
     <button
       onClick={() => onClick?.(tag)}
@@ -18,7 +22,7 @@ export default function Tag({ name: tag, activated, onClick }: TagProps) {
     >
       <span className="flex flex-row flex-wrap items-center justity-between">
         <HashtagIcon transform="rotate(-15)" />
-        <span className="keyword">{tag}</span>
+        <span className="keyword">{tag.name}</span>
       </span>
 
       <style jsx>{`

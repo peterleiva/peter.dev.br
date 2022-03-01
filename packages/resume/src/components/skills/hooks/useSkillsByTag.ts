@@ -2,7 +2,7 @@ import { QueryFunctionContext, useQuery } from 'react-query';
 import type { Skill, Tag } from 'types';
 import { getJsonOrThrow } from './helpers';
 
-type QueryKey = ['skills', Tag | undefined];
+type QueryKey = ['skills', Tag['id'] | undefined];
 
 const fetchSkillByTag = ({
   queryKey: [, tag],
@@ -18,8 +18,6 @@ const fetchSkillByTag = ({
 /**
  * Get all Skills by tag or all when none is specified
  *
- * @param tag
- * @returns
  */
 export default function useSkillsByTag(tag?: Tag) {
   const { data, ...query } = useQuery<
@@ -27,7 +25,7 @@ export default function useSkillsByTag(tag?: Tag) {
     unknown,
     Skill[],
     QueryKey
-  >(['skills', tag], fetchSkillByTag);
+  >(['skills', tag?.id], fetchSkillByTag);
 
   return { skills: data, tag, ...query };
 }
