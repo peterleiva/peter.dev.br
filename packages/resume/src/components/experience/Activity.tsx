@@ -1,6 +1,5 @@
 import { DateTime } from 'luxon';
 import { useTranslation } from 'next-i18next';
-import { useRouter } from 'next/dist/client/router';
 import { compose, defaultTo, invoker, isNil, unless } from 'ramda';
 
 const monthYear = compose<[DateTime | undefined], DateTime, string>(
