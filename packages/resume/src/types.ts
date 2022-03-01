@@ -46,7 +46,10 @@ export type Skill = {
   icon?: string;
 };
 
-export type Tag = string;
+export type Tag = {
+  id: string;
+  name: string;
+};
 
 export type Education = {
   title: string;

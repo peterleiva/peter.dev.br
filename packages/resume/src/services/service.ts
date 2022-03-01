@@ -1,11 +1,11 @@
 import * as R from 'ramda';
-import type { Resume, Tag } from 'types';
+import type { Resume } from 'types';
 import { connect } from './database';
 import ResumeModel, { Contact, ResumeDocument } from './models/resume';
 import getCourses from './get-courses';
 import getEducations from './get-educations';
 import getJobs from './get-jobs';
-import { getSkills, getByTag } from './skills';
+import { getSkills, getByTagName, getByTagId } from './skills';
 import { allTags } from './tags';
 
 const dbWrapper = async <T>(fn: () => Promise<T>) => {
@@ -61,7 +61,11 @@ export const getResume = (): Promise<Resume | null> =>
     };
   });
 
-export const getSkillsByTag = (tag: Tag) => dbWrapper(() => getByTag(tag));
+export const getSkillsByTagName = (tag: string) =>
+  dbWrapper(() => getByTagName(tag));
+
+export const getSkillsByTagId = (tag: string) =>
+  dbWrapper(() => getByTagId(tag));
 
 export const getAllTags = () => dbWrapper(allTags);
 

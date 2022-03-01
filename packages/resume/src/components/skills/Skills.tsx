@@ -1,49 +1,17 @@
 import { useState } from 'react';
+import { pick } from 'ramda';
 import { Skill, Tag as ITag } from 'types';
 import Tag from './Tag';
-import useTags from './useTags';
-import useSkillsByTag from './useSkillsByTag';
-import SkillsList from './SkillsList';
-import Error from './Error';
-import Loading from './Loading';
 import { Tabs } from '../tabs';
-import { UseQueryResult } from 'react-query';
-import { pick } from 'ramda';
-import useAllSkills from './useAllSkills';
+import SkillsList from './SkillsList';
+import { useAllSkills, useSkillsByTag, useTags } from './hooks';
 import { useTranslation } from 'next-i18next';
 
 type SkillsProps = {
   skills: Skill[];
 };
 
-function Wrapper({
-  isLoading,
-  isFetching,
-  refetch,
-  isError,
-  data,
-}: Pick<
-  UseQueryResult<Skill[] | undefined>,
-  'isLoading' | 'isFetching' | 'refetch' | 'isError' | 'data'
->) {
-  if (isLoading || isFetching) {
-    return <Loading />;
-  }
-
-  if (isError || !data) {
-    return <Error refetch={refetch} />;
-  }
-
-  return <SkillsList skills={data} />;
-}
-
-const getStates = pick([
-  'isLoading',
-  'isFetching',
-  'isError',
-  'data',
-  'refetch',
-]);
+const getStates = pick(['isLoading', 'isFetching', 'isError', 'refetch']);
 
 export default function Skills({ skills: initialData }: SkillsProps) {
   const { tags, isLoading: isLoadingTags } = useTags();
@@ -56,12 +24,12 @@ export default function Skills({ skills: initialData }: SkillsProps) {
     <Tabs defaultValue="All">
       <section className="flex flex-row flex-wrap mb-5">
         <Tabs.Tab id="All">
-          {activated => <Tag name={t('all')} activated={activated} />}
+          <Tag tag={{ id: 'All', name: t('all') }} />
         </Tabs.Tab>
 
-        {tags?.map(name => (
-          <Tabs.Tab key={name} id={name} onSelect={setTag}>
-            {activated => <Tag key={name} name={name} activated={activated} />}
+        {tags?.map(tag => (
+          <Tabs.Tab key={tag.id} id={tag.id} onSelect={() => setTag(tag)}>
+            <Tag tag={tag} />
           </Tabs.Tab>
         ))}
 
@@ -69,11 +37,17 @@ export default function Skills({ skills: initialData }: SkillsProps) {
       </section>
 
       <Tabs.Panel id="All">
-        <Wrapper {...getStates({ data: allSkills.skills, ...allSkills })} />
+        <SkillsList
+          skills={allSkills.skills}
+          {...getStates({ ...allSkills })}
+        />
       </Tabs.Panel>
 
-      <Tabs.Panel id={tag}>
-        <Wrapper {...getStates({ data: skillsByTag.skills, ...skillsByTag })} />
+      <Tabs.Panel id={tag?.id}>
+        <SkillsList
+          skills={skillsByTag.skills}
+          {...getStates({ ...skillsByTag })}
+        />
       </Tabs.Panel>
     </Tabs>
   );

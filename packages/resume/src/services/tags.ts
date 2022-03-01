@@ -1,26 +1,9 @@
 import * as R from 'ramda';
 import type { Tag } from 'types';
-import SkillModel from './models/skill';
-
-type TagAggregate = { _id: string };
+import TagModel, { type TagDocument } from './models/tag';
 
 export const allTags = async (): Promise<Tag[]> => {
-  const tags = await SkillModel.aggregate<TagAggregate>([
-    {
-      $unwind: {
-        path: '$tags',
-      },
-    },
-    {
-      $group: {
-        _id: '$tags.name',
-      },
-    },
-    {
-      $sort: { _id: 1 },
-    },
-  ]).exec();
+  const tags: TagDocument[] = await TagModel.find({}).exec();
 
-  const idProp = R.lensProp<TagAggregate>('_id');
-  return R.map(R.view(idProp))(tags);
+  return R.map(R.pick(['id', 'name']))(tags);
 };

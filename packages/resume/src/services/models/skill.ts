@@ -1,9 +1,14 @@
-import { HydratedDocument, models, model, Schema, Model } from 'mongoose';
+import {
+  HydratedDocument,
+  models,
+  model,
+  Schema,
+  Model,
+  Types,
+} from 'mongoose';
 import { translatePlugin, type Translatable } from './plugins';
-
-export interface Tag {
-  name: string;
-}
+import TagModel, { type Tag } from './tag';
+import autopopulate from 'mongoose-autopopulate';
 
 export interface Skill {
   name: string;
@@ -23,19 +28,16 @@ const skillSchema = new Schema<Skill, SkillModel, Translatable<Skill>>({
   },
 
   tags: [
-    new Schema<Tag>({
-      name: {
-        type: String,
-        required: true,
-        minlength: 3,
-        maxlength: 144,
-        lowercase: true,
-      },
-    }),
+    {
+      type: Types.ObjectId,
+      ref: TagModel,
+      autopopulate: true,
+    },
   ],
 });
 
 skillSchema.plugin(translatePlugin, { paths: ['name'] });
+skillSchema.plugin(autopopulate);
 
 type SkillModel = Model<Skill, Record<string, unknown>, Translatable<Skill>>;
 

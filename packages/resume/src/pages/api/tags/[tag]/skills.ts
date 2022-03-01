@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { getSkillsByTag } from 'services';
+import { getSkillsByTagId } from 'services';
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { tag } = req.query;
@@ -10,7 +10,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   }
 
   try {
-    const skills = await getSkillsByTag(tag);
+    const skills = await getSkillsByTagId(tag);
 
     res.status(200).json(skills);
   } catch (error) {
