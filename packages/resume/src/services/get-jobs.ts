@@ -5,12 +5,15 @@ import { skillConvert } from './skills';
 import type { ResumeDocument } from './models/resume';
 import type { JobDocument } from './models/job';
 import type { SkillDocument } from './models/skill';
+import { i18n } from 'next-i18next';
 
 type PopulatedJob = Omit<JobDocument, 'techs'> & {
   techs: SkillDocument[];
 };
 
 const companyPicker = R.pick(['name', 'alias']);
+
+const translate = (job: PopulatedJob) => job.translate(i18n?.language);
 
 export default async function getJobs(resume: ResumeDocument): Promise<Job[]> {
   const { jobs } = await resume.populate<{ jobs: PopulatedJob[] }>({
@@ -20,24 +23,21 @@ export default async function getJobs(resume: ResumeDocument): Promise<Job[]> {
     },
   });
 
-  return jobs.map(
-    ({
-      position,
+  return jobs.map((job: PopulatedJob) => {
+    const {
       activity: { start, end },
-      description,
       company,
       techs,
-    }: PopulatedJob) => {
-      return {
-        position,
-        description,
-        company: companyPicker(company),
-        activity: {
-          start: toDateTime(start),
-          end: optionalToDateTime(end),
-        },
-        techs: skillConvert(techs),
-      };
-    }
-  );
+    } = job;
+
+    return {
+      ...R.pick(['description', 'position'], translate(job)),
+      company: companyPicker(company),
+      activity: {
+        start: toDateTime(start),
+        end: optionalToDateTime(end),
+      },
+      techs: skillConvert(techs),
+    };
+  });
 }
