@@ -9,7 +9,7 @@
       "placeholder": "Sicrana/Sicrano"
     },
     "email": {
-      "label": "email",
+      "label": "Email",
       "placeholder": "email@example.com"
     },
     "subject": {
