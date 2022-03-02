@@ -17,13 +17,13 @@ export default function Experience({
   techs,
 }: ExperienceProps) {
   return (
-    <div className="container">
-      <header>
-        <h3>{name(company)}</h3>
-        <div className="subtitle">
+    <div className="container relative p-6">
+      <header className="relative mb-3">
+        <h3 className="font-semibold">{name(company)}</h3>
+        <div className="flex gap-3 items-center">
           <p className="position">{position}</p>
           &#9474;
-          <div className="activity">
+          <div className="flex gap-3 uppercase items-center justify-around text-center">
             <Activity time={start} /> &#9472; <Activity time={end} />
           </div>
         </div>
@@ -32,11 +32,6 @@ export default function Experience({
       <Techs techs={techs} />
 
       <style jsx>{`
-        .container {
-          position: relative;
-          padding: var(--space);
-        }
-
         .container::after {
           position: absolute;
           content: '';
@@ -45,11 +40,6 @@ export default function Experience({
           top: 30%;
           left: 0;
           background: var(--color-gray-90);
-        }
-
-        header {
-          position: relative;
-          margin-bottom: var(--space-sm);
         }
 
         header::before {
@@ -61,21 +51,6 @@ export default function Experience({
           top: 15%;
           left: calc(-3px - var(--space));
           background: var(--color-gray-90);
-        }
-
-        .activity {
-          display: flex;
-          gap: var(--space-xs);
-          text-transform: uppercase;
-          align-items: center;
-          justify-content: space-around;
-          text-align: center;
-        }
-
-        .subtitle {
-          display: flex;
-          gap: var(--space-xs);
-          align-items: center;
         }
       `}</style>
     </div>
