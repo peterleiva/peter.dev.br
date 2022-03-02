@@ -12,6 +12,7 @@ const schema = new Schema<Tag, TagModel, Translatable<Tag>>({
     minlength: 3,
     maxlength: 144,
     lowercase: true,
+    index: true,
   },
 });
 
