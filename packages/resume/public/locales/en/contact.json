@@ -22,7 +22,7 @@
   "flash_message": {
     "success": {
       "title": "Well Done",
-      "description": "I&apos;ll be in touch ASAP"
+      "description": "I'll be in touch ASAP"
     },
     "failure": {
       "title": "Oh Snap",
