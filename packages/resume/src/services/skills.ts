@@ -7,10 +7,12 @@ import { i18n } from 'next-i18next';
 import { convertTag } from './tags';
 
 export const skillConvert = (skills: SkillDocument[]): Skill[] => {
-  return skills.map(skill => ({
-    ...R.pick(['name'], translate(skill)),
-    tags: skill.tags.map(tag => convertTag(tag as TagDocument)),
-  }));
+  return skills.map(skill => {
+    return {
+      ...R.pick(['name'], translate(skill)),
+      tags: skill.tags.map(tag => convertTag(tag as TagDocument)),
+    };
+  });
 };
 
 const translate = (skill: SkillDocument) => skill.translate(i18n?.language);
@@ -19,6 +21,8 @@ export const getSkills = async (resume: ResumeDocument): Promise<Skill[]> => {
   const { skills } = await resume.populate<{ skills: SkillDocument[] }>(
     'skills'
   );
+
+  if (!skills) return [];
 
   return skillConvert(skills);
 };
