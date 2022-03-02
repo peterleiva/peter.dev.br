@@ -9,7 +9,7 @@
       "placeholder": "John Doe/Jane Doe"
     },
     "email": {
-      "label": "email",
+      "label": "Email",
       "placeholder": "email@example.com"
     },
     "subject": {
