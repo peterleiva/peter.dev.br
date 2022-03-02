@@ -7,9 +7,21 @@ Each log entry can be in the following kind: **Added**[^1], **Changed**[^2], **D
 
 ## [Unreleased]
 
+## [0.4.0] - 2022-03-02
+
 ### Added
 
 - Monitoring and Error Handler with [Sentry](https://sentry.io)
+- Contact page to send email messages
+- Flash messages to appropiate handle success and failures contact messages
+- Block index from search engine
+- Translate static assets
+- Language switcher between PT-BR and EN-US
+- Categorize and filtering skills using tags
+
+### Fixed
+
+- Layout-wide improvements and refactor to accomodate new pages
 
 ## [0.3.0] - 2022-01-25
 
@@ -34,7 +46,8 @@ Each log entry can be in the following kind: **Added**[^1], **Changed**[^2], **D
 - Setup Typography with Modular Scale to mantain Vertical Rhythm
 - Setup Home page grid layout
 
-[unreleased]: https://github.com/pherval/peter.dev.br/compare/resume@v0.3.0...resume@HEAD
+[unreleased]: https://github.com/pherval/peter.dev.br/compare/resume@v0.4.0...resume@HEAD
+[0.4.0]: https://github.com/pherval/peter.dev.br/compare/resume@v0.3.0...resume@v0.4.0
 [0.3.0]: https://github.com/pherval/peter.dev.br/compare/resume@v0.2.0...resume@v0.3.0
 [0.2.0]: https://github.com/pherval/peter.dev.br/compare/resume@v0.1.0...resume@v0.2.0
 [0.1.0]: https://github.com/pherval/peter.dev.br/releases/tag/v0.1.0
