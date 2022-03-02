@@ -37,7 +37,7 @@ function MyApp({ Component, pageProps }: Props): JSX.Element {
             )
           }
         >
-          <Component {...pageProps} />;
+          <Component {...pageProps} />
         </Layout>
       </QueryProvider>
     </React.StrictMode>
