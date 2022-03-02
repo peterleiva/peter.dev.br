@@ -33,7 +33,7 @@ export default function LanguageSwitcher({ className }: Props) {
                 'border-b-2 border-red-500': i18n.language === lang,
               })}
             >
-              {locales[lang as LangCode].flag};
+              {locales[lang as LangCode].flag}
             </a>
           </Link>
         </li>
