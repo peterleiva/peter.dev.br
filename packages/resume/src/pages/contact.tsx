@@ -119,7 +119,9 @@ const Contact: NextPage = () => {
 
 export default Contact;
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
+export const getStaticProps: GetStaticProps = async ({ locale = '' }) => {
+  const translations = await serverSideTranslations(locale);
+
   const resume = await getResume();
 
   if (!resume) {
@@ -128,12 +130,10 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
     };
   }
 
-  const translations = locale ? await serverSideTranslations(locale) : {};
-
   return {
     props: {
-      resume: pick(['name', 'jobTitle'], resume),
       ...translations,
+      resume: pick(['name', 'jobTitle'], resume),
     },
   };
 };

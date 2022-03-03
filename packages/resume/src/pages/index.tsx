@@ -51,7 +51,11 @@ const Home: NextPage<HomeProps> = ({
 
 export default Home;
 
-export const getStaticProps: GetStaticProps<HomeProps> = async ({ locale }) => {
+export const getStaticProps: GetStaticProps<HomeProps> = async ({
+  locale = '',
+}) => {
+  const translations = await serverSideTranslations(locale);
+
   const resume = await getResume();
 
   if (!resume) {
@@ -60,12 +64,10 @@ export const getStaticProps: GetStaticProps<HomeProps> = async ({ locale }) => {
     };
   }
 
-  const translations = locale ? await serverSideTranslations(locale) : {};
-
   return {
     props: {
-      resume: serializer.serialize(resume),
       ...translations,
+      resume: serializer.serialize(resume),
     },
   };
 };
