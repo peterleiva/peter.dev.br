@@ -8,10 +8,12 @@ module.exports = {
     domains: [
       {
         domain: 'curriculo.peter.dev.br',
+        locales: ['en', 'pt'],
         defaultLocale: 'pt',
       },
       {
         domain: 'resume.peter.dev.br',
+        locales: ['en', 'pt'],
         defaultLocale: 'en',
       },
     ],
