@@ -1,4 +1,5 @@
 import { HydratedDocument, model, Schema, models } from 'mongoose';
+import { translatePlugin, type Translatable } from './plugins';
 
 export interface Education {
   title: string;
@@ -11,7 +12,10 @@ export interface Education {
   };
 }
 
-export type EducationDocument = HydratedDocument<Education>;
+export type EducationDocument = HydratedDocument<
+  Education,
+  Translatable<Education>
+>;
 
 const educationSchema = new Schema<Education>({
   title: {
@@ -47,5 +51,7 @@ const educationSchema = new Schema<Education>({
   },
   { unique: true }
 );
+
+educationSchema.plugin(translatePlugin, { paths: ['title'] });
 
 export default models.Education ?? model('Education', educationSchema);

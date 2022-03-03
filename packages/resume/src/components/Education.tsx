@@ -1,4 +1,5 @@
 import { DateTime } from 'luxon';
+import { useTranslation } from 'next-i18next';
 
 type EducationProps = {
   title: string;
@@ -9,12 +10,13 @@ type EducationProps = {
 };
 
 export default function Education({ title, educations }: EducationProps) {
+  const { t } = useTranslation();
   return (
     <div className="container">
       <p className="title">{title}</p>
       {educations.map(({ name, end }) => (
         <p key={name}>
-          {name}, {end?.year ?? 'Ongoing'}
+          {name}, {end?.year ?? t('ongoing')}
         </p>
       ))}
 
