@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { getAllTags } from 'services';
+import locale from '../locale';
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
@@ -12,4 +13,4 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   }
 }
 
-export default handler;
+export default locale(handler);

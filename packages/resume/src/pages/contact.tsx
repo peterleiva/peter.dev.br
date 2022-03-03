@@ -1,6 +1,6 @@
-import { GetStaticProps, NextPage } from 'next';
+import { type GetStaticProps, type NextPage } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { getResume } from 'services';
+import { getResume, locale as localeService } from 'services';
 import { pick } from 'ramda';
 import { Field, Form, Input, Textarea } from 'form';
 import { type SubmitHandler } from 'react-hook-form';
@@ -119,7 +119,10 @@ const Contact: NextPage = () => {
 
 export default Contact;
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
+export const getStaticProps: GetStaticProps = async ({ locale = '' }) => {
+  const translations = await serverSideTranslations(locale);
+  localeService.setLocale(locale);
+
   const resume = await getResume();
 
   if (!resume) {
@@ -128,12 +131,10 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
     };
   }
 
-  const translations = locale ? await serverSideTranslations(locale) : {};
-
   return {
     props: {
-      resume: pick(['name', 'jobTitle'], resume),
       ...translations,
+      resume: pick(['name', 'jobTitle'], resume),
     },
   };
 };
