@@ -1,4 +1,4 @@
-import { GetStaticProps, NextPage } from 'next';
+import { type GetServerSideProps, type NextPage } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { getResume } from 'services';
 import { pick } from 'ramda';
@@ -119,7 +119,9 @@ const Contact: NextPage = () => {
 
 export default Contact;
 
-export const getStaticProps: GetStaticProps = async ({ locale = '' }) => {
+export const getServerSideProps: GetServerSideProps = async ({
+  locale = '',
+}) => {
   const translations = await serverSideTranslations(locale);
 
   const resume = await getResume();

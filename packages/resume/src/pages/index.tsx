@@ -1,4 +1,4 @@
-import type { GetStaticProps, NextPage } from 'next';
+import type { GetServerSideProps, NextPage } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { Section, Skills, Timeline, Education } from 'components';
 import { getResume } from 'services';
@@ -51,7 +51,7 @@ const Home: NextPage<HomeProps> = ({
 
 export default Home;
 
-export const getStaticProps: GetStaticProps<HomeProps> = async ({
+export const getServerSideProps: GetServerSideProps<HomeProps> = async ({
   locale = '',
 }) => {
   const translations = await serverSideTranslations(locale);
