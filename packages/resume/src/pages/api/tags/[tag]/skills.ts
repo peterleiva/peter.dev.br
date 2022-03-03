@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { getSkillsByTagId } from 'services';
+import locale from '../../locale';
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { tag } = req.query;
@@ -19,4 +20,4 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   }
 }
 
-export default handler;
+export default locale(handler);

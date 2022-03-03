@@ -5,7 +5,7 @@ import { skillConvert } from './skills';
 import type { ResumeDocument } from './models/resume';
 import type { JobDocument } from './models/job';
 import type { SkillDocument } from './models/skill';
-import { i18n } from 'next-i18next';
+import locale from './locale';
 
 type PopulatedJob = Omit<JobDocument, 'techs'> & {
   techs: SkillDocument[];
@@ -13,7 +13,7 @@ type PopulatedJob = Omit<JobDocument, 'techs'> & {
 
 const companyPicker = R.pick(['name', 'alias']);
 
-const translate = (job: PopulatedJob) => job.translate(i18n?.language);
+const translate = (job: PopulatedJob) => job.translate(locale.getLocale());
 
 export default async function getJobs(resume: ResumeDocument): Promise<Job[]> {
   const { jobs } = await resume.populate<{ jobs: PopulatedJob[] }>({

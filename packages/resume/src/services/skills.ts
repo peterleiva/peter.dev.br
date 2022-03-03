@@ -3,8 +3,8 @@ import * as R from 'ramda';
 import { type ResumeDocument } from './models/resume';
 import SkillModel, { type SkillDocument } from './models/skill';
 import TagModel, { type TagDocument } from './models/tag';
-import { i18n } from 'next-i18next';
 import { convertTag } from './tags';
+import locale from './locale';
 
 export const skillConvert = (skills: SkillDocument[]): Skill[] => {
   return skills.map(skill => {
@@ -15,7 +15,7 @@ export const skillConvert = (skills: SkillDocument[]): Skill[] => {
   });
 };
 
-const translate = (skill: SkillDocument) => skill.translate(i18n?.language);
+const translate = (skill: SkillDocument) => skill.translate(locale.getLocale());
 
 export const getSkills = async (resume: ResumeDocument): Promise<Skill[]> => {
   const { skills } = await resume.populate<{ skills: SkillDocument[] }>(

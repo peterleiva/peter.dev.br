@@ -1,9 +1,9 @@
-import { i18n } from 'next-i18next';
 import type { Tag } from 'types';
 import TagModel, { type TagDocument } from './models/tag';
 import * as R from 'ramda';
+import locale from './locale';
 
-const translate = (tag: TagDocument) => tag.translate(i18n?.resolvedLanguage);
+const translate = (tag: TagDocument) => tag.translate(locale.getLocale());
 
 export const convertTag = (tag: TagDocument): Tag => ({
   id: tag.id,
