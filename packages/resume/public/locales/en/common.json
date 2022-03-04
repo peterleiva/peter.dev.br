@@ -5,6 +5,7 @@
     "flag": "🇺🇸",
     "lang": "English"
   },
+  "resume_title": "{{name}}'s Resumé",
   "ongoing": "OnGoing",
   "footer": {
     "built": "built with"

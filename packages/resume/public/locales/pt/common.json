@@ -5,6 +5,7 @@
     "flag": "🇧🇷",
     "lang": "Português"
   },
+  "resume_title": "Currículo de {{name}}",
   "ongoing": "Em Andamento",
   "footer": {
     "built": "construído com"
