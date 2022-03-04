@@ -36,8 +36,8 @@ export default function Experience({
           position: absolute;
           content: '';
           width: 1px;
-          height: 70%;
-          top: 30%;
+          height: 100%;
+          top: 0;
           left: 0;
           background: var(--color-gray-90);
         }
