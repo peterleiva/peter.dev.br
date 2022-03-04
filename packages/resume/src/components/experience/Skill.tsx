@@ -14,7 +14,6 @@ export default function Skill({ name }: SkillProps) {
 
         .skill::after {
           content: ' ';
-          height: 4px;
           background: var(--color-secondary);
           width: var(--space);
           position: absolute;
