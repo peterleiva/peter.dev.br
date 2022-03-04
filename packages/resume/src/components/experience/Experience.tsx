@@ -32,6 +32,10 @@ export default function Experience({
       <Techs techs={techs} />
 
       <style jsx>{`
+        .container:first-child::after {
+          top: 34px;
+        }
+
         .container::after {
           position: absolute;
           content: '';
