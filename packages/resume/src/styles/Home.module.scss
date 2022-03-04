@@ -26,11 +26,9 @@ $gap: type.rem(88);
 }
 
 .top {
-	background-color: var(--color-background-2);
+	gap: type.rem(2);
 }
 
-.profile {
-	display: flex;
-	flex-direction: column;
-	gap: var(--space);
+.top {
+	background-color: var(--color-background-2);
 }

@@ -28,7 +28,7 @@ export default function Layout({ name, children, jobTitle, Top }: Props) {
       <div className={styles.top}>
         <LanguageSwitcher className="absolute top-2 right-10" />
         <Header name={name} jobTitle={jobTitle} />
-        {Top && <div className={styles.profile}>{Top}</div>}
+        {Top && <div className={'flex flex-col gap-10'}>{Top}</div>}
       </div>
 
       <main className={styles.main}>{children}</main>

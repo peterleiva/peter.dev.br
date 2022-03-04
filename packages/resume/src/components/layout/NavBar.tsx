@@ -65,6 +65,7 @@ export default function NavBar(props: JSX.IntrinsicElements['nav']) {
           content: '';
           display: block;
           border: 2px solid var(--color-secondary);
+          background-color: var(--color-secondary);
           position: absolute;
           right: calc(50% - var(--space));
           bottom: 0;
