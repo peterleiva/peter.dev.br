@@ -11,6 +11,7 @@ import {
 import SkillModel from './skill';
 import EducationModel from './education';
 import JobModel from './job';
+import { Translatable, translatePlugin } from './plugins';
 
 interface Icon {
   lib: LibIcon;
@@ -35,7 +36,7 @@ export interface Resume {
   skills: ObjectId[];
 }
 
-export type ResumeDocument = HydratedDocument<Resume>;
+export type ResumeDocument = HydratedDocument<Resume, Translatable<Resume>>;
 
 const contactSchema = new Schema<Contact>({
   link: {
@@ -59,7 +60,7 @@ const contactSchema = new Schema<Contact>({
   },
 });
 
-const resumeSchema = new Schema<Resume>({
+const resumeSchema = new Schema<Resume, ResumeModel, Translatable<Resume>>({
   name: {
     type: String,
     required: true,
@@ -122,7 +123,9 @@ const resumeSchema = new Schema<Resume>({
   },
 });
 
-type ResumeModel = Model<Resume>;
+resumeSchema.plugin(translatePlugin, { paths: ['bio'] });
+
+type ResumeModel = Model<Resume, Record<string, never>, Translatable<Resume>>;
 
 export default (models.Resume as ResumeModel) ??
   model<Resume>('Resume', resumeSchema);

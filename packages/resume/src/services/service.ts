@@ -7,6 +7,7 @@ import getEducations from './get-educations';
 import getJobs from './get-jobs';
 import { getSkills, getByTagName, getByTagId } from './skills';
 import { allTags } from './tags';
+import locale from './locale';
 
 const dbWrapper = async <T>(fn: () => Promise<T>) => {
   await connect();
@@ -24,6 +25,8 @@ export const getResume = (): Promise<Resume | null> =>
       return null;
     }
 
+    const { bio } = resume.translate(locale.getLocale());
+
     const [skills, educations, jobs, courses] = await Promise.all([
       getSkills(resume),
       getEducations(resume),
@@ -31,7 +34,7 @@ export const getResume = (): Promise<Resume | null> =>
       getCourses(resume),
     ]);
 
-    const { bio, contacts, jobTitle, name } = R.evolve({
+    const { contacts, jobTitle, name } = R.evolve({
       contacts: R.map<
         Contact,
         Pick<Contact, 'link' | 'name' | 'username' | 'icon'>
