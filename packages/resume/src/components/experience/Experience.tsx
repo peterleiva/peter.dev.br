@@ -28,7 +28,7 @@ export default function Experience({
           </div>
         </div>
       </header>
-      <div>{description}</div>
+      <div className="text-justify mt-2">{description}</div>
       <Techs techs={techs} />
 
       <style jsx>{`

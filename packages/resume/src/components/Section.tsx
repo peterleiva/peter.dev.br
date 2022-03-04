@@ -17,7 +17,7 @@ export default function Section({
 }: SectionProps) {
   return (
     <section className={layoutClass(fill)}>
-      <h2 id={title} className="text-center mb-4 text-2xl font-semibold">
+      <h2 id={title} className="text-center mb-8 text-2xl font-semibold">
         <Link href={`#${title}`} passHref>
           <a href="passHref" className="link">
             <span className="icon">

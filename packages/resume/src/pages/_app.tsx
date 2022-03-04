@@ -30,7 +30,7 @@ function MyApp({ Component, pageProps }: Props): JSX.Element {
             resume?.bio && (
               <>
                 <Section title={t('sections.profile')} fill>
-                  <p>{resume.bio}</p>
+                  <p className="text-justify">{resume.bio}</p>
                 </Section>
                 <ContactsList contacts={resume?.contacts ?? []} />
               </>
