@@ -2,7 +2,11 @@
 @use 'mixins' as *;
 @use 'functions' as *;
 
-@include setup();
+@include setup {
+	@media print {
+		@include setting(12px);
+	}
+}
 
 :root {
 	--space-xs: calc(#{baseline(1)} / 4);
@@ -30,14 +34,18 @@ body {
 
 h1,
 .h1 {
-	@include scale(4);
+	@include scale(2);
 	font-weight: var(--weight-light);
 }
 
 h2,
 .h2 {
-	@include setting(22px);
+	@include scale(1);
 	font-weight: var(--weight-bolder);
+
+	// @media print {
+	// 	@include scale(0);
+	// }
 }
 
 h3,
@@ -60,4 +68,8 @@ h3,
 
 .type-4 {
 	@include scale(4);
+}
+
+.type-5 {
+	@include scale(5);
 }
