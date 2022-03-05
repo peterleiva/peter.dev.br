@@ -15,7 +15,12 @@ export default function NavBar(props: JSX.IntrinsicElements['nav']) {
       <ul className="flex flex-row flex-nowrap justify-evenly mt-6 list-none gap-8 p-0 my-4">
         <li>
           <IconLabel Icon={DownloadIcon} iconColor="var(--color-secondary)">
-            <a href="/Currículo de Peter.pdf" download>
+            <a
+              href="/curriculo_peter.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              download
+            >
               {t('download')}
             </a>
           </IconLabel>
