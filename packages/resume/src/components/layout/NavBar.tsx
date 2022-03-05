@@ -3,8 +3,8 @@ import IconLabel from '../IconLabel';
 import {
   BsEnvelope as MailIcon,
   BsPrinter as PrinterIcon,
+  BsDownload as DownloadIcon,
 } from 'react-icons/bs';
-import { BiHomeAlt as HomeIcon } from 'react-icons/bi';
 import { useTranslation } from 'next-i18next';
 
 export default function NavBar(props: JSX.IntrinsicElements['nav']) {
@@ -14,10 +14,15 @@ export default function NavBar(props: JSX.IntrinsicElements['nav']) {
     <nav className="print:hidden" {...props}>
       <ul className="flex flex-row flex-nowrap justify-evenly mt-6 list-none gap-8 p-0 my-4">
         <li>
-          <IconLabel Icon={HomeIcon} iconColor="var(--color-secondary)">
-            <Link href="/" passHref>
-              <a href="dummy">{t('home')}</a>
-            </Link>
+          <IconLabel Icon={DownloadIcon} iconColor="var(--color-secondary)">
+            <a href="/Currículo de Peter.pdf" download>
+              {t('download')}
+            </a>
+          </IconLabel>
+        </li>
+        <li>
+          <IconLabel Icon={PrinterIcon} iconColor="var(--color-secondary)">
+            <button onClick={() => window?.print()}>{t('print')}</button>
           </IconLabel>
         </li>
         <li>
@@ -25,11 +30,6 @@ export default function NavBar(props: JSX.IntrinsicElements['nav']) {
             <Link href="/contact" passHref>
               <a href="dummy">{t('contact_me')}</a>
             </Link>
-          </IconLabel>
-        </li>
-        <li>
-          <IconLabel Icon={PrinterIcon} iconColor="var(--color-secondary)">
-            <button onClick={() => window?.print()}>{t('print')}</button>
           </IconLabel>
         </li>
       </ul>

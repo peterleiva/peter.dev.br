@@ -7,6 +7,15 @@ Each log entry can be in the following kind: **Added**[^1], **Changed**[^2], **D
 
 ## [Unreleased]
 
+### Added
+
+- Download resume with navbar button
+
+### Fixed
+
+- Typography and layout for print media
+- Sections linking
+
 ## [0.5.0] - 2022-03-05
 
 ### Added
