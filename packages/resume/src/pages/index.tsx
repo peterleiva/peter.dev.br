@@ -13,7 +13,7 @@ const Home: NextPage<HomeProps> = ({
   const { t } = useTranslation();
 
   return (
-    <div className="flex flex-col gap-20">
+    <div className="flex flex-col print:gap-5 gap-20">
       <Section title={t('sections.experience')}>
         <Timeline jobs={job.deserialize(jobs)} />
       </Section>

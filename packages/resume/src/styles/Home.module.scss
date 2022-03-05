@@ -10,25 +10,6 @@ $gap: type.rem(88);
 	@media screen and (min-width: bp.$dalmata) {
 		padding: 0 20vw;
 	}
-
-	@media print {
-		padding: 5vw;
-	}
-}
-
-.top {
-	padding-bottom: var(--space);
-
-	@media print {
-		display: grid !important;
-		grid-template-columns: 1fr 1fr;
-	}
-}
-
-.container {
-	@media print {
-		gap: 2px;
-	}
 }
 
 .container,
@@ -41,6 +22,7 @@ $gap: type.rem(88);
 }
 
 .top {
+	padding-bottom: var(--space);
 	gap: type.rem(2);
 }
 
@@ -49,5 +31,15 @@ $gap: type.rem(88);
 	.top,
 	.main {
 		gap: 0;
+	}
+
+	.top {
+		display: grid !important;
+		grid-template-columns: 1fr 1fr;
+		padding: var(--space);
+	}
+
+	.main {
+		padding: 0 var(--space-md);
 	}
 }

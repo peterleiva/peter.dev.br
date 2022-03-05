@@ -13,7 +13,7 @@ export default function Header({ name, jobTitle }: HeaderProps) {
         <Link href="/" passHref>
           <a href="dummy">
             <h1 className="font-semibold text-6xl text-slate-800">{name}</h1>
-            <h2 className="rounded bg-slate-800 text-stone-50 px-4 py-2 font-bold">
+            <h2 className="rounded h3 bg-slate-800 text-stone-50 px-4 py-2 font-bold">
               {jobTitle}
             </h2>
           </a>
