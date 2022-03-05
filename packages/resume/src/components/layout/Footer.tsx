@@ -6,7 +6,7 @@ export default function Footer() {
   const { t } = useTranslation();
 
   return (
-    <footer className="border-t border-gray-300 flex justify-between mx-8 p-4 items-center">
+    <footer className="print:hidden border-t border-gray-300 flex justify-between mx-8 p-4 items-center">
       <a
         href="https://nextjs.org"
         target="_blank"

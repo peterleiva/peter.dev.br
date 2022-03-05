@@ -1,11 +1,13 @@
 import type { ReactNode } from 'react';
 import Link from 'next/link';
 import { RiLink as LinkIcon } from 'react-icons/ri';
+import clsx from 'clsx';
 
 export type SectionProps = {
   title: string;
   children: ReactNode;
   fill?: boolean;
+  className?: string;
 };
 
 const layoutClass = (fill: boolean) => (fill ? 'fill' : 'columns');
@@ -13,10 +15,11 @@ const layoutClass = (fill: boolean) => (fill ? 'fill' : 'columns');
 export default function Section({
   title,
   children,
+  className,
   fill = false,
 }: SectionProps) {
   return (
-    <section className={layoutClass(fill)}>
+    <section className={clsx(layoutClass(fill), className)}>
       <h2 id={title} className="text-center mb-8 text-2xl font-semibold">
         <Link href={`#${title}`} passHref>
           <a href="passHref" className="link">
@@ -62,7 +65,7 @@ export default function Section({
             display: inline;
           }
 
-          @media screen and (min-width: 540px) {
+          @media print, screen and (min-width: 540px) {
             .columns {
               display: grid;
               grid-template-columns: minmax(145px, 1fr) repeat(3, 1fr);

@@ -22,7 +22,7 @@ export default function Skills({ skills: initialData }: SkillsProps) {
 
   return (
     <Tabs defaultValue="All">
-      <section className="flex flex-row flex-wrap mb-5">
+      <section className="print:hidden flex flex-row flex-wrap mb-5">
         <Tabs.Tab id="All">
           <Tag tag={{ id: 'All', name: t('all') }} />
         </Tabs.Tab>

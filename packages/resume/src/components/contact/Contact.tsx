@@ -11,6 +11,7 @@ type ContactProps = {
   label?: string;
   icon?: { lib?: LibIcon; name?: string };
   hideIcon?: boolean;
+  className?: string;
 };
 
 export default function Contact({
@@ -21,19 +22,20 @@ export default function Contact({
   hideIcon = false,
   as: Component = 'a',
   external = false,
+  className,
 }: ContactProps) {
   const DynamicIcon = iconLoader(icon);
 
   return (
-    <div>
-      {label && <p className="label">{label}</p>}
+    <div className={className}>
+      {label && <p className="label print:hidden">{label}</p>}
       <div className="container">
         {!hideIcon && <DynamicIcon />}
         <Link href={href} passHref>
           <Component target="_blank" className="body">
-            <span>
+            <span className="text-slate-200 gap-4">
               {children}
-              {external && <ExternalLink />}
+              {external && <ExternalLink className="print:hidden" />}
             </span>
           </Component>
         </Link>
@@ -61,11 +63,6 @@ export default function Contact({
           .body span {
             justify-content: center;
           }
-        }
-
-        .body span {
-          color: var(--color-link);
-          gap: var(--space-xs);
         }
       `}</style>
     </div>

@@ -12,14 +12,14 @@ export default function Header({ name, jobTitle }: HeaderProps) {
       <section className="title">
         <Link href="/" passHref>
           <a href="dummy">
-            <h1 className="font-semibold text-6xl text-neutral-800">{name}</h1>
-            <h2 className="rounded bg-neutral-800 text-slate-300 px-4 py-2 font-bold">
+            <h1 className="font-semibold text-6xl text-slate-800">{name}</h1>
+            <h2 className="rounded bg-slate-800 text-stone-50 px-4 py-2 font-bold">
               {jobTitle}
             </h2>
           </a>
         </Link>
       </section>
-      <NavBar className="place-self-start" />
+      <NavBar className="place-self-start print:hidden" />
 
       <style jsx>{`
         .title h2 {

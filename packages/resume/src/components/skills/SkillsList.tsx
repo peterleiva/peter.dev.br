@@ -28,7 +28,7 @@ export default function SkillsList({
   }
 
   return (
-    <ul className="px-4">
+    <ul className="print:px-0 px-4 flex flex-col flex-wrap gap-x-5">
       {skills.map(({ name }) => (
         <li key={name} className="list-disc list-inside">
           {name}

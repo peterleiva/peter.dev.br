@@ -19,18 +19,21 @@ export default function Techs({ techs, hide = false }: TechProps) {
   if (techs.length <= 0) return null;
 
   return (
-    <div className="container">
-      <button className="reset-button" onClick={toggle}>
+    <div className="print:hidden container flex flex-row flex-nowrap items-center gap-5 mt-8 min-h-8">
+      <button
+        className="reset-button flex justify-items-center"
+        onClick={toggle}
+      >
         <Icon />
         <RightIcon
-          className="toggle-indicator"
+          className="origin origin inline"
           transform={`rotate(${isOn ? '180' : '0'})`}
           style={{ transition: '150ms' }}
         />
       </button>
 
       {isOn && (
-        <div className="techs">
+        <div className="techs flex flex-row flex-wrap items-center">
           {techs.map(({ name }) => (
             <Skill key={name} name={name} />
           ))}
@@ -38,30 +41,8 @@ export default function Techs({ techs, hide = false }: TechProps) {
       )}
 
       <style jsx>{`
-        .container {
-          margin-top: var(--space);
-          display: flex;
-          flex-flow: row nowrap;
-          align-items: center;
-          gap: var(--space);
-          min-height: var(--space);
-        }
-
-        button {
-          display: flex;
-          justify-items: center;
-        }
-
-        .toggle-indicator {
-          display: inline;
-          transform-origin: center center;
-        }
-
         .techs {
-          display: flex;
-          flex-flow: row wrap;
           gap: var(--space-sm) var(--space);
-          align-items: center;
           justify-items: space-around;
         }
       `}</style>

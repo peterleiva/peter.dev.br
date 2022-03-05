@@ -9,39 +9,23 @@ type ContactsListProps = {
 
 export default function ContactsList({ contacts }: ContactsListProps) {
   return (
-    <address>
+    <address className="flex flex-col print:gap-y-4 gap-y-8 gap-x-10 mx-auto items-start bg-stone-50 p-5 rounded-lg">
       {contacts.map(({ name, username, link, icon }) => (
         <Contact key={name} href={link} label={name} icon={icon} external>
           {username}
         </Contact>
       ))}
 
-      <div className="email">
+      <div className="email print:self-center">
         <Contact href="mailto:job@peter.dev.br" hideIcon external>
           job@peter.dev.br
         </Contact>
-        <span className="fingerprint">
+        <span className="fingerprint font-semibold not-italic">
           <IconLabel Icon={FingerprintIcon}>A141FC37</IconLabel>
         </span>
       </div>
 
       <style jsx>{`
-        address {
-          gap: var(--space) var(--space-lg);
-          display: flex;
-          flex-direction: column;
-          align-items: flex-start;
-          background: var(--color-background-1);
-          padding: var(--space);
-          border-radius: var(--border-radius-lg);
-          margin: 0 auto;
-        }
-
-        .fingerprint {
-          font-style: normal;
-          font-weight: var(--weight-bolder);
-        }
-
         @media screen and (max-width: 540px) {
           address {
             order: -1;

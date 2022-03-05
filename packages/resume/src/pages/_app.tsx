@@ -29,7 +29,11 @@ function MyApp({ Component, pageProps }: Props): JSX.Element {
           Top={
             resume?.bio && (
               <>
-                <Section title={t('sections.profile')} fill>
+                <Section
+                  title={t('sections.profile')}
+                  className="print:hidden"
+                  fill
+                >
                   <p className="text-justify">{resume.bio}</p>
                 </Section>
                 <ContactsList contacts={resume?.contacts ?? []} />

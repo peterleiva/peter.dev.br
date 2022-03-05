@@ -5,6 +5,7 @@ import Header from './Header';
 import styles from 'styles/Home.module.scss';
 import LanguageSwitcher from '../LanguageSwitcher';
 import { useTranslation } from 'next-i18next';
+import clsx from 'clsx';
 
 type Props = {
   name: string;
@@ -25,10 +26,14 @@ export default function Layout({ name, children, jobTitle, Top }: Props) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className={styles.top}>
-        <LanguageSwitcher className="absolute top-2 right-10" />
+      <div className={clsx(styles.top, 'bg-violet-100 print:bg-transparent')}>
+        <LanguageSwitcher className="print:hidden absolute top-2 right-10" />
         <Header name={name} jobTitle={jobTitle} />
-        {Top && <div className={'flex flex-col gap-10'}>{Top}</div>}
+        {Top && (
+          <div className={'flex flex-col gap-10 print:gap-4 justify-self-end'}>
+            {Top}
+          </div>
+        )}
       </div>
 
       <main className={styles.main}>{children}</main>
