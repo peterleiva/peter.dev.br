@@ -1,6 +1,6 @@
-@use 'typography';
 @use 'modern-css-reset';
 @use 'reset-button' as reset;
+@use 'typography';
 
 @tailwind base;
 @tailwind components;
@@ -47,42 +47,6 @@ a {
 	@extend %reset-button;
 }
 
-.text-success {
-	color: var(--color-success);
-}
-
-.text-info {
-	color: var(--color-info);
-}
-
-.text-warning {
-	color: var(--color-warning);
-}
-
 .text-error {
 	color: var(--color-error);
-}
-
-.text-center {
-	text-align: center;
-}
-
-.text-left {
-	text-align: left;
-}
-
-.text-right {
-	text-align: right;
-}
-
-.full-width {
-	width: 100%;
-}
-
-.full-height {
-	height: 100%;
-}
-
-.margin-auto {
-	margin: auto;
 }

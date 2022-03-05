@@ -1,11 +1,10 @@
-import type { ReactNode } from 'react';
 import Link from 'next/link';
 import { RiLink as LinkIcon } from 'react-icons/ri';
 import clsx from 'clsx';
 
 export type SectionProps = {
   title: string;
-  children: ReactNode;
+  children: React.ReactNode;
   fill?: boolean;
   className?: string;
 };
@@ -20,28 +19,22 @@ export default function Section({
 }: SectionProps) {
   return (
     <section className={clsx(layoutClass(fill), className)}>
-      <h2 id={title} className="text-center mb-8 text-2xl font-semibold">
-        <Link href={`#${title}`} passHref>
-          <a href="passHref" className="link">
+      <h2
+        id={encodeURI(title)}
+        className="title text-center mb-8 font-semibold"
+      >
+        <Link href={`#${encodeURI(title)}`} passHref>
+          <a href="passHref" className="link relative">
             <span className="icon">
               <LinkIcon />
             </span>
-            <span className="text">{title}</span>
+            <span className="text relative text-slate-800">{title}</span>
           </a>
         </Link>
       </h2>
       <div className="body">{children}</div>
       <style jsx>
         {`
-          .link {
-            position: relative;
-          }
-
-          .text {
-            position: relative;
-            color: var(--color-primary-1);
-          }
-
           .text::after {
             content: '';
             border-radius: var(--border-radius);
@@ -69,10 +62,10 @@ export default function Section({
             .columns {
               display: grid;
               grid-template-columns: minmax(145px, 1fr) repeat(3, 1fr);
-              gap: var(--gap);
+              gap: var(--space);
             }
 
-            .columns h2 {
+            .columns .title {
               text-align: left;
               grid-column: 1 / 2;
             }
