@@ -17,7 +17,7 @@ export default function Experience({
   techs,
 }: ExperienceProps) {
   return (
-    <div className="container relative p-6">
+    <div className="container relative">
       <header className="relative mb-3">
         <h3 className="font-semibold">{name(company)}</h3>
         <div className="flex gap-3 items-center">
@@ -32,6 +32,9 @@ export default function Experience({
       <Techs techs={techs} />
 
       <style jsx>{`
+        .container {
+          padding: var(--space);
+        }
         .container:first-child::after {
           top: 34px;
         }
@@ -53,7 +56,7 @@ export default function Experience({
           border-radius: 100%;
           position: absolute;
           top: 15%;
-          left: calc(-3px - var(--space));
+          left: calc(-1 * (var(--space) + 3px));
           background: var(--color-gray-90);
         }
       `}</style>
