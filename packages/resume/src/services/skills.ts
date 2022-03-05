@@ -1,3 +1,4 @@
+import { type Query } from 'mongoose';
 import type { Skill } from 'types';
 import * as R from 'ramda';
 import { type ResumeDocument } from './models/resume';
@@ -18,9 +19,14 @@ export const skillConvert = (skills: SkillDocument[]): Skill[] => {
 const translate = (skill: SkillDocument) => skill.translate(locale.getLocale());
 
 export const getSkills = async (resume: ResumeDocument): Promise<Skill[]> => {
-  const { skills } = await resume.populate<{ skills: SkillDocument[] }>(
-    'skills'
-  );
+  const { skills } = await resume.populate<{ skills: SkillDocument[] }>({
+    path: 'skills',
+    options: {
+      sort: {
+        name: 1,
+      },
+    },
+  });
 
   if (!skills) return [];
 
@@ -29,13 +35,15 @@ export const getSkills = async (resume: ResumeDocument): Promise<Skill[]> => {
 
 export const getByTagName = async (tag: string): Promise<Skill[]> => {
   const tags = await TagModel.find({ name: tag });
-  const skills = await SkillModel.find({ tags: tags });
+  const skills = await SkillModel.find({ tags: tags }).sort({ name: 1 });
 
   return skillConvert(skills);
 };
 
 export const getByTagId = async (tagId: string): Promise<Skill[]> => {
-  const skills = await SkillModel.find({ tags: tagId });
+  const skills = await SkillModel.find({ tags: tagId })
+    .sort({ name: 1 })
+    .exec();
 
   return skillConvert(skills);
 };
