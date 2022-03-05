@@ -1,4 +1,3 @@
-import { type Query } from 'mongoose';
 import type { Skill } from 'types';
 import * as R from 'ramda';
 import { type ResumeDocument } from './models/resume';
