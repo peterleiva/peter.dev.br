@@ -4,28 +4,21 @@ import type { IconType } from 'react-icons';
 type IconLabeledProps = {
   Icon: IconType;
   children: React.ReactNode;
-  color?: string;
+  /**
+   * Define the icon color
+   */
+  iconColor?: string;
 };
 
 export default function IconLabel({
   Icon,
   children,
-  color = '',
+  iconColor: color = '',
 }: IconLabeledProps) {
   return (
-    <div className="icon">
-      <Icon />
+    <div className="icon flex flex-row flex-nowrap items-center gap-4">
+      <Icon color={color} />
       {children}
-
-      <style jsx>{`
-        .icon {
-          display: flex;
-          flex: row nowrap;
-          align-items: center;
-          gap: var(--space-sm);
-          color: ${color};
-        }
-      `}</style>
     </div>
   );
 }

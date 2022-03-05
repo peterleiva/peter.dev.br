@@ -1,6 +1,9 @@
 import Link from 'next/link';
 import IconLabel from '../IconLabel';
-import { BsEnvelope as MailIcon } from 'react-icons/bs';
+import {
+  BsEnvelope as MailIcon,
+  BsPrinter as PrinterIcon,
+} from 'react-icons/bs';
 import { BiHomeAlt as HomeIcon } from 'react-icons/bi';
 import { useTranslation } from 'next-i18next';
 
@@ -8,42 +11,30 @@ export default function NavBar(props: JSX.IntrinsicElements['nav']) {
   const { t } = useTranslation('nav');
 
   return (
-    <nav {...props}>
-      <ul>
+    <nav className="print:hidden" {...props}>
+      <ul className="flex flex-row flex-nowrap justify-evenly mt-6 list-none gap-8 p-0 my-4">
         <li>
-          <IconLabel Icon={HomeIcon} color="var(--color-secondary)">
+          <IconLabel Icon={HomeIcon} iconColor="var(--color-secondary)">
             <Link href="/" passHref>
               <a href="dummy">{t('home')}</a>
             </Link>
           </IconLabel>
         </li>
         <li>
-          <IconLabel Icon={MailIcon} color="var(--color-secondary)">
+          <IconLabel Icon={MailIcon} iconColor="var(--color-secondary)">
             <Link href="/contact" passHref>
               <a href="dummy">{t('contact_me')}</a>
             </Link>
           </IconLabel>
         </li>
+        <li>
+          <IconLabel Icon={PrinterIcon} iconColor="var(--color-secondary)">
+            <button onClick={() => window?.print()}>{t('print')}</button>
+          </IconLabel>
+        </li>
       </ul>
 
       <style jsx>{`
-        @media print {
-          nav {
-            display: none;
-          }
-        }
-
-        nav ul {
-          display: flex;
-          flex-wrap: row nowrap;
-          margin: var(--space) 0;
-          justify-content: space-evenly;
-          gap: var(--space-md);
-
-          list-style: none;
-          padding: 0;
-        }
-
         @media screen and (max-width: 470px) {
           nav ul {
             display: flex;
@@ -52,6 +43,7 @@ export default function NavBar(props: JSX.IntrinsicElements['nav']) {
           }
         }
 
+        nav ul li,
         nav ul a {
           color: var(--color-black);
           font-weight: var(--weight-bold);

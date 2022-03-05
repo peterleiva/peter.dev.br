@@ -8,7 +8,7 @@ type HeaderProps = {
 
 export default function Header({ name, jobTitle }: HeaderProps) {
   return (
-    <header className="md:flex flex-nowrap justify-between items-center text-center py-8">
+    <header className="md:flex flex-nowrap gap-6 justify-between items-center text-center py-8">
       <section className="title">
         <Link href="/" passHref>
           <a href="dummy">
