@@ -7,6 +7,8 @@ Each log entry can be in the following kind: **Added**[^1], **Changed**[^2], **D
 
 ## [Unreleased]
 
+## [0.6.0] - 2022-03-06
+
 ### Added
 
 - Download resume with navbar button
@@ -69,7 +71,8 @@ Each log entry can be in the following kind: **Added**[^1], **Changed**[^2], **D
 - Setup Typography with Modular Scale to mantain Vertical Rhythm
 - Setup Home page grid layout
 
-[unreleased]: https://github.com/pherval/peter.dev.br/compare/v0.5.0...HEAD
+[unreleased]: https://github.com/pherval/peter.dev.br/compare/v0.6.0...HEAD
+[0.6.0]: https://github.com/pherval/peter.dev.br/compare/v0.5.0...v0.6.0
 [0.5.0]: https://github.com/pherval/peter.dev.br/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/pherval/peter.dev.br/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/pherval/peter.dev.br/compare/v0.2.0...v0.3.0
