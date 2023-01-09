@@ -16,7 +16,7 @@
   "dependencies": {
     "@sentry/nextjs": "^6.17.2",
     "clsx": "^1.1.1",
-    "luxon": "^2.3.0",
+    "luxon": "^2.5.2",
     "mongoose": "^6.1.6",
     "mongoose-autopopulate": "^0.16.0",
     "next": "^12.1.0",
