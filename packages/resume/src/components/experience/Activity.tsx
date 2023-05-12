@@ -2,13 +2,13 @@ import { DateTime } from 'luxon';
 import { useTranslation } from 'next-i18next';
 import { compose, defaultTo, invoker, isNil, unless } from 'ramda';
 
-const monthYear = compose<[DateTime | undefined], DateTime, string>(
+const monthYear = compose<[DateTime | undefined | null], DateTime, string>(
   invoker(1, 'toFormat')('yyyy-LL'),
   defaultTo(DateTime.now())
 );
 
 type ActivityProps = {
-  time?: DateTime;
+  time?: DateTime | null;
   presentLabel?: string;
 };
 
