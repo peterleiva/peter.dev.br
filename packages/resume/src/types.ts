@@ -29,7 +29,7 @@ export type Job = {
 
   activity: {
     start: DateTime;
-    end?: DateTime | null;
+    end?: DateTime;
   };
 
   techs: Skill[];
@@ -58,7 +58,7 @@ export type Education = {
     name: string;
   };
   started: DateTime;
-  ended?: DateTime | null;
+  ended?: DateTime;
 };
 
 export type Course = Omit<Education, 'institution'>;

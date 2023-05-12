@@ -4,10 +4,11 @@ export const fromISO = (date: string): DateTime => DateTime.fromISO(date);
 
 export const toDateTime = (date: Date): DateTime => DateTime.fromJSDate(date);
 
+// TODO: dont't use any
 export const optional =
   <T, U>(fn: (arg: T) => U) =>
-  (arg?: T): U | null =>
-    arg ? fn(arg) : null;
+  (arg?: T | null): U | undefined =>
+    arg ? fn(arg) : (null as any);
 
 export const toISO = (date: DateTime): string => date.toISO();
 
