@@ -12,8 +12,7 @@
     "prettier": "prettier \".\"",
     "format:check": "npm run prettier -- --check",
     "format": "npm run prettier -- --write",
-    "test": "jest",
-    "prepare": "is-ci || husky install"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
